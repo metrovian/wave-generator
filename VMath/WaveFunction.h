@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
+#include <cmath>
 
 #pragma pack(push, 1)
 struct WaveHeader
@@ -56,4 +57,10 @@ public: /* public use */
 
     WaveHeader getWaveHeader() const;
     WaveData getWaveData() const;
+
+    static WaveFunction sin(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit);
+    static WaveFunction sqr(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _duty);
+    static WaveFunction tri(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit);
+    static WaveFunction saw(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, bool _reverse);
+    static WaveFunction ofs(double _ofs, double _dura, unsigned short _srate, unsigned short _sbit);
 };

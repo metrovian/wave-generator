@@ -1,4 +1,5 @@
 #include "WaveFunction.h"
+#include "Predefined.h"
 
 bool WaveFunction::operator!=(const WaveFunction& _rhs) const
 {
@@ -57,7 +58,7 @@ WaveFunction WaveFunction::operator*(const WaveFunction& _rhs) const
     ret.header = _rhs.header;
     ret.data.resize(data.size());
 
-    for (int i = 0; i < data.size(); i++)
+    for (unsigned long long i = 0; i < data.size(); i++)
     {
         ret.data[i] = data[i] * _rhs.data[i];
     }
@@ -166,7 +167,7 @@ bool WaveFunction::importWave(const std::string& _fname)
         file.read(reinterpret_cast<char*>(&header), sizeof(WaveHeader));
 
         data.clear();
-        data.resize(header.DATA_SIZE / sizeof(short));
+        data.resize(header.DATA_SIZE / 2);
         file.read(reinterpret_cast<char*>(data.data()), header.DATA_SIZE);
 
         if (file) return true;
@@ -186,4 +187,137 @@ WaveHeader WaveFunction::getWaveHeader() const
 WaveData WaveFunction::getWaveData() const
 {
     return data;
+}
+
+WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+
+    double tomg = 2.0 * PI * _freq;
+
+    for (double i = 0; i < size; i++)
+    {
+        double sample = ramp * std::sin(tomg * i * unit);
+        dat.push_back((short)sample);
+    }
+    
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::sqr(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _duty)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    double period = 1.0 / _freq;
+    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+
+    auto step = [period, ramp, _duty](double time)
+        {
+            double rem = time / period;
+            rem -= floor(rem);
+
+            if (rem < _duty) return ramp;
+            return -ramp;
+        };
+
+    for (double i = 0; i < size; i++)
+    {
+        dat.push_back((short)step(unit * i));
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::tri(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    double period = 1.0 / _freq;
+    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+
+    auto step = [period, ramp](double time)
+        {
+            double rem = time / period;
+            rem -= floor(rem);
+            rem *= 4.0;
+
+            if(rem > 1.0) return ramp * rem;
+            else if(rem > 3.0) return ramp * (2.0 - rem);
+            else return ramp * (rem - 4.0);
+        };
+
+    for (double i = 0; i < size; i++)
+    {
+        dat.push_back((short)step(unit * i));
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::saw(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, bool _reverse)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    double period = 1.0 / _freq;
+    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+
+    auto step = [period, ramp, _reverse](double time)
+        {
+            double rem = time / period;
+            rem -= floor(rem);
+            rem *= 2.0;
+
+            if (_reverse) return ramp * (1.0 - rem);
+            return ramp * (rem - 1.0);
+        };
+
+    for (double i = 0; i < size; i++)
+    {
+        dat.push_back((short)step(unit * i));
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::ofs(double _ofs, double _dura, unsigned short _srate, unsigned short _sbit)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+
+    for (double i = 0; i < size; i++)
+    {
+        dat.push_back((short)_ofs);
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
 }

@@ -11,6 +11,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Predefined">
+      <UniqueIdentifier>{6c2cc353-37c3-4637-8a09-88fae225af32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
@@ -21,6 +24,12 @@
     </ClInclude>
     <ClInclude Include="WaveletTransform.h">
       <Filter>Data Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="MelodyFunction.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="Predefined.h">
+      <Filter>Predefined</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
