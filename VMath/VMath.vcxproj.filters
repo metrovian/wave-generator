@@ -39,5 +39,8 @@
     <ClCompile Include="WaveFunction.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
+    <ClCompile Include="MelodyFunction.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

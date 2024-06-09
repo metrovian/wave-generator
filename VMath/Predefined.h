@@ -2,6 +2,7 @@
 #include <cmath>
 
 const double PI = 3.1415926;
+const double Z0 = 0.0;
 
 const double A3 = 220.0;
 const double B3 = A3 * pow(2.0, 2.0 / 12.0);

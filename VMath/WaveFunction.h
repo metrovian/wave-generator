@@ -39,6 +39,7 @@ public: /* operator */
     WaveFunction operator+(const WaveFunction& _rhs) const;
     WaveFunction operator-(const WaveFunction& _rhs) const;
     WaveFunction operator*(const WaveFunction& _rhs) const;
+    WaveFunction operator&(const WaveFunction& _rhs) const;
 
 private: /* parts */
     bool isWaveHeader(const WaveHeader& _header) const;
@@ -54,6 +55,8 @@ public: /* public use */
 
     bool exportWave(const std::string& _fname) const;
     bool importWave(const std::string& _fname);
+
+    void playWave() const;
 
     WaveHeader getWaveHeader() const;
     WaveData getWaveData() const;

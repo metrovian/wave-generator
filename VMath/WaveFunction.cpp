@@ -1,13 +1,14 @@
 #include "WaveFunction.h"
 #include "Predefined.h"
 
+#include <Windows.h>
+
 bool WaveFunction::operator!=(const WaveFunction& _rhs) const
 {
     if (!isWaveHeader(header)) return true;
     if (!isWaveHeader(_rhs.header)) return true;
     if (header.DATA_SIZE != _rhs.header.DATA_SIZE) return true;
     if (header.SAMPLE_RATE != _rhs.header.SAMPLE_RATE) return true;
-    if (header.NUM_OF_CHANNEL != _rhs.header.NUM_OF_CHANNEL) return true;
     if (header.BIT_PER_SAMPLE != _rhs.header.BIT_PER_SAMPLE) return true;
 
     return false;
@@ -62,6 +63,28 @@ WaveFunction WaveFunction::operator*(const WaveFunction& _rhs) const
     {
         ret.data[i] = data[i] * _rhs.data[i];
     }
+
+    return ret;
+}
+
+WaveFunction WaveFunction::operator&(const WaveFunction& _rhs) const
+{
+    assert(isWaveHeader(header));
+    assert(isWaveHeader(_rhs.header));
+    assert(header.SAMPLE_RATE == _rhs.header.SAMPLE_RATE);
+    assert(header.BIT_PER_SAMPLE == _rhs.header.BIT_PER_SAMPLE);
+
+    WaveFunction ret;
+    ret.header = header;
+    ret.data = data;
+
+    for (unsigned long long i = 0; i < _rhs.data.size(); i++)
+    {
+        ret.data.push_back(_rhs.data[i]);
+    }
+
+    ret.header.DATA_SIZE = (unsigned int)ret.data.size() * 2;
+    ret.header.CHUNK_SIZE = header.DATA_SIZE + 36;
 
     return ret;
 }
@@ -179,6 +202,52 @@ bool WaveFunction::importWave(const std::string& _fname)
     return false;
 }
 
+void WaveFunction::playWave() const
+{
+    HWAVEOUT hWaveOut;
+    WAVEFORMATEX wfx;
+    WAVEHDR whdr;
+
+    wfx.nSamplesPerSec = header.SAMPLE_RATE;
+    wfx.wBitsPerSample = header.BIT_PER_SAMPLE;
+    wfx.nChannels = header.NUM_OF_CHANNEL;
+    wfx.cbSize = 0;
+    wfx.wFormatTag = WAVE_FORMAT_PCM;
+    wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
+    wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+
+    if (waveOutOpen(&hWaveOut, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) 
+    {
+        return;
+    }
+
+    whdr.lpData = (LPSTR)data.data();
+    whdr.dwBufferLength = data.size() * 2;
+    whdr.dwFlags = 0;
+    whdr.dwLoops = 0;
+
+    if (waveOutPrepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR) 
+    {
+        waveOutClose(hWaveOut);
+        return;
+    }
+
+    if (waveOutWrite(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
+        waveOutClose(hWaveOut);
+        return;
+    }
+
+    while (!(whdr.dwFlags & WHDR_DONE)) 
+    {
+        Sleep(100);
+    }
+
+    waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
+    waveOutClose(hWaveOut);
+}
+
 WaveHeader WaveFunction::getWaveHeader() const
 {
     return header;
@@ -197,7 +266,7 @@ WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigne
     assert(_namp < 1.0);
     double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
     double unit = 1.0 / (double)_srate;
-    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
 
     double tomg = 2.0 * PI * _freq;
 
@@ -221,7 +290,7 @@ WaveFunction WaveFunction::sqr(double _namp, double _freq, double _dura, unsigne
     double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
     double unit = 1.0 / (double)_srate;
     double period = 1.0 / _freq;
-    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
 
     auto step = [period, ramp, _duty](double time)
         {
@@ -251,7 +320,7 @@ WaveFunction WaveFunction::tri(double _namp, double _freq, double _dura, unsigne
     double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
     double unit = 1.0 / (double)_srate;
     double period = 1.0 / _freq;
-    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
 
     auto step = [period, ramp](double time)
         {
@@ -283,7 +352,7 @@ WaveFunction WaveFunction::saw(double _namp, double _freq, double _dura, unsigne
     double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
     double unit = 1.0 / (double)_srate;
     double period = 1.0 / _freq;
-    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
 
     auto step = [period, ramp, _reverse](double time)
         {
@@ -310,7 +379,7 @@ WaveFunction WaveFunction::ofs(double _ofs, double _dura, unsigned short _srate,
     WaveFunction ret;
     WaveData dat;
 
-    unsigned long long size = (unsigned long long)_dura * (unsigned long long)_srate;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
 
     for (double i = 0; i < size; i++)
     {
