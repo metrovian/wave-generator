@@ -28,9 +28,9 @@ struct WaveHeader
 typedef std::vector<short> WaveData;
 class WaveFunction
 {
-public: /* data */
+protected: /* data */
     WaveHeader header;
-    WaveData data;
+    WaveData wdata;
 
 public: /* operator */
     bool operator!=(const WaveFunction& _rhs) const;

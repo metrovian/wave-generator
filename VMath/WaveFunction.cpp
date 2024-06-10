@@ -25,11 +25,11 @@ WaveFunction WaveFunction::operator+(const WaveFunction& _rhs) const
 
     WaveFunction ret;
     ret.header = _rhs.header;
-    ret.data.resize(data.size());
+    ret.wdata.resize(wdata.size());
 
-    for (int i = 0; i < data.size(); i++)
+    for (int i = 0; i < wdata.size(); i++)
     {
-        ret.data[i] = data[i] + _rhs.data[i];
+        ret.wdata[i] = wdata[i] + _rhs.wdata[i];
     }
 
     return ret;
@@ -41,11 +41,11 @@ WaveFunction WaveFunction::operator-(const WaveFunction& _rhs) const
 
     WaveFunction ret;
     ret.header = _rhs.header;
-    ret.data.resize(data.size());
+    ret.wdata.resize(wdata.size());
 
-    for (int i = 0; i < data.size(); i++)
+    for (int i = 0; i < wdata.size(); i++)
     {
-        ret.data[i] = data[i] - _rhs.data[i];
+        ret.wdata[i] = wdata[i] - _rhs.wdata[i];
     }
 
     return ret;
@@ -57,11 +57,11 @@ WaveFunction WaveFunction::operator*(const WaveFunction& _rhs) const
 
     WaveFunction ret;
     ret.header = _rhs.header;
-    ret.data.resize(data.size());
+    ret.wdata.resize(wdata.size());
 
-    for (unsigned long long i = 0; i < data.size(); i++)
+    for (unsigned long long i = 0; i < wdata.size(); i++)
     {
-        ret.data[i] = data[i] * _rhs.data[i];
+        ret.wdata[i] = wdata[i] * _rhs.wdata[i];
     }
 
     return ret;
@@ -76,14 +76,14 @@ WaveFunction WaveFunction::operator&(const WaveFunction& _rhs) const
 
     WaveFunction ret;
     ret.header = header;
-    ret.data = data;
+    ret.wdata = wdata;
 
-    for (unsigned long long i = 0; i < _rhs.data.size(); i++)
+    for (unsigned long long i = 0; i < _rhs.wdata.size(); i++)
     {
-        ret.data.push_back(_rhs.data[i]);
+        ret.wdata.push_back(_rhs.wdata[i]);
     }
 
-    ret.header.DATA_SIZE = (unsigned int)ret.data.size() * 2;
+    ret.header.DATA_SIZE = (unsigned int)ret.wdata.size() * 2;
     ret.header.CHUNK_SIZE = header.DATA_SIZE + 36;
 
     return ret;
@@ -133,7 +133,7 @@ bool WaveFunction::setWaveHeader(unsigned short _srate, unsigned short _sbit)
     header.BLOCK_ALIGN = header.BIT_PER_SAMPLE / 8;
     header.BYTE_RATE = header.BLOCK_ALIGN * header.SAMPLE_RATE;
 
-    header.DATA_SIZE = (unsigned int)data.size() * 2;
+    header.DATA_SIZE = (unsigned int)wdata.size() * 2;
     header.CHUNK_SIZE = header.DATA_SIZE + 36;
 
     return true;
@@ -141,8 +141,8 @@ bool WaveFunction::setWaveHeader(unsigned short _srate, unsigned short _sbit)
 
 bool WaveFunction::setWaveData(const WaveData& _data)
 {
-    data.clear();
-    data = _data;
+    wdata.clear();
+    wdata = _data;
 
     return true;
 }
@@ -175,7 +175,7 @@ bool WaveFunction::exportWave(const std::string& _fname) const
     }
 
     file.write(reinterpret_cast<const char*>(&header), sizeof(header));
-    file.write(reinterpret_cast<const char*>(data.data()), data.size() * 2);
+    file.write(reinterpret_cast<const char*>(wdata.data()), wdata.size() * 2);
 
 	return true;
 }
@@ -189,15 +189,15 @@ bool WaveFunction::importWave(const std::string& _fname)
         header = WaveHeader();
         file.read(reinterpret_cast<char*>(&header), sizeof(WaveHeader));
 
-        data.clear();
-        data.resize(header.DATA_SIZE / 2);
-        file.read(reinterpret_cast<char*>(data.data()), header.DATA_SIZE);
+        wdata.clear();
+        wdata.resize(header.DATA_SIZE / 2);
+        file.read(reinterpret_cast<char*>(wdata.data()), header.DATA_SIZE);
 
         if (file) return true;
     }
 
     header = WaveHeader();
-    data.clear();
+    wdata.clear();
 
     return false;
 }
@@ -221,8 +221,8 @@ void WaveFunction::playWave() const
         return;
     }
 
-    whdr.lpData = (LPSTR)data.data();
-    whdr.dwBufferLength = data.size() * 2;
+    whdr.lpData = (LPSTR)wdata.data();
+    whdr.dwBufferLength = wdata.size() * 2;
     whdr.dwFlags = 0;
     whdr.dwLoops = 0;
 
@@ -255,7 +255,7 @@ WaveHeader WaveFunction::getWaveHeader() const
 
 WaveData WaveFunction::getWaveData() const
 {
-    return data;
+    return wdata;
 }
 
 WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)

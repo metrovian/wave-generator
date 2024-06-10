@@ -23,7 +23,7 @@ WaveFunction MelodyFunction::getWaveFunction(unsigned short _srate, unsigned sho
     return ret;
 }
 
-MelodyFunction MelodyFunction::somewhere_over_the_rainbow(double _bpm)
+MelodyFunction MelodyFunction::over_the_rainbow(double _bpm)
 {
     MelodyFunction ret;
 

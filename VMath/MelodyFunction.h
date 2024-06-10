@@ -15,5 +15,5 @@ public: /* public use */
 	WaveFunction getWaveFunction(unsigned short _srate, unsigned short _sbit, WaveFunction (*_wave)(double, double, double, unsigned short, unsigned short));
 
 public: /* examples */
-	static MelodyFunction somewhere_over_the_rainbow(double _bpm);
+	static MelodyFunction over_the_rainbow(double _bpm);
 };

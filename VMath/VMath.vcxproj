@@ -134,6 +134,7 @@
     <ClInclude Include="WaveFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="WaveFunction.cpp" />

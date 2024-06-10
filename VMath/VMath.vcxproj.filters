@@ -14,6 +14,12 @@
     <Filter Include="Predefined">
       <UniqueIdentifier>{6c2cc353-37c3-4637-8a09-88fae225af32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound Synthesis">
+      <UniqueIdentifier>{1dcc60da-45a1-4285-9516-12844bfc1a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Simple String">
+      <UniqueIdentifier>{52b62b2b-dd3b-4f21-a4c8-6dc406a78695}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
@@ -40,6 +46,9 @@
       <Filter>CPP</Filter>
     </ClCompile>
     <ClCompile Include="MelodyFunction.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="FourierTransform.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
   </ItemGroup>
