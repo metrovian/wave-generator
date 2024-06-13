@@ -27,7 +27,7 @@ WaveFunction WaveFunction::operator+(const WaveFunction& _rhs) const
     ret.header = _rhs.header;
     ret.wdata.resize(wdata.size());
 
-    for (int i = 0; i < wdata.size(); i++)
+    for (int i = 0; i < wdata.size(); ++i)
     {
         ret.wdata[i] = wdata[i] + _rhs.wdata[i];
     }
@@ -43,7 +43,7 @@ WaveFunction WaveFunction::operator-(const WaveFunction& _rhs) const
     ret.header = _rhs.header;
     ret.wdata.resize(wdata.size());
 
-    for (int i = 0; i < wdata.size(); i++)
+    for (int i = 0; i < wdata.size(); ++i)
     {
         ret.wdata[i] = wdata[i] - _rhs.wdata[i];
     }
@@ -59,7 +59,7 @@ WaveFunction WaveFunction::operator*(const WaveFunction& _rhs) const
     ret.header = _rhs.header;
     ret.wdata.resize(wdata.size());
 
-    for (unsigned long long i = 0; i < wdata.size(); i++)
+    for (unsigned long long i = 0; i < wdata.size(); ++i)
     {
         ret.wdata[i] = wdata[i] * _rhs.wdata[i];
     }
@@ -78,7 +78,7 @@ WaveFunction WaveFunction::operator&(const WaveFunction& _rhs) const
     ret.header = header;
     ret.wdata = wdata;
 
-    for (unsigned long long i = 0; i < _rhs.wdata.size(); i++)
+    for (unsigned long long i = 0; i < _rhs.wdata.size(); ++i)
     {
         ret.wdata.push_back(_rhs.wdata[i]);
     }
@@ -270,7 +270,7 @@ WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigne
 
     double tomg = 2.0 * PI * _freq;
 
-    for (double i = 0; i < size; i++)
+    for (double i = 0; i < size; ++i)
     {
         double sample = ramp * std::sin(tomg * i * unit);
         dat.push_back((short)sample);
@@ -301,7 +301,7 @@ WaveFunction WaveFunction::sqr(double _namp, double _freq, double _dura, unsigne
             return -ramp;
         };
 
-    for (double i = 0; i < size; i++)
+    for (double i = 0; i < size; ++i)
     {
         dat.push_back((short)step(unit * i));
     }
@@ -333,7 +333,7 @@ WaveFunction WaveFunction::tri(double _namp, double _freq, double _dura, unsigne
             else return ramp * (rem - 4.0);
         };
 
-    for (double i = 0; i < size; i++)
+    for (double i = 0; i < size; ++i)
     {
         dat.push_back((short)step(unit * i));
     }
@@ -364,7 +364,7 @@ WaveFunction WaveFunction::saw(double _namp, double _freq, double _dura, unsigne
             return ramp * (rem - 1.0);
         };
 
-    for (double i = 0; i < size; i++)
+    for (double i = 0; i < size; ++i)
     {
         dat.push_back((short)step(unit * i));
     }
@@ -381,7 +381,7 @@ WaveFunction WaveFunction::ofs(double _ofs, double _dura, unsigned short _srate,
 
     unsigned long long size = (unsigned long long)(_dura * (double)_srate);
 
-    for (double i = 0; i < size; i++)
+    for (double i = 0; i < size; ++i)
     {
         dat.push_back((short)_ofs);
     }

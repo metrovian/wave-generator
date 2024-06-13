@@ -5,7 +5,7 @@
 #include <complex>
 #include <vector>
 
-typedef std::vector<short> FourierData;
+typedef std::vector<std::complex<double>> FourierData;
 class FourierFunction : public WaveFunction
 {
 protected: /* data */
@@ -16,8 +16,8 @@ public: /* constructor */
 	FourierFunction(const WaveFunction& _wave);
 
 public: /* transform */
-	bool fft(); // WaveData -> FourierData
-	bool ifft(); // FourierData -> WaveData
+	bool fft();
+	bool ifft();
 
 public: /* filter */
 
