@@ -41,7 +41,7 @@ public: /* operator */
     WaveFunction operator*(const WaveFunction& _rhs) const;
     WaveFunction operator&(const WaveFunction& _rhs) const;
 
-private: /* parts */
+protected: /* parts */
     bool isWaveHeader(const WaveHeader& _header) const;
     bool isWaveFile(const std::string& _fname) const;
 

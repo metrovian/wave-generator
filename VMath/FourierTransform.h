@@ -12,13 +12,17 @@ protected: /* data */
 	FourierData fdata;
 
 public: /* constructor */
-	FourierFunction(const FourierData& _data, unsigned short _srate, unsigned short _sbit);
 	FourierFunction(const WaveFunction& _wave);
 
-public: /* transform */
+private: /* parts */
 	bool fft();
 	bool ifft();
+	double getFrequency(unsigned long long _idx) const;
 
-public: /* filter */
+public: /* public use */
+	bool setLPF(double _freq, double _brate);
+	bool setHPF(double _freq, double _brate);
+	bool setBPF(double _freq1, double _freq2, double _brate);
 
+	bool exportWaveSpectrum(const std::string& _fname) const;
 };

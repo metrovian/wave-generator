@@ -17,9 +17,6 @@
     <Filter Include="Sound Synthesis">
       <UniqueIdentifier>{1dcc60da-45a1-4285-9516-12844bfc1a9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sound Synthesis\Simple String">
-      <UniqueIdentifier>{52b62b2b-dd3b-4f21-a4c8-6dc406a78695}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">

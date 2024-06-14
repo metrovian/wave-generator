@@ -9,14 +9,13 @@
 
 int main() 
 {
-    WaveFunction test = WaveFunction::sin(0.02, 2000, 5.0, 44100, 16) + WaveFunction::sin(0.02, 500, 5.0, 44100, 16);
+    WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     FourierFunction ok(test);
 
-    ok.fft();
-    ok.ifft();
+    ok.exportWaveSpectrum("spectrumtest");
+    ok.playWave();
 
-    test.playWave();
-    std::cout << "next" << std::endl;
+    ok.setLPF(3000, -3);
     ok.playWave();
 
     //MelodyFunction s = MelodyFunction::over_the_rainbow(120);

@@ -167,7 +167,7 @@ bool WaveFunction::setWaveFunction(const WaveData& _data)
 
 bool WaveFunction::exportWave(const std::string& _fname) const
 {
-    std::ofstream file(_fname, std::ios::binary);
+    std::ofstream file(_fname + ".wav", std::ios::binary);
 
     if (!file) 
     {
@@ -182,9 +182,9 @@ bool WaveFunction::exportWave(const std::string& _fname) const
 
 bool WaveFunction::importWave(const std::string& _fname)
 {
-    if (isWaveFile(_fname))
+    if (isWaveFile(_fname + ".wav"))
     {
-        std::ifstream file(_fname, std::ios::binary);
+        std::ifstream file(_fname + ".wav", std::ios::binary);
 
         header = WaveHeader();
         file.read(reinterpret_cast<char*>(&header), sizeof(WaveHeader));

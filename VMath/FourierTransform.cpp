@@ -5,9 +5,7 @@ FourierFunction::FourierFunction(const WaveFunction& _wave)
 {
     wdata = _wave.getWaveData();
     header = _wave.getWaveHeader();
-}
-FourierFunction::FourierFunction(const FourierData& _data, unsigned short _srate, unsigned short _sbit)
-{
+    fft();
 }
 
 bool FourierFunction::fft()
@@ -152,6 +150,87 @@ bool FourierFunction::ifft()
     }
 
     wdata = ret;
+    setWaveHeader(header.SAMPLE_RATE, header.BIT_PER_SAMPLE);
+
+    return true;
+}
+
+double FourierFunction::getFrequency(unsigned long long _idx) const
+{
+    return (double)_idx * (double)header.SAMPLE_RATE / (double)fdata.size();
+}
+
+bool FourierFunction::setLPF(double _freq, double _brate)
+{
+    if (_brate > 0) return false;
+
+    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    {
+        if (getFrequency(i) > _freq)
+        {
+            fdata[i] *= pow(10.0, _brate);
+            fdata[fdata.size() - i - 1] *= pow(10, _brate);
+        }
+    }
+
+    bool cond1 = ifft();
+    bool cond2 = fft();
+
+    return cond1 && cond2;
+}
+
+bool FourierFunction::setHPF(double _freq, double _brate)
+{
+    if (_brate > 0) return false;
+
+    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    {
+        if (getFrequency(i) < _freq)
+        {
+            fdata[i] *= pow(10.0, _brate);
+            fdata[fdata.size() - i - 1] *= pow(10, _brate);
+        }
+    }
+
+    bool cond1 = ifft();
+    bool cond2 = fft();
+
+    return cond1 && cond2;
+}
+
+bool FourierFunction::setBPF(double _freq1, double _freq2, double _brate)
+{
+    if (_brate > 0) return false;
+
+    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    {
+        double freq = getFrequency(i);
+        if ((_freq1 < freq) && (freq < _freq2))
+        {
+            fdata[i] *= pow(10.0, _brate);
+            fdata[fdata.size() - i - 1] *= pow(10, _brate);
+        }
+    }
+
+    bool cond1 = ifft();
+    bool cond2 = fft();
+
+    return cond1 && cond2;
+}
+
+bool FourierFunction::exportWaveSpectrum(const std::string& _fname) const
+{
+    std::ofstream file(_fname + ".csv");
+
+    if (!file)
+    {
+        return false;
+    }
+
+    for (unsigned long long i = 0; i < fdata.size() / 2; ++i)
+    {
+        file << (double)i * (double)header.SAMPLE_RATE / (double)fdata.size() << ", " << std::norm(fdata[i]) << std::endl;
+    }
 
     return true;
 }
