@@ -70,16 +70,6 @@ bool FourierFunction::fft()
 
     fdata = convert;
 
-    std::ofstream output("test.csv");
-
-
-    for(auto& pt : fdata)
-    {
-        output << sqrt(pt.real() * pt.real() + pt.imag() * pt.imag()) << std::endl;
-    }
-
-    output.close();
-
     return true;
 }
 

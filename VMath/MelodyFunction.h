@@ -18,4 +18,5 @@ public: /* public use */
 
 public: /* examples */
 	static MelodyFunction over_the_rainbow(double _bpm);
+	static MelodyFunction cannon(double _bpm);
 };
