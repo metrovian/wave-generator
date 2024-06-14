@@ -149,6 +149,7 @@ bool FourierFunction::ifft()
         ret.push_back((unsigned long long)(pt.real() / (double)tsize));
     }
 
+    ret.resize(wdata.size());
     wdata = ret;
     setWaveHeader(header.SAMPLE_RATE, header.BIT_PER_SAMPLE);
 

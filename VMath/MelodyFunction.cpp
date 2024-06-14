@@ -10,23 +10,31 @@ bool MelodyFunction::isPlayable()
     return true;
 }
 
-WaveFunction MelodyFunction::getWaveFunction(unsigned short _srate, unsigned short _sbit, WaveFunction(*_wave)(double, double, double, unsigned short, unsigned short))
+WaveFunction MelodyFunction::getWaveFunction(WaveFunction(*_wave)(double _namp, double _freq, double _dura))
 {
     assert(isPlayable());
 
-    WaveFunction ret = _wave(dynamic[0], pitch[0], beat[0], _srate, _sbit);
+    WaveFunction ret = _wave(dynamic[0], pitch[0], beat[0]);
     for (int i = 1; i < dynamic.size(); i++)
     {
-        ret = ret & _wave(dynamic[i], pitch[i], beat[i], _srate, _sbit);
+        ret = ret & _wave(dynamic[i], pitch[i], beat[i]);
     }
-
+    
     return ret;
+}
+
+WaveFunction MelodyFunction::getWaveFunction(FourierFunction(*_wave)(double _namp, double _freq, double _dura))
+{
+    assert(isPlayable());
+
+    typedef WaveFunction (*FuncPtr)(double, double, double);
+    return getWaveFunction(reinterpret_cast<FuncPtr>(_wave));
 }
 
 MelodyFunction MelodyFunction::over_the_rainbow(double _bpm)
 {
     MelodyFunction ret;
-
+    
     ret.pitch =
     {
         C4, C5,

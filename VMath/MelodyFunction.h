@@ -1,5 +1,6 @@
 #pragma once
 #include "WaveFunction.h"
+#include "FourierTransform.h"
 
 class MelodyFunction
 {
@@ -12,7 +13,8 @@ private: /* parts */
 	bool isPlayable();
 
 public: /* public use */
-	WaveFunction getWaveFunction(unsigned short _srate, unsigned short _sbit, WaveFunction (*_wave)(double, double, double, unsigned short, unsigned short));
+	WaveFunction getWaveFunction(WaveFunction (*_wave)(double _namp, double _freq, double _dura));
+	WaveFunction getWaveFunction(FourierFunction (*_wave)(double _namp, double _freq, double _dura));
 
 public: /* examples */
 	static MelodyFunction over_the_rainbow(double _bpm);
