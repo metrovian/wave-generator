@@ -14,7 +14,7 @@ protected: /* data */
 public: /* constructor */
 	FourierFunction(const WaveFunction& _wave);
 
-private: /* parts */
+protected: /* parts */
 	bool fft();
 	bool ifft();
 	double getFrequency(unsigned long long _idx) const;

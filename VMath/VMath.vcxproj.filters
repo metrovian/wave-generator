@@ -48,5 +48,8 @@
     <ClCompile Include="FourierTransform.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
+    <ClCompile Include="WaveletTransform.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
