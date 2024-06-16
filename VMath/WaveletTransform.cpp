@@ -15,23 +15,16 @@ double MorletFunction::getFourierDomainMorlet(double _freq, double _treso, unsig
 	return ret;
 }
 
-WaveData MorletFunction::getMorletTransform(double _freq, double _treso)
+FourierData MorletFunction::getMorletTransform(double _freq, double _treso)
 {
-	WaveData backup1 = wdata;
-	FourierData backup2 = fdata;
-	WaveData ret;
-
+	FourierData backup = fdata;
 	for (unsigned long long i = 0; i < fdata.size(); ++i)
 	{
-
 		fdata[i] *= getFourierDomainMorlet(_freq, _treso, i);
 	}
 
-	ifft();
-
-	ret = wdata;
-	wdata = backup1;
-	fdata = backup2;
+	FourierData ret = getIFFT();
+	fdata = backup;
 
 	return ret;
 }
@@ -78,7 +71,7 @@ bool MorletFunction::exportWavelet(std::string _fname)
 
 			for (unsigned long long j = 0; j < tdata.size(); ++j)
 			{
-				file << tdata[j][i] << ", ";
+				file << sqrt(std::norm(tdata[j][i])) << ", ";
 			}
 
 			file << std::endl;

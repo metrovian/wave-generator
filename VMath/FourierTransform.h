@@ -17,6 +17,8 @@ public: /* constructor */
 protected: /* parts */
 	bool fft();
 	bool ifft();
+	FourierData getFFT() const;
+	FourierData getIFFT() const;
 	double getFrequency(unsigned long long _idx) const;
 
 public: /* public use */

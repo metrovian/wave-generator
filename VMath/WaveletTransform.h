@@ -1,7 +1,7 @@
 #pragma once
 #include "FourierTransform.h"
 
-typedef std::vector<WaveData> WaveletData;
+typedef std::vector<FourierData> WaveletData;
 class MorletFunction : public FourierFunction
 {
 private: /* data */
@@ -10,7 +10,7 @@ private: /* data */
 
 private: /* parts */
 	double getFourierDomainMorlet(double _freq, double _treso, unsigned long long _idx);
-	WaveData getMorletTransform(double _freq, double _treso);
+	FourierData getMorletTransform(double _freq, double _treso);
 
 public: /* constructor */
 	MorletFunction(const FourierFunction& _wave, double _freq, double _treso);

@@ -18,14 +18,15 @@ int main()
     //ok.setLPF(3000, -3);
     //ok.playWave();
 
-    MelodyFunction s = MelodyFunction::cannon(240);
+    //MelodyFunction s = MelodyFunction::cannon(240);
+    MelodyFunction s = MelodyFunction::over_the_rainbow(240);
     std::cout << "calculating" << std::endl;
 
     
     auto func = [](double a, double b, double c)
         {
             //FourierFunction X(WaveFunction::saw(a, b, c, 44100, 16, false));
-            return WaveFunction::sin(a, b, c, 44100, 16);
+            return WaveFunction::tri(a, b, c, 44100, 16);
         };
 
   
@@ -35,7 +36,7 @@ int main()
     //k.playWave();
     //k.exportWave("cannon");
    
-    MorletFunction Y(k, C4, C6, pow(2.0, 1.0 / 12.0), 0.1);
+    MorletFunction Y(k, G3, D5, pow(2.0, 1.0 / 12.0), 0.1);
     std::cout << Y.exportWavelet("wavelettest") << std::endl;
 
     return 0;
