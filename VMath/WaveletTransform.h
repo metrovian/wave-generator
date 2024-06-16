@@ -17,5 +17,5 @@ public: /* constructor */
 	MorletFunction(const FourierFunction& _wave, double _freq1, double _freq2, double _freso, double _treso);
 
 public: /* public use */
-	bool exportWavelet(std::string _fname);
+	bool exportWaveletSpectrum(std::string _fname);
 };

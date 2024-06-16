@@ -43,7 +43,7 @@ MorletFunction::MorletFunction(const FourierFunction& _wave, double _freq1, doub
 	}
 }
 
-bool MorletFunction::exportWavelet(std::string _fname)
+bool MorletFunction::exportWaveletSpectrum(std::string _fname)
 {
 	if (tdata.size() == 0) return false;
 

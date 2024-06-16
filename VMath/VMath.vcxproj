@@ -129,12 +129,14 @@
   <ItemGroup>
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="MelodyFunction.h" />
+    <ClInclude Include="KarplusStrong.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="WaveletTransform.h" />
     <ClInclude Include="WaveFunction.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FourierTransform.cpp" />
+    <ClCompile Include="KarplusStrong.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="WaveFunction.cpp" />

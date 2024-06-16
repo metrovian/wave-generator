@@ -17,6 +17,9 @@
     <Filter Include="Sound Synthesis">
       <UniqueIdentifier>{1dcc60da-45a1-4285-9516-12844bfc1a9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound Synthesis\Plucked String">
+      <UniqueIdentifier>{ee62b8b3-916a-4612-9209-f83de154fc66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
@@ -34,6 +37,9 @@
     <ClInclude Include="Predefined.h">
       <Filter>Predefined</Filter>
     </ClInclude>
+    <ClInclude Include="KarplusStrong.h">
+      <Filter>Sound Synthesis\Plucked String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -49,6 +55,9 @@
       <Filter>CPP</Filter>
     </ClCompile>
     <ClCompile Include="WaveletTransform.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="KarplusStrong.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
   </ItemGroup>
