@@ -18,7 +18,7 @@ WaveFunction KarplusStrong::getNoiseBurst(double _namp, double _freq, unsigned s
     return ret;
 }
 
-WaveFunction KarplusStrong::synthesis(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, short(*_decay)(WaveData, unsigned long long, unsigned long long, double), double _drate)
+WaveFunction KarplusStrong::synthesis(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, WaveData(*_decay)(WaveData, unsigned long long, double), double _drate)
 {
     unsigned long long size = (unsigned long long)(_dura * (double)_srate);
 
@@ -30,11 +30,7 @@ WaveFunction KarplusStrong::synthesis(double _namp, double _freq, double _dura, 
         WaveData noise = getNoiseBurst(_namp, _freq, _srate, _sbit).getWaveData();
         WaveData origin = noise;
 
-        for (unsigned long long i = 0; i < size; ++i)
-        {
-            dat[i] = noise[i % noise.size()];
-            noise[i % noise.size()] = _decay(noise, i, noise.size(), _drate);
-        }
+        dat = _decay(noise, size, _drate);
     }
 
     ret.setWaveFunction(dat, _srate, _sbit);
@@ -42,19 +38,50 @@ WaveFunction KarplusStrong::synthesis(double _namp, double _freq, double _dura, 
     return ret;
 }
 
-short KarplusStrong::decayMoveAverage(WaveData _data, unsigned long long _idx, unsigned long long _unit, double _drate)
+WaveData KarplusStrong::decayMoveAverage(WaveData _noise, unsigned long long _size, double _drate)
 {
-    short ret = 0;
+    WaveData ret(_size);
 
-    for (unsigned long long i = 0; i < (unsigned long long)_drate; ++i)
+    for (unsigned long long i = 0; i < _size; ++i)
     {
-        ret += _data[(_idx + i) % _unit];
+        ret[i] = _noise[i % _noise.size()];
+
+        short avg = 0;
+        for (unsigned long long j = 0; i < (unsigned long long)_drate; ++j)
+        {
+            avg += _noise[(i + j) % _noise.size()];
+        }
+
+        _noise[i % _noise.size()] = short(avg / (double)_drate);
     }
 
-    return (short)((double)ret / _drate);
+    return ret;
 }
 
-short KarplusStrong::decayTimeExponential(WaveData _data, unsigned long long _idx, unsigned long long _unit, double _drate)
+WaveData KarplusStrong::decayTimeFractional(WaveData _noise, unsigned long long _size, double _drate)
 {
-    return _data[_idx % _unit] / _drate;
+    WaveData ret(_size);
+    WaveData origin = _noise;
+
+    for (unsigned long long i = 0; i < _size; ++i)
+    {
+        ret[i] = _noise[i % _noise.size()];
+        _noise[i % _noise.size()] = origin[i % _noise.size()] / _drate;
+    }
+
+    return ret;
+}
+
+WaveData KarplusStrong::decayTimeExponential(WaveData _noise, unsigned long long _size, double _drate)
+{
+    WaveData ret(_size);
+    WaveData origin = _noise;
+
+    for (unsigned long long i = 0; i < _size; ++i)
+    {
+        ret[i] = _noise[i % _noise.size()];
+        _noise[i % _noise.size()] = (short)((double)origin[i % _noise.size()] * std::exp(-std::pow(10.0, _drate) * (double)i));
+    }
+
+    return ret;
 }

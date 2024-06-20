@@ -19,8 +19,8 @@ int main()
     //ok.setLPF(3000, -3);
     //ok.playWave();
 
-    MelodyFunction s = MelodyFunction::cannon(240);
-    //MelodyFunction s = MelodyFunction::over_the_rainbow(150);
+    //MelodyFunction s = MelodyFunction::cannon(240);
+    MelodyFunction s = MelodyFunction::over_the_rainbow(150);
     std::cout << "calculating" << std::endl;
 
     
@@ -28,7 +28,8 @@ int main()
         {
             //FourierFunction X(WaveFunction::saw(a, b, c, 44100, 16, false));
             //return WaveFunction::tri(a, b, c, 44100, 16);
-            return KarplusStrong::synthesis(a, b / 2.0, c, 44100, 16, KarplusStrong::decayMoveAverage, 10);
+            //return KarplusStrong::synthesis(a, b / 2.0, c, 44100, 16, KarplusStrong::decayMoveAverage, 4);
+            return KarplusStrong::synthesis(a, b, c, 44100, 16, KarplusStrong::decayTimeExponential, -4);
         };
 
   
