@@ -11,6 +11,15 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Predefined">
+      <UniqueIdentifier>{6c2cc353-37c3-4637-8a09-88fae225af32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis">
+      <UniqueIdentifier>{1dcc60da-45a1-4285-9516-12844bfc1a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Modulaion">
+      <UniqueIdentifier>{af41e376-2bb0-4434-a82e-3c5b44358c26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
@@ -22,12 +31,45 @@
     <ClInclude Include="WaveletTransform.h">
       <Filter>Data Transform</Filter>
     </ClInclude>
+    <ClInclude Include="MelodyFunction.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="Predefined.h">
+      <Filter>Predefined</Filter>
+    </ClInclude>
+    <ClInclude Include="KarplusStrong.h">
+      <Filter>Sound Synthesis</Filter>
+    </ClInclude>
+    <ClInclude Include="AmplitudeModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequencyModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
     <ClCompile Include="WaveFunction.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="MelodyFunction.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="FourierTransform.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveletTransform.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="KarplusStrong.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="FrequencyModulation.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="AmplitudeModulation.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
   </ItemGroup>

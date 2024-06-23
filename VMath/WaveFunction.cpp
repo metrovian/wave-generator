@@ -1,4 +1,7 @@
 #include "WaveFunction.h"
+#include "Predefined.h"
+
+#include <Windows.h>
 
 bool WaveFunction::operator!=(const WaveFunction& _rhs) const
 {
@@ -6,7 +9,6 @@ bool WaveFunction::operator!=(const WaveFunction& _rhs) const
     if (!isWaveHeader(_rhs.header)) return true;
     if (header.DATA_SIZE != _rhs.header.DATA_SIZE) return true;
     if (header.SAMPLE_RATE != _rhs.header.SAMPLE_RATE) return true;
-    if (header.NUM_OF_CHANNEL != _rhs.header.NUM_OF_CHANNEL) return true;
     if (header.BIT_PER_SAMPLE != _rhs.header.BIT_PER_SAMPLE) return true;
 
     return false;
@@ -23,11 +25,11 @@ WaveFunction WaveFunction::operator+(const WaveFunction& _rhs) const
 
     WaveFunction ret;
     ret.header = _rhs.header;
-    ret.data.resize(data.size());
+    ret.wdata.resize(wdata.size());
 
-    for (int i = 0; i < data.size(); i++)
+    for (int i = 0; i < wdata.size(); ++i)
     {
-        ret.data[i] = data[i] + _rhs.data[i];
+        ret.wdata[i] = wdata[i] + _rhs.wdata[i];
     }
 
     return ret;
@@ -39,11 +41,11 @@ WaveFunction WaveFunction::operator-(const WaveFunction& _rhs) const
 
     WaveFunction ret;
     ret.header = _rhs.header;
-    ret.data.resize(data.size());
+    ret.wdata.resize(wdata.size());
 
-    for (int i = 0; i < data.size(); i++)
+    for (int i = 0; i < wdata.size(); ++i)
     {
-        ret.data[i] = data[i] - _rhs.data[i];
+        ret.wdata[i] = wdata[i] - _rhs.wdata[i];
     }
 
     return ret;
@@ -55,12 +57,34 @@ WaveFunction WaveFunction::operator*(const WaveFunction& _rhs) const
 
     WaveFunction ret;
     ret.header = _rhs.header;
-    ret.data.resize(data.size());
+    ret.wdata.resize(wdata.size());
 
-    for (int i = 0; i < data.size(); i++)
+    for (unsigned long long i = 0; i < wdata.size(); ++i)
     {
-        ret.data[i] = data[i] * _rhs.data[i];
+        ret.wdata[i] = wdata[i] * _rhs.wdata[i];
     }
+
+    return ret;
+}
+
+WaveFunction WaveFunction::operator&(const WaveFunction& _rhs) const
+{
+    assert(isWaveHeader(header));
+    assert(isWaveHeader(_rhs.header));
+    assert(header.SAMPLE_RATE == _rhs.header.SAMPLE_RATE);
+    assert(header.BIT_PER_SAMPLE == _rhs.header.BIT_PER_SAMPLE);
+
+    WaveFunction ret;
+    ret.header = header;
+    ret.wdata = wdata;
+
+    for (unsigned long long i = 0; i < _rhs.wdata.size(); ++i)
+    {
+        ret.wdata.push_back(_rhs.wdata[i]);
+    }
+
+    ret.header.DATA_SIZE = (unsigned int)ret.wdata.size() * 2;
+    ret.header.CHUNK_SIZE = header.DATA_SIZE + 36;
 
     return ret;
 }
@@ -109,7 +133,7 @@ bool WaveFunction::setWaveHeader(unsigned short _srate, unsigned short _sbit)
     header.BLOCK_ALIGN = header.BIT_PER_SAMPLE / 8;
     header.BYTE_RATE = header.BLOCK_ALIGN * header.SAMPLE_RATE;
 
-    header.DATA_SIZE = (unsigned int)data.size() * 2;
+    header.DATA_SIZE = (unsigned int)wdata.size() * 2;
     header.CHUNK_SIZE = header.DATA_SIZE + 36;
 
     return true;
@@ -117,8 +141,8 @@ bool WaveFunction::setWaveHeader(unsigned short _srate, unsigned short _sbit)
 
 bool WaveFunction::setWaveData(const WaveData& _data)
 {
-    data.clear();
-    data = _data;
+    wdata.clear();
+    wdata = _data;
 
     return true;
 }
@@ -143,7 +167,7 @@ bool WaveFunction::setWaveFunction(const WaveData& _data)
 
 bool WaveFunction::exportWave(const std::string& _fname) const
 {
-    std::ofstream file(_fname, std::ios::binary);
+    std::ofstream file(_fname + ".wav", std::ios::binary);
 
     if (!file) 
     {
@@ -151,31 +175,77 @@ bool WaveFunction::exportWave(const std::string& _fname) const
     }
 
     file.write(reinterpret_cast<const char*>(&header), sizeof(header));
-    file.write(reinterpret_cast<const char*>(data.data()), data.size() * 2);
+    file.write(reinterpret_cast<const char*>(wdata.data()), wdata.size() * 2);
 
 	return true;
 }
 
 bool WaveFunction::importWave(const std::string& _fname)
 {
-    if (isWaveFile(_fname))
+    if (isWaveFile(_fname + ".wav"))
     {
-        std::ifstream file(_fname, std::ios::binary);
+        std::ifstream file(_fname + ".wav", std::ios::binary);
 
         header = WaveHeader();
         file.read(reinterpret_cast<char*>(&header), sizeof(WaveHeader));
 
-        data.clear();
-        data.resize(header.DATA_SIZE / sizeof(short));
-        file.read(reinterpret_cast<char*>(data.data()), header.DATA_SIZE);
+        wdata.clear();
+        wdata.resize(header.DATA_SIZE / 2);
+        file.read(reinterpret_cast<char*>(wdata.data()), header.DATA_SIZE);
 
         if (file) return true;
     }
 
     header = WaveHeader();
-    data.clear();
+    wdata.clear();
 
     return false;
+}
+
+void WaveFunction::playWave() const
+{
+    HWAVEOUT hWaveOut;
+    WAVEFORMATEX wfx;
+    WAVEHDR whdr;
+
+    wfx.nSamplesPerSec = header.SAMPLE_RATE;
+    wfx.wBitsPerSample = header.BIT_PER_SAMPLE;
+    wfx.nChannels = header.NUM_OF_CHANNEL;
+    wfx.cbSize = 0;
+    wfx.wFormatTag = WAVE_FORMAT_PCM;
+    wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
+    wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+
+    if (waveOutOpen(&hWaveOut, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) 
+    {
+        return;
+    }
+
+    whdr.lpData = (LPSTR)wdata.data();
+    whdr.dwBufferLength = wdata.size() * 2;
+    whdr.dwFlags = 0;
+    whdr.dwLoops = 0;
+
+    if (waveOutPrepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR) 
+    {
+        waveOutClose(hWaveOut);
+        return;
+    }
+
+    if (waveOutWrite(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
+        waveOutClose(hWaveOut);
+        return;
+    }
+
+    while (!(whdr.dwFlags & WHDR_DONE)) 
+    {
+        Sleep(100);
+    }
+
+    waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
+    waveOutClose(hWaveOut);
 }
 
 WaveHeader WaveFunction::getWaveHeader() const
@@ -185,5 +255,138 @@ WaveHeader WaveFunction::getWaveHeader() const
 
 WaveData WaveFunction::getWaveData() const
 {
-    return data;
+    return wdata;
+}
+
+WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
+
+    double tomg = 2.0 * PI * _freq;
+
+    for (double i = 0; i < size; ++i)
+    {
+        double sample = ramp * std::sin(tomg * i * unit);
+        dat.push_back((short)sample);
+    }
+    
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::sqr(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _duty)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    double period = 1.0 / _freq;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
+
+    auto step = [period, ramp, _duty](double time)
+        {
+            double rem = time / period;
+            rem -= floor(rem);
+
+            if (rem < _duty) return ramp;
+            return -ramp;
+        };
+
+    for (double i = 0; i < size; ++i)
+    {
+        dat.push_back((short)step(unit * i));
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::tri(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    double period = 1.0 / _freq;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
+
+    auto step = [period, ramp](double time)
+        {
+            double rem = time / period;
+            rem -= floor(rem);
+            rem *= 4.0;
+
+            if(rem > 1.0) return ramp * rem;
+            else if(rem > 3.0) return ramp * (2.0 - rem);
+            else return ramp * (rem - 4.0);
+        };
+
+    for (double i = 0; i < size; ++i)
+    {
+        dat.push_back((short)step(unit * i));
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::saw(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, bool _reverse)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    assert(_namp < 1.0);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+    double unit = 1.0 / (double)_srate;
+    double period = 1.0 / _freq;
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
+
+    auto step = [period, ramp, _reverse](double time)
+        {
+            double rem = time / period;
+            rem -= floor(rem);
+            rem *= 2.0;
+
+            if (_reverse) return ramp * (1.0 - rem);
+            return ramp * (rem - 1.0);
+        };
+
+    for (double i = 0; i < size; ++i)
+    {
+        dat.push_back((short)step(unit * i));
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
+}
+
+WaveFunction WaveFunction::ofs(double _ofs, double _dura, unsigned short _srate, unsigned short _sbit)
+{
+    WaveFunction ret;
+    WaveData dat;
+
+    unsigned long long size = (unsigned long long)(_dura * (double)_srate);
+
+    for (double i = 0; i < size; ++i)
+    {
+        dat.push_back((short)_ofs);
+    }
+
+    ret.setWaveFunction(dat, _srate, _sbit);
+
+    return ret;
 }

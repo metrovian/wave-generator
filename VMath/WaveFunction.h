@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
+#include <cmath>
 
 #pragma pack(push, 1)
 struct WaveHeader
@@ -27,9 +28,9 @@ struct WaveHeader
 typedef std::vector<short> WaveData;
 class WaveFunction
 {
-public: /* data */
+protected: /* data */
     WaveHeader header;
-    WaveData data;
+    WaveData wdata;
 
 public: /* operator */
     bool operator!=(const WaveFunction& _rhs) const;
@@ -38,8 +39,9 @@ public: /* operator */
     WaveFunction operator+(const WaveFunction& _rhs) const;
     WaveFunction operator-(const WaveFunction& _rhs) const;
     WaveFunction operator*(const WaveFunction& _rhs) const;
+    WaveFunction operator&(const WaveFunction& _rhs) const;
 
-private: /* parts */
+protected: /* parts */
     bool isWaveHeader(const WaveHeader& _header) const;
     bool isWaveFile(const std::string& _fname) const;
 
@@ -54,6 +56,14 @@ public: /* public use */
     bool exportWave(const std::string& _fname) const;
     bool importWave(const std::string& _fname);
 
+    void playWave() const;
+
     WaveHeader getWaveHeader() const;
     WaveData getWaveData() const;
+
+    static WaveFunction sin(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit);
+    static WaveFunction sqr(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _duty);
+    static WaveFunction tri(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit);
+    static WaveFunction saw(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, bool _reverse);
+    static WaveFunction ofs(double _ofs, double _dura, unsigned short _srate, unsigned short _sbit);
 };
