@@ -127,7 +127,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AmplitudeModulation.h" />
     <ClInclude Include="FourierTransform.h" />
+    <ClInclude Include="FrequencyModulation.h" />
     <ClInclude Include="MelodyFunction.h" />
     <ClInclude Include="KarplusStrong.h" />
     <ClInclude Include="Predefined.h" />
@@ -136,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FourierTransform.cpp" />
+    <ClCompile Include="FrequencyModulation.cpp" />
     <ClCompile Include="KarplusStrong.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />

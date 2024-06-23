@@ -4,6 +4,7 @@
 #include "Predefined.h"
 #include "WaveletTransform.h"
 #include "KarplusStrong.h"
+#include "FrequencyModulation.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -27,26 +28,29 @@ int main()
     auto func = [](double a, double b, double c)
         {
             //FourierFunction X(WaveFunction::saw(a, b, c, 44100, 16, false));
-            //return WaveFunction::tri(a, b, c, 44100, 16);
+            //return  FrequencyModulation::vibrato(WaveFunction::tri(a, b, c, 44100, 16), b, 10.0, 5);
             //return KarplusStrong::synthesis(a, b / 2.0, c, 44100, 16, KarplusStrong::decayMoveAverage, 4);
-            return KarplusStrong::synthesis(a, b, c, 44100, 16, KarplusStrong::decayTimeExponential, -4);
+            return FrequencyModulation::vibrato(KarplusStrong::synthesis(a, b, c, 44100, 16, KarplusStrong::decayMoveAverage, 2), b, 5.0, 2.0);
         };
 
   
 
     WaveFunction k = s.getWaveFunction(func);
+    double f = 2;
+    WaveFunction l = FrequencyModulation::vibrato(KarplusStrong::synthesis(0.02, 440, 1.0, 44100, 16, KarplusStrong::decayMoveAverage, 2.0), 440, 5.0, 15);
+    //WaveFunction l = KarplusStrong::synthesis(0.02, 440, 1.0, 44100, 16, KarplusStrong::decayTimeExponential, -4.0);
     std::cout << "play" << std::endl;
     k.playWave();
-    k.exportWave("cannon");
+    //k.exportWave("cannon");
    
     //MorletFunction Y(k, G3, D5, pow(2.0, 1.0 / 12.0), 0.1);
     //std::cout << Y.exportWavelet("wavelettest") << std::endl;
 
 
-    //WaveFunction S;
-    //S.importWave("440");
+    //WaveFunction S = FrequencyModulation::vibrato(WaveFunction::sin(0.02, 100, 5, 44100, 16), 100, 0.5, 0.2);
+    //S = S & WaveFunction::sin(0.02, 100, 5, 44100, 16);
     //FourierFunction F(S);
-    //MorletFunction G(F, A2, A5, pow(2.0, 1.0/12.0), 1.0);
+    //MorletFunction G(S, 99, 101, 0.01, 1.0);
     //G.exportWaveletSpectrum("test2");
 
     //FourierFunction X(A);

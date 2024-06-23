@@ -34,9 +34,18 @@ MorletFunction::MorletFunction(const FourierFunction& _wave, double _freq, doubl
 	tdata.push_back(getMorletTransform(_freq, _treso));
 }
 
+MorletFunction::MorletFunction(const FourierFunction& _wave, double _freq1, double _freq2, double _treso) : FourierFunction(_wave)
+{
+	for (double freq = _freq1; freq < _freq2; freq *= pow(2.0, 1.0 / 12.0))
+	{
+		tdata.push_back(getMorletTransform(freq, _treso));
+		freqs.push_back(freq);
+	}
+}
+
 MorletFunction::MorletFunction(const FourierFunction& _wave, double _freq1, double _freq2, double _freso, double _treso) : FourierFunction(_wave)
 {
-	for (double freq = _freq1; freq < _freq2; freq *= _freso)
+	for (double freq = _freq1; freq < _freq2; freq += _freso)
 	{
 		tdata.push_back(getMorletTransform(freq, _treso));
 		freqs.push_back(freq);

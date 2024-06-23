@@ -4,8 +4,6 @@
 const double PI = 3.1415926;
 const double Z0 = 0.0;
 
-
-
 const double A4 = 440.0;
 const double B4 = A4 * pow(2.0, 2.0 / 12.0);
 const double C5 = A4 * pow(2.0, 3.0 / 12.0);

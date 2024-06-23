@@ -17,6 +17,9 @@
     <Filter Include="Sound Synthesis">
       <UniqueIdentifier>{1dcc60da-45a1-4285-9516-12844bfc1a9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound Modulaion">
+      <UniqueIdentifier>{af41e376-2bb0-4434-a82e-3c5b44358c26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
@@ -37,6 +40,12 @@
     <ClInclude Include="KarplusStrong.h">
       <Filter>Sound Synthesis</Filter>
     </ClInclude>
+    <ClInclude Include="AmplitudeModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequencyModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -55,6 +64,9 @@
       <Filter>CPP</Filter>
     </ClCompile>
     <ClCompile Include="KarplusStrong.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="FrequencyModulation.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
   </ItemGroup>
