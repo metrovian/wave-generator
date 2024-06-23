@@ -23,7 +23,7 @@ WaveFunction FrequencyModulation::vibrato(WaveFunction _wave, double _freq, doub
     return ret;
 }
 
-WaveFunction FrequencyModulation::bending(WaveFunction _wave, double _freq, double _btime, double _bdepth)
+WaveFunction FrequencyModulation::bending(WaveFunction _wave, double _freq, double _bfreq, double _btime)
 {
     WaveFunction ret;
     WaveHeader head = _wave.getWaveHeader();
@@ -36,12 +36,12 @@ WaveFunction FrequencyModulation::bending(WaveFunction _wave, double _freq, doub
     {
         if ((double)i / (double)head.SAMPLE_RATE > _btime)
         {
-            vibration[i] = _bdepth / _freq * (double)i;
+            vibration[i] = (_bfreq - _freq) / _freq * (double)i;
         }
 
         else
         {
-            vibration[i] = _bdepth / _freq / _btime * (double)i * (double)i / 2.0 / (double)head.SAMPLE_RATE;
+            vibration[i] = (_bfreq - _freq) / _freq / _btime * (double)i * (double)i / 2.0 / (double)head.SAMPLE_RATE;
         }
         
         res[i] = dat[(unsigned long long)((double)i + vibration[i]) % dat.size()];

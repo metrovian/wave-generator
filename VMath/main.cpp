@@ -5,6 +5,7 @@
 #include "WaveletTransform.h"
 #include "KarplusStrong.h"
 #include "FrequencyModulation.h"
+#include "AmplitudeModulation.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -37,8 +38,10 @@ int main()
   
 
     //WaveFunction k = s.getWaveFunction(func);
-    WaveFunction l = WaveFunction::tri(0.02, 880, 2.0, 44100, 16);
-    l = l & FrequencyModulation::bending(WaveFunction::tri(0.02, A5, 2.0, 44100, 16), A5, 0.5, B5 - A5);
+    WaveFunction l = AmplitudeModulation::envelopeADS(WaveFunction::tri(0.02, 880, 3.0, 44100, 16), 1.0, 1.0, 1.0);
+    l = l & WaveFunction::tri(0.02, 880, 3.0, 44100, 16);
+    //l = l & FrequencyModulation::bending(WaveFunction::tri(0.02, A5, 1.0, 44100, 16), A5, G5, 1.0);
+    //l = l & FrequencyModulation::vibrato(WaveFunction::tri(0.02, G5, 2.0, 44100, 16), G5, 7.0, 4.0);
 
     //std::cout << "play" << std::endl;
     l.playWave();

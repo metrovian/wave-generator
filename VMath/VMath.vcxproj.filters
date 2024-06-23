@@ -69,5 +69,8 @@
     <ClCompile Include="FrequencyModulation.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
+    <ClCompile Include="AmplitudeModulation.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -137,6 +137,7 @@
     <ClInclude Include="WaveFunction.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AmplitudeModulation.cpp" />
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />
     <ClCompile Include="KarplusStrong.cpp" />
