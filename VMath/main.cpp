@@ -25,22 +25,23 @@ int main()
     std::cout << "calculating" << std::endl;
 
     
-    auto func = [](double a, double b, double c)
-        {
-            //FourierFunction X(WaveFunction::saw(a, b, c, 44100, 16, false));
-            //return  FrequencyModulation::vibrato(WaveFunction::tri(a, b, c, 44100, 16), b, 10.0, 5);
-            //return KarplusStrong::synthesis(a, b / 2.0, c, 44100, 16, KarplusStrong::decayMoveAverage, 4);
-            return FrequencyModulation::vibrato(KarplusStrong::synthesis(a, b, c, 44100, 16, KarplusStrong::decayMoveAverage, 2), b, 5.0, 2.0);
-        };
+    //auto func = [](double a, double b, double c)
+    //    {
+    //        //FourierFunction X(WaveFunction::saw(a, b, c, 44100, 16, false));
+    //        return  FrequencyModulation::vibrato(WaveFunction::tri(a, b, c, 44100, 16), b, 5.0, 2.0);
+    //        //return KarplusStrong::synthesis(a, b / 2.0, c, 44100, 16, KarplusStrong::decayMoveAverage, 4);
+    //        //return FrequencyModulation::vibrato(KarplusStrong::synthesis(a, b, c, 44100, 16, KarplusStrong::decayMoveAverage, 2), b, 5.0, 2.0);
+    //        //return FrequencyModulation::vibrato(KarplusStrong::synthesis(a, b, c, 44100, 16, KarplusStrong::decayMoveAverage, 2), b, 5.0, 2.0);
+    //    };
 
   
 
-    WaveFunction k = s.getWaveFunction(func);
-    double f = 2;
-    WaveFunction l = FrequencyModulation::vibrato(KarplusStrong::synthesis(0.02, 440, 1.0, 44100, 16, KarplusStrong::decayMoveAverage, 2.0), 440, 5.0, 15);
-    //WaveFunction l = KarplusStrong::synthesis(0.02, 440, 1.0, 44100, 16, KarplusStrong::decayTimeExponential, -4.0);
-    std::cout << "play" << std::endl;
-    k.playWave();
+    //WaveFunction k = s.getWaveFunction(func);
+    WaveFunction l = WaveFunction::tri(0.02, 880, 2.0, 44100, 16);
+    l = l & FrequencyModulation::bending(WaveFunction::tri(0.02, A5, 2.0, 44100, 16), A5, 0.5, B5 - A5);
+
+    //std::cout << "play" << std::endl;
+    l.playWave();
     //k.exportWave("cannon");
    
     //MorletFunction Y(k, G3, D5, pow(2.0, 1.0 / 12.0), 0.1);
