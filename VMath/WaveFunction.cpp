@@ -1,8 +1,6 @@
 #include "WaveFunction.h"
 #include "Predefined.h"
 
-#include <Windows.h>
-
 bool WaveFunction::operator!=(const WaveFunction& _rhs) const
 {
     if (!isWaveHeader(header)) return true;
@@ -202,9 +200,8 @@ bool WaveFunction::importWave(const std::string& _fname)
     return false;
 }
 
-void WaveFunction::playWave() const
+void WaveFunction::playWave()
 {
-    HWAVEOUT hWaveOut;
     WAVEFORMATEX wfx;
     WAVEHDR whdr;
 
@@ -216,7 +213,7 @@ void WaveFunction::playWave() const
     wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
 
-    if (waveOutOpen(&hWaveOut, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) 
+    if (waveOutOpen(&handle, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR)
     {
         return;
     }
@@ -226,16 +223,16 @@ void WaveFunction::playWave() const
     whdr.dwFlags = 0;
     whdr.dwLoops = 0;
 
-    if (waveOutPrepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR) 
+    if (waveOutPrepareHeader(handle, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        waveOutClose(hWaveOut);
+        waveOutClose(handle);
         return;
     }
 
-    if (waveOutWrite(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    if (waveOutWrite(handle, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
-        waveOutClose(hWaveOut);
+        waveOutUnprepareHeader(handle, &whdr, sizeof(WAVEHDR));
+        waveOutClose(handle);
         return;
     }
 
@@ -243,9 +240,14 @@ void WaveFunction::playWave() const
     {
         Sleep(100);
     }
+    
+    waveOutUnprepareHeader(handle, &whdr, sizeof(WAVEHDR));
+    waveOutClose(handle);
+}
 
-    waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
-    waveOutClose(hWaveOut);
+void WaveFunction::stopWave()
+{
+    waveOutReset(handle);
 }
 
 WaveHeader WaveFunction::getWaveHeader() const

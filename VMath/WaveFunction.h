@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -32,6 +33,9 @@ protected: /* data */
     WaveHeader header;
     WaveData wdata;
 
+private: /* handle */
+    HWAVEOUT handle;
+
 public: /* operator */
     bool operator!=(const WaveFunction& _rhs) const;
     bool operator==(const WaveFunction& _rhs) const;
@@ -56,7 +60,8 @@ public: /* public use */
     bool exportWave(const std::string& _fname) const;
     bool importWave(const std::string& _fname);
 
-    void playWave() const;
+    void playWave();
+    void stopWave();
 
     WaveHeader getWaveHeader() const;
     WaveData getWaveData() const;
