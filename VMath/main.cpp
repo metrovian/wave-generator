@@ -19,8 +19,8 @@ int main()
 
     auto func = [](double a, double b)
         {
-            return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+            //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+            return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
         };
 
     MIDI dev;
@@ -58,13 +58,13 @@ int main()
   
 
     //WaveFunction k = s.getWaveFunction(func);
-    WaveFunction l = AmplitudeModulation::envelopeADS(WaveFunction::tri(0.02, 880, 3.0, 44100, 16), 1.0, 1.0, 1.0);
-    l = l & WaveFunction::tri(0.02, 880, 3.0, 44100, 16);
+    //WaveFunction l = AmplitudeModulation::envelopeADS(WaveFunction::tri(0.02, 880, 3.0, 44100, 16), 1.0, 1.0, 1.0);
+    //l = l & WaveFunction::tri(0.02, 880, 3.0, 44100, 16);
     //l = l & FrequencyModulation::bending(WaveFunction::tri(0.02, A5, 1.0, 44100, 16), A5, G5, 1.0);
     //l = l & FrequencyModulation::vibrato(WaveFunction::tri(0.02, G5, 2.0, 44100, 16), G5, 7.0, 4.0);
 
     //std::cout << "play" << std::endl;
-    l.playWave();
+    //l.playWave();
     //k.exportWave("cannon");
    
     //MorletFunction Y(k, G3, D5, pow(2.0, 1.0 / 12.0), 0.1);

@@ -6,10 +6,13 @@
 #include <iostream>
 #include <thread>
 
+
 class MIDI
 {
 protected: /* data */
     WaveFunction sound[88];
+
+private: /* control */
     bool sustain = false;
 
 private: /* handle */

@@ -1,10 +1,12 @@
 #pragma once
 #include <Windows.h>
 #include <vector>
+#include <queue>
 #include <iostream>
 #include <fstream>
 #include <cassert>
 #include <cmath>
+#include <mutex>
 
 #pragma pack(push, 1)
 struct WaveHeader
@@ -34,7 +36,8 @@ protected: /* data */
     WaveData wdata;
 
 private: /* handle */
-    HWAVEOUT handle;
+    std::queue<HWAVEOUT> handles;
+    std::queue<WAVEHDR> headers;
 
 public: /* operator */
     bool operator!=(const WaveFunction& _rhs) const;
@@ -59,7 +62,7 @@ public: /* public use */
 
     bool exportWave(const std::string& _fname) const;
     bool importWave(const std::string& _fname);
-
+    
     void playWave();
     void stopWave();
     void stopWave(bool* _sustain);
