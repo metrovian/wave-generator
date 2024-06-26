@@ -10,6 +10,7 @@ class MIDI
 {
 protected: /* data */
     WaveFunction sound[88];
+    bool sustain = false;
 
 private: /* handle */
     HMIDIIN midi;

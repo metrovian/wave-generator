@@ -236,17 +236,27 @@ void WaveFunction::playWave()
         return;
     }
 
-    while (!(whdr.dwFlags & WHDR_DONE)) 
+    while (!(whdr.dwFlags & WHDR_DONE))
     {
         Sleep(100);
     }
-    
+
     waveOutUnprepareHeader(handle, &whdr, sizeof(WAVEHDR));
     waveOutClose(handle);
 }
 
 void WaveFunction::stopWave()
 {
+    waveOutReset(handle);
+}
+
+void WaveFunction::stopWave(bool* _sustain)
+{
+    while (*_sustain)
+    {
+        Sleep(100);
+    }
+
     waveOutReset(handle);
 }
 

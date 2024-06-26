@@ -62,6 +62,7 @@ public: /* public use */
 
     void playWave();
     void stopWave();
+    void stopWave(bool* _sustain);
 
     WaveHeader getWaveHeader() const;
     WaveData getWaveData() const;
