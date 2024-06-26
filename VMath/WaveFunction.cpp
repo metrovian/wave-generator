@@ -145,6 +145,11 @@ bool WaveFunction::setWaveData(const WaveData& _data)
     return true;
 }
 
+WaveFunction::WaveFunction()
+{
+    mtxptr = new std::mutex();
+}
+
 bool WaveFunction::setWaveFunction(const WaveData& _data, const WaveHeader& _header)
 {
     return setWaveFunction(_data, _header.SAMPLE_RATE, _header.BIT_PER_SAMPLE);
@@ -200,20 +205,8 @@ bool WaveFunction::importWave(const std::string& _fname)
     return false;
 }
 
-void WaveFunction::playWave(double _namp)
+void WaveFunction::playWave(double* _pch, double _namp)
 {
-    static std::mutex mtx;
-
-    mtx.lock();
-
-    handles.push(HWAVEOUT());
-    headers.push(WAVEHDR());
-
-    HWAVEOUT* handle = &(handles.back());
-    WAVEHDR* whdr = &(headers.back());
-
-    mtx.unlock();
-
     WAVEFORMATEX wfx;
 
     wfx.nSamplesPerSec = header.SAMPLE_RATE;
@@ -223,6 +216,16 @@ void WaveFunction::playWave(double _namp)
     wfx.wFormatTag = WAVE_FORMAT_PCM;
     wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+
+    mtxptr->lock();
+
+    handles.push(HWAVEOUT());
+    headers.push(WAVEHDR());
+
+    HWAVEOUT* handle = &(handles.back());
+    WAVEHDR* whdr = &(headers.back());
+
+    mtxptr->unlock();
 
     if (waveOutOpen(handle, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR)
     {
@@ -242,21 +245,21 @@ void WaveFunction::playWave(double _namp)
 
     if (waveOutPrepareHeader(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        mtx.lock();
+        mtxptr->lock();
 
         waveOutClose(*handle);
 
         handles.pop();
         headers.pop();
 
-        mtx.unlock();
+        mtxptr->unlock();
 
         return;
     }
 
     if (waveOutWrite(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        mtx.lock();
+        mtxptr->lock();
 
         waveOutUnprepareHeader(*handle, whdr, sizeof(WAVEHDR));
         waveOutClose(*handle);
@@ -264,31 +267,28 @@ void WaveFunction::playWave(double _namp)
         handles.pop();
         headers.pop();
 
-        mtx.unlock();
+        mtxptr->unlock();
 
         return;
     }
 
     while (!(whdr->dwFlags & WHDR_DONE))
     {
-        Sleep(100);
+        mtxptr->lock();
+
+        if (!handles.empty())
+        {
+            waveOutSetPlaybackRate(*handle, static_cast<DWORD>((*_pch) * 32768.0 * 2.0));
+        }
+        
+        mtxptr->unlock();
+
+        Sleep(10);
     }
 }
 
 void WaveFunction::playWave()
 {
-    static std::mutex mtx;
-
-    mtx.lock();
-
-    handles.push(HWAVEOUT());
-    headers.push(WAVEHDR());
-
-    HWAVEOUT* handle = &(handles.back());
-    WAVEHDR* whdr = &(headers.back());
-
-    mtx.unlock();
-
     WAVEFORMATEX wfx;
 
     wfx.nSamplesPerSec = header.SAMPLE_RATE;
@@ -298,6 +298,16 @@ void WaveFunction::playWave()
     wfx.wFormatTag = WAVE_FORMAT_PCM;
     wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+
+    mtxptr->lock();
+
+    handles.push(HWAVEOUT());
+    headers.push(WAVEHDR());
+
+    HWAVEOUT* handle = &(handles.back());
+    WAVEHDR* whdr = &(headers.back());
+
+    mtxptr->unlock();
 
     if (waveOutOpen(handle, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR)
     {
@@ -311,21 +321,21 @@ void WaveFunction::playWave()
 
     if (waveOutPrepareHeader(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        mtx.lock();
+        mtxptr->lock();
 
         waveOutClose(*handle);
 
         handles.pop();
         headers.pop();
 
-        mtx.unlock();
+        mtxptr->unlock();
 
         return;
     }
 
     if (waveOutWrite(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        mtx.lock();
+        mtxptr->lock();
 
         waveOutUnprepareHeader(*handle, whdr, sizeof(WAVEHDR));
         waveOutClose(*handle);
@@ -333,7 +343,7 @@ void WaveFunction::playWave()
         handles.pop();
         headers.pop();
 
-        mtx.unlock();
+        mtxptr->unlock();
 
         return;
     }
@@ -346,10 +356,8 @@ void WaveFunction::playWave()
 
 void WaveFunction::stopWave()
 {
-    static std::mutex mtx;
-
-    mtx.lock();
-
+    mtxptr->lock();
+    
     if (!handles.empty())
     {
         waveOutReset(handles.front());
@@ -361,7 +369,7 @@ void WaveFunction::stopWave()
         headers.pop();
     }
 
-    mtx.unlock();
+    mtxptr->unlock();
 }
 
 void WaveFunction::stopWave(bool* _sustain)

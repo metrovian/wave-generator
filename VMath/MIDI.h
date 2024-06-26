@@ -14,10 +14,15 @@ protected: /* data */
 
 private: /* control */
     bool sustain = false;
+    double pchs = 1.0;
+    double pmax = 1.0;
 
 private: /* handle */
     HMIDIIN midi;
     static void CALLBACK inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
+
+private: /* parts */
+    void setPchValue(char _pch);
 
 public: /* public use */
 	bool open(unsigned int _id);
@@ -26,6 +31,8 @@ public: /* public use */
     bool close();
 
     bool setSound(WaveFunction(*_wave)(double _freq, double _dura), double _fdura);
+
+    bool setPchMaximum(double _pmax);
     bool setVampFunction(std::vector<double> _vamps);
 
     static std::vector<double> vampConstant();

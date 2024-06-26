@@ -19,7 +19,7 @@ void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD
 
         case MIDI_KEY_DOWN:
         {
-            std::thread trd_start = std::thread(static_cast<void(WaveFunction::*)(double)>(&WaveFunction::playWave), &device->sound[key - 21], device->vamps[vel]);
+            std::thread trd_start = std::thread(static_cast<void(WaveFunction::*)(double*, double)>(&WaveFunction::playWave), &device->sound[key - 21], &device->pchs, device->vamps[vel]);
             trd_start.detach();
 
             break;
@@ -51,6 +51,12 @@ void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD
             break;
         }
 
+        case MIDI_PITCH:
+        {
+            device->setPchValue(vel);
+            break;
+        }
+
         default:
         {
             std::cout 
@@ -63,6 +69,11 @@ void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD
 
         }
     }
+}
+
+void MIDI::setPchValue(char _pch)
+{
+    pchs = pow(2.0, ((double)_pch - 64) * pmax / 32.0 / 12.0);
 }
 
 bool MIDI::open(unsigned int _id)
@@ -100,6 +111,12 @@ bool MIDI::setSound(WaveFunction(*_wave)(double _freq, double _dura), double _fd
     {
         sound[i] = _wave(A0 * pow(2.0, (double)i / 12.0), _fdura);
     }
+}
+
+bool MIDI::setPchMaximum(double _pmax)
+{
+    pmax = _pmax;
+    return true;
 }
 
 bool MIDI::setVampFunction(std::vector<double> _vamps)

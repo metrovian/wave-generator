@@ -19,8 +19,8 @@ int main()
 
     auto func = [](double a, double b)
         {
-            //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-            return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+            return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
         };
 
     MIDI dev;
