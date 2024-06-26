@@ -3,6 +3,8 @@
 
 void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2)
 {
+    static BYTE KEY_SUSTAIN = 64;
+
     if (wMsg == MIM_DATA)
     {
         DWORD msg = dwParam1;
@@ -17,7 +19,7 @@ void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD
 
         case MIDI_KEY_DOWN:
         {
-            std::thread trd_start = std::thread(static_cast<void(WaveFunction::*)(double)>(&WaveFunction::playWave), &device->sound[(unsigned int)key - 21], device->vamps[vel]);
+            std::thread trd_start = std::thread(static_cast<void(WaveFunction::*)(double)>(&WaveFunction::playWave), &device->sound[key - 21], device->vamps[vel]);
             trd_start.detach();
 
             break;
@@ -25,7 +27,7 @@ void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD
 
         case MIDI_KEY_REL:
         {
-            std::thread trd_stop = std::thread(static_cast<void(WaveFunction::*)(bool*)>(&WaveFunction::stopWave), &device->sound[(unsigned int)key - 21], &device->sustain);
+            std::thread trd_stop = std::thread(static_cast<void(WaveFunction::*)(bool*)>(&WaveFunction::stopWave), &device->sound[key - 21], &device->sustain);
             trd_stop.detach();
 
             break;
@@ -33,7 +35,7 @@ void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD
 
         case MIDI_SUSTAIN:
         {
-            if (key == 64)
+            if (key == KEY_SUSTAIN)
             {
                 if (vel > 0)
                 {
