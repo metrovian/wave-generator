@@ -3,59 +3,63 @@
 
 void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2)
 {
-    switch (wMsg) 
-    {
-
-    case MIM_DATA:
+    if (wMsg == MIM_DATA)
     {
         DWORD msg = dwParam1;
         BYTE status = msg & 0xFF;
         BYTE key = (msg >> 8) & 0xFF;
-        BYTE velocity = (msg >> 16) & 0xFF;
-
-        BYTE key_down = 154;
-        BYTE key_rel = 138;
-        BYTE event_sustain = 186;
-
-        std::cout << "MIDI Message Received - Status: " << (int)status
-            << ", Data1: " << (int)key
-            << ", Data2: " << (int)velocity << std::endl;
+        BYTE vel = (msg >> 16) & 0xFF;
 
         MIDI* device = reinterpret_cast<MIDI*>(dwInstance);
 
-        if (status == key_down)
+        switch (status)
         {
-            std::thread trd_start = std::thread(&WaveFunction::playWave, &device->sound[(unsigned int)key - 21]);
+
+        case MIDI_KEY_DOWN:
+        {
+            std::thread trd_start = std::thread(static_cast<void(WaveFunction::*)(double)>(&WaveFunction::playWave), &device->sound[(unsigned int)key - 21], device->vamps[vel]);
             trd_start.detach();
+
+            break;
         }
 
-        else if (status == key_rel)
+        case MIDI_KEY_REL:
         {
-            std::thread trd_stop = std::thread(static_cast<void(WaveFunction::*)(bool*)>(& WaveFunction::stopWave), &device->sound[(unsigned int)key - 21], &device->sustain);
+            std::thread trd_stop = std::thread(static_cast<void(WaveFunction::*)(bool*)>(&WaveFunction::stopWave), &device->sound[(unsigned int)key - 21], &device->sustain);
             trd_stop.detach();
+
+            break;
         }
 
-        else if (status == event_sustain)
+        case MIDI_SUSTAIN:
         {
-            if (velocity > 0)
+            if (key == 64)
             {
-                device->sustain = true;
+                if (vel > 0)
+                {
+                    device->sustain = true;
+                }
+
+                else
+                {
+                    device->sustain = false;
+                }
             }
 
-            else
-            {
-                device->sustain = false;
-            }
+            break;
         }
 
-        break;
-    }
+        default:
+        {
+            std::cout 
+                << "MIDI Message Received - Status: " << (int)status
+                << ", Data1: " << (int)key
+                << ", Data2: " << (int)vel << std::endl;
 
-    default:
-    {
-        break;
-    }
-        
+            break;
+        }
+
+        }
     }
 }
 
@@ -94,4 +98,36 @@ bool MIDI::setSound(WaveFunction(*_wave)(double _freq, double _dura), double _fd
     {
         sound[i] = _wave(A0 * pow(2.0, (double)i / 12.0), _fdura);
     }
+}
+
+bool MIDI::setVampFunction(std::vector<double> _vamps)
+{
+    if (_vamps.size() != 127) return false;
+
+    vamps = _vamps;
+    return true;
+}
+
+std::vector<double> MIDI::vampConstant()
+{
+    std::vector<double> ret;
+
+    for (char i = 0; i < 127; ++i)
+    {
+        ret.push_back(1.0);
+    }
+
+    return ret;
+}
+
+std::vector<double> MIDI::vampLinear()
+{
+    std::vector<double> ret;
+
+    for (char i = 0; i < 127; ++i)
+    {
+        ret.push_back((double)i / 127.0);
+    }
+
+    return ret;
 }

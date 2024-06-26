@@ -63,6 +63,7 @@ public: /* public use */
     bool exportWave(const std::string& _fname) const;
     bool importWave(const std::string& _fname);
     
+    void playWave(double _namp);
     void playWave();
     void stopWave();
     void stopWave(bool* _sustain);

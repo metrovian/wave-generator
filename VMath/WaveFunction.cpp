@@ -200,6 +200,81 @@ bool WaveFunction::importWave(const std::string& _fname)
     return false;
 }
 
+void WaveFunction::playWave(double _namp)
+{
+    static std::mutex mtx;
+
+    mtx.lock();
+
+    handles.push(HWAVEOUT());
+    headers.push(WAVEHDR());
+
+    HWAVEOUT* handle = &(handles.back());
+    WAVEHDR* whdr = &(headers.back());
+
+    mtx.unlock();
+
+    WAVEFORMATEX wfx;
+
+    wfx.nSamplesPerSec = header.SAMPLE_RATE;
+    wfx.wBitsPerSample = header.BIT_PER_SAMPLE;
+    wfx.nChannels = header.NUM_OF_CHANNEL;
+    wfx.cbSize = 0;
+    wfx.wFormatTag = WAVE_FORMAT_PCM;
+    wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
+    wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+
+    if (waveOutOpen(handle, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR)
+    {
+        return;
+    }
+
+    std::vector<short> vdata = wdata;
+    for (unsigned long long i = 0; i < wdata.size(); ++i)
+    {
+        vdata[i] *= _namp;
+    }
+
+    whdr->lpData = (LPSTR)vdata.data();
+    whdr->dwBufferLength = wdata.size() * 2;
+    whdr->dwFlags = 0;
+    whdr->dwLoops = 0;
+
+    if (waveOutPrepareHeader(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        mtx.lock();
+
+        waveOutClose(*handle);
+
+        handles.pop();
+        headers.pop();
+
+        mtx.unlock();
+
+        return;
+    }
+
+    if (waveOutWrite(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        mtx.lock();
+
+        waveOutUnprepareHeader(*handle, whdr, sizeof(WAVEHDR));
+        waveOutClose(*handle);
+
+        handles.pop();
+        headers.pop();
+
+        mtx.unlock();
+
+        return;
+    }
+
+    while (!(whdr->dwFlags & WHDR_DONE))
+    {
+        Sleep(100);
+    }
+}
+
 void WaveFunction::playWave()
 {
     static std::mutex mtx;
@@ -275,12 +350,16 @@ void WaveFunction::stopWave()
 
     mtx.lock();
 
-    waveOutReset(handles.front());
-    waveOutUnprepareHeader(handles.front(), &headers.front(), sizeof(WAVEHDR));
-    waveOutClose(handles.front());
+    if (!handles.empty())
+    {
+        waveOutReset(handles.front());
 
-    handles.pop();
-    headers.pop();
+        waveOutUnprepareHeader(handles.front(), &headers.front(), sizeof(WAVEHDR));
+        waveOutClose(handles.front());
+
+        handles.pop();
+        headers.pop();
+    }
 
     mtx.unlock();
 }

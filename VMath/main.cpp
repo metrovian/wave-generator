@@ -26,6 +26,7 @@ int main()
     MIDI dev;
     dev.setSound(func, 20);
     dev.open(0);
+    //dev.setVampFunction(MIDI::vampLinear());
     dev.start();
     
     getchar();

@@ -6,11 +6,11 @@
 #include <iostream>
 #include <thread>
 
-
 class MIDI
 {
 protected: /* data */
     WaveFunction sound[88];
+    std::vector<double> vamps = vampConstant();
 
 private: /* control */
     bool sustain = false;
@@ -26,4 +26,8 @@ public: /* public use */
     bool close();
 
     bool setSound(WaveFunction(*_wave)(double _freq, double _dura), double _fdura);
+    bool setVampFunction(std::vector<double> _vamps);
+
+    static std::vector<double> vampConstant();
+    static std::vector<double> vampLinear();
 };

@@ -1,6 +1,10 @@
 #pragma once
 #include <cmath>
 
+const BYTE MIDI_KEY_DOWN = 154;
+const BYTE MIDI_KEY_REL = 138;
+const BYTE MIDI_SUSTAIN = 186;
+
 const double PI = 3.1415926;
 const double Z0 = 0.0;
 
