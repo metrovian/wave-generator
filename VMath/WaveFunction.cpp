@@ -278,7 +278,7 @@ void WaveFunction::playWave(double* _pch, double _namp)
 
         if (!handles.empty())
         {
-            waveOutSetPlaybackRate(*handle, static_cast<DWORD>((*_pch) * 32768.0 * 2.0));
+            waveOutSetPlaybackRate(*handle, static_cast<DWORD>((*_pch) * 65536.0));
         }
         
         mtxptr->unlock();

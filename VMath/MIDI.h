@@ -10,12 +10,14 @@ class MIDI
 {
 protected: /* data */
     WaveFunction sound[88];
+    
+private: /* config */
+    double pmax = 1.0;
     std::vector<double> vamps = vampConstant();
 
 private: /* control */
     bool sustain = false;
     double pchs = 1.0;
-    double pmax = 1.0;
 
 private: /* handle */
     HMIDIIN midi;
