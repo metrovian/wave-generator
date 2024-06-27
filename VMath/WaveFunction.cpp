@@ -1,8 +1,6 @@
 #include "WaveFunction.h"
 #include "Predefined.h"
 
-#include <Windows.h>
-
 bool WaveFunction::operator!=(const WaveFunction& _rhs) const
 {
     if (!isWaveHeader(header)) return true;
@@ -147,6 +145,11 @@ bool WaveFunction::setWaveData(const WaveData& _data)
     return true;
 }
 
+WaveFunction::WaveFunction()
+{
+    mtxptr = new std::mutex();
+}
+
 bool WaveFunction::setWaveFunction(const WaveData& _data, const WaveHeader& _header)
 {
     return setWaveFunction(_data, _header.SAMPLE_RATE, _header.BIT_PER_SAMPLE);
@@ -202,11 +205,9 @@ bool WaveFunction::importWave(const std::string& _fname)
     return false;
 }
 
-void WaveFunction::playWave() const
+void WaveFunction::playWave(double* _pch, double _namp)
 {
-    HWAVEOUT hWaveOut;
     WAVEFORMATEX wfx;
-    WAVEHDR whdr;
 
     wfx.nSamplesPerSec = header.SAMPLE_RATE;
     wfx.wBitsPerSample = header.BIT_PER_SAMPLE;
@@ -216,36 +217,169 @@ void WaveFunction::playWave() const
     wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
     wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
 
-    if (waveOutOpen(&hWaveOut, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) 
+    mtxptr->lock();
+
+    handles.push(HWAVEOUT());
+    headers.push(WAVEHDR());
+
+    HWAVEOUT* handle = &(handles.back());
+    WAVEHDR* whdr = &(headers.back());
+
+    mtxptr->unlock();
+
+    if (waveOutOpen(handle, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR)
     {
         return;
     }
 
-    whdr.lpData = (LPSTR)wdata.data();
-    whdr.dwBufferLength = wdata.size() * 2;
-    whdr.dwFlags = 0;
-    whdr.dwLoops = 0;
-
-    if (waveOutPrepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR) 
+    std::vector<short> vdata = wdata;
+    for (unsigned long long i = 0; i < wdata.size(); ++i)
     {
-        waveOutClose(hWaveOut);
+        vdata[i] *= _namp;
+    }
+
+    whdr->lpData = (LPSTR)vdata.data();
+    whdr->dwBufferLength = wdata.size() * 2;
+    whdr->dwFlags = 0;
+    whdr->dwLoops = 0;
+
+    if (waveOutPrepareHeader(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        mtxptr->lock();
+
+        waveOutClose(*handle);
+
+        handles.pop();
+        headers.pop();
+
+        mtxptr->unlock();
+
         return;
     }
 
-    if (waveOutWrite(hWaveOut, &whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    if (waveOutWrite(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
     {
-        waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
-        waveOutClose(hWaveOut);
+        mtxptr->lock();
+
+        waveOutUnprepareHeader(*handle, whdr, sizeof(WAVEHDR));
+        waveOutClose(*handle);
+
+        handles.pop();
+        headers.pop();
+
+        mtxptr->unlock();
+
         return;
     }
 
-    while (!(whdr.dwFlags & WHDR_DONE)) 
+    while (!(whdr->dwFlags & WHDR_DONE))
+    {
+        mtxptr->lock();
+
+        if (!handles.empty())
+        {
+            waveOutSetPlaybackRate(*handle, static_cast<DWORD>((*_pch) * 65536.0));
+        }
+        
+        mtxptr->unlock();
+
+        Sleep(10);
+    }
+}
+
+void WaveFunction::playWave()
+{
+    WAVEFORMATEX wfx;
+
+    wfx.nSamplesPerSec = header.SAMPLE_RATE;
+    wfx.wBitsPerSample = header.BIT_PER_SAMPLE;
+    wfx.nChannels = header.NUM_OF_CHANNEL;
+    wfx.cbSize = 0;
+    wfx.wFormatTag = WAVE_FORMAT_PCM;
+    wfx.nBlockAlign = (wfx.wBitsPerSample * wfx.nChannels) / 8;
+    wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
+
+    mtxptr->lock();
+
+    handles.push(HWAVEOUT());
+    headers.push(WAVEHDR());
+
+    HWAVEOUT* handle = &(handles.back());
+    WAVEHDR* whdr = &(headers.back());
+
+    mtxptr->unlock();
+
+    if (waveOutOpen(handle, WAVE_MAPPER, &wfx, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR)
+    {
+        return;
+    }
+
+    whdr->lpData = (LPSTR)wdata.data();
+    whdr->dwBufferLength = wdata.size() * 2;
+    whdr->dwFlags = 0;
+    whdr->dwLoops = 0;
+
+    if (waveOutPrepareHeader(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        mtxptr->lock();
+
+        waveOutClose(*handle);
+
+        handles.pop();
+        headers.pop();
+
+        mtxptr->unlock();
+
+        return;
+    }
+
+    if (waveOutWrite(*handle, whdr, sizeof(WAVEHDR)) != MMSYSERR_NOERROR)
+    {
+        mtxptr->lock();
+
+        waveOutUnprepareHeader(*handle, whdr, sizeof(WAVEHDR));
+        waveOutClose(*handle);
+
+        handles.pop();
+        headers.pop();
+
+        mtxptr->unlock();
+
+        return;
+    }
+
+    while (!(whdr->dwFlags & WHDR_DONE))
+    {
+        Sleep(100);
+    }
+}
+
+void WaveFunction::stopWave()
+{
+    mtxptr->lock();
+    
+    if (!handles.empty())
+    {
+        waveOutReset(handles.front());
+
+        waveOutUnprepareHeader(handles.front(), &headers.front(), sizeof(WAVEHDR));
+        waveOutClose(handles.front());
+
+        handles.pop();
+        headers.pop();
+    }
+
+    mtxptr->unlock();
+}
+
+void WaveFunction::stopWave(bool* _sustain)
+{
+    while (*_sustain)
     {
         Sleep(100);
     }
 
-    waveOutUnprepareHeader(hWaveOut, &whdr, sizeof(WAVEHDR));
-    waveOutClose(hWaveOut);
+    stopWave();
 }
 
 WaveHeader WaveFunction::getWaveHeader() const

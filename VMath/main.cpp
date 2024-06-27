@@ -1,3 +1,4 @@
+#pragma once
 #include "WaveFunction.h"
 #include "MelodyFunction.h"
 #include "FourierTransform.h"
@@ -6,12 +7,32 @@
 #include "KarplusStrong.h"
 #include "FrequencyModulation.h"
 #include "AmplitudeModulation.h"
+#include "MIDI.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 
+
+
 int main() 
 {
+
+    auto func = [](double a, double b)
+        {
+            return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+        };
+
+    MIDI dev;
+    dev.setSound(func, 20);
+    dev.open(0);
+    //dev.setVampFunction(MIDI::vampLinear());
+    dev.start();
+    
+    getchar();
+    dev.stop();
+    dev.close();
+
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     //FourierFunction ok(test);
 
@@ -38,13 +59,13 @@ int main()
   
 
     //WaveFunction k = s.getWaveFunction(func);
-    WaveFunction l = AmplitudeModulation::envelopeADS(WaveFunction::tri(0.02, 880, 3.0, 44100, 16), 1.0, 1.0, 1.0);
-    l = l & WaveFunction::tri(0.02, 880, 3.0, 44100, 16);
+    //WaveFunction l = AmplitudeModulation::envelopeADS(WaveFunction::tri(0.02, 880, 3.0, 44100, 16), 1.0, 1.0, 1.0);
+    //l = l & WaveFunction::tri(0.02, 880, 3.0, 44100, 16);
     //l = l & FrequencyModulation::bending(WaveFunction::tri(0.02, A5, 1.0, 44100, 16), A5, G5, 1.0);
     //l = l & FrequencyModulation::vibrato(WaveFunction::tri(0.02, G5, 2.0, 44100, 16), G5, 7.0, 4.0);
 
     //std::cout << "play" << std::endl;
-    l.playWave();
+    //l.playWave();
     //k.exportWave("cannon");
    
     //MorletFunction Y(k, G3, D5, pow(2.0, 1.0 / 12.0), 0.1);

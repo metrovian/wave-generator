@@ -132,6 +132,7 @@
     <ClInclude Include="FrequencyModulation.h" />
     <ClInclude Include="MelodyFunction.h" />
     <ClInclude Include="KarplusStrong.h" />
+    <ClInclude Include="MIDI.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="WaveletTransform.h" />
     <ClInclude Include="WaveFunction.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="KarplusStrong.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
+    <ClCompile Include="MIDI.cpp" />
     <ClCompile Include="WaveFunction.cpp" />
     <ClCompile Include="WaveletTransform.cpp" />
   </ItemGroup>
