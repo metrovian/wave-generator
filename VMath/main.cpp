@@ -35,8 +35,7 @@ int main()
     //dev.stop();
     //dev.close();
 
-    PluckStringKS X;
-    X.synthesis(0.02, A4, 10.0, 44100, 16);
+    PluckStringKS X(0.02, A4, 10.0, 44100, 16, 5);
     X.playWave();
 
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);

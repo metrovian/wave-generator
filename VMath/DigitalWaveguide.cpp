@@ -1,6 +1,6 @@
 #include "DigitalWaveguide.h"
 
-DelayData DigitalWaveguide::getRandomDelayLine(double _namp, double _freq)
+DelayData DigitalWaveguide::calcRandomDelayLine(double _namp, double _freq)
 {
     double ramp = _namp * pow(2.0, (double)header.BIT_PER_SAMPLE - 1.0);
     unsigned long long size = (unsigned long long)((double)header.SAMPLE_RATE / _freq);

@@ -132,7 +132,6 @@
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyModulation.h" />
     <ClInclude Include="MelodyFunction.h" />
-    <ClInclude Include="KarplusStrong.h" />
     <ClInclude Include="MIDI.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="PluckStringKS.h" />
@@ -144,7 +143,6 @@
     <ClCompile Include="DigitalWaveguide.cpp" />
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />
-    <ClCompile Include="KarplusStrong.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="MIDI.cpp" />

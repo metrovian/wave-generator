@@ -46,9 +46,6 @@
     <ClInclude Include="MelodyFunction.h">
       <Filter>Acoustic Wave\Data Structure</Filter>
     </ClInclude>
-    <ClInclude Include="KarplusStrong.h">
-      <Filter>Acoustic Wave\Sound Synthesis</Filter>
-    </ClInclude>
     <ClInclude Include="AmplitudeModulation.h">
       <Filter>Acoustic Wave\Sound Modulaion</Filter>
     </ClInclude>
@@ -82,9 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WaveletTransform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KarplusStrong.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FrequencyModulation.cpp">
