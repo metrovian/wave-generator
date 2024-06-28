@@ -52,11 +52,13 @@ public: /* operator */
     WaveFunction operator&(const WaveFunction& _rhs) const;
 
 protected: /* parts */
-    bool isWaveHeader(const WaveHeader& _header) const;
-    bool isWaveFile(const std::string& _fname) const;
+    static bool isWaveHeader(const WaveHeader& _header);
+    static bool isWaveFile(const std::string& _fname);
 
     bool setWaveHeader(unsigned short _srate, unsigned short _sbit);
     bool setWaveData(const WaveData& _data);
+
+    static unsigned long long calcWaveDataSize(double _dura, unsigned short _srate);
 
 public: /* constructor */
     WaveFunction();
@@ -76,6 +78,7 @@ public: /* public use */
 
     WaveHeader getWaveHeader() const;
     WaveData getWaveData() const;
+    short getWaveData(unsigned long long _tdx) const;
 
     static WaveFunction sin(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit);
     static WaveFunction sqr(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _duty);

@@ -19,7 +19,7 @@ protected: /* parts */
 	bool ifft();
 	FourierData getFFT() const;
 	FourierData getIFFT() const;
-	double getFrequency(unsigned long long _idx) const;
+	double getFrequency(unsigned long long _fdx) const;
 
 public: /* public use */
 	bool setLPF(double _freq, double _brate);

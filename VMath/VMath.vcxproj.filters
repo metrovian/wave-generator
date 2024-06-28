@@ -23,6 +23,15 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Acoustic Wave\Sound Synthesis\Digital Waveguide">
+      <UniqueIdentifier>{43c7d39a-2f80-472b-ae8a-488f2394d50f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Acoustic Wave\Sound Synthesis\Digital Waveguide\Base">
+      <UniqueIdentifier>{36109a0f-7c7e-46fc-8dc2-7fbe11819d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Acoustic Wave\Sound Synthesis\Digital Waveguide\Concrete">
+      <UniqueIdentifier>{91dbd8d3-58c5-45e2-8ac7-df1e49e2e879}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
@@ -52,6 +61,12 @@
     <ClInclude Include="Predefined.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="DigitalWaveguide.h">
+      <Filter>Acoustic Wave\Sound Synthesis\Digital Waveguide\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PluckStringKS.h">
+      <Filter>Acoustic Wave\Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,6 +94,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MIDI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DigitalWaveguide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PluckStringKS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

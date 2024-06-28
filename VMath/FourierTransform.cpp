@@ -279,9 +279,9 @@ FourierData FourierFunction::getIFFT() const
     return ret;
 }
 
-double FourierFunction::getFrequency(unsigned long long _idx) const
+double FourierFunction::getFrequency(unsigned long long _fdx) const
 {
-    return (double)_idx * (double)header.SAMPLE_RATE / (double)fdata.size();
+    return (double)_fdx * (double)header.SAMPLE_RATE / (double)fdata.size();
 }
 
 bool FourierFunction::setLPF(double _freq, double _brate)

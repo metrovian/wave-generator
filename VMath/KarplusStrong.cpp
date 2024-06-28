@@ -42,7 +42,6 @@ WaveData KarplusStrong::decayMoveAverage(WaveData _noise, unsigned long long _si
 {
     WaveData ret(_size);
 
-
     for (unsigned long long i = 0; i < _size; ++i)
     {
         ret[i] = _noise[i % _noise.size()];
@@ -53,7 +52,7 @@ WaveData KarplusStrong::decayMoveAverage(WaveData _noise, unsigned long long _si
             avg += _noise[(i + j) % _noise.size()];
         }
 
-        _noise[i % _noise.size()] = short(avg / (double)_drate);
+        _noise[i % _noise.size()] = short((double)avg / (double)_drate);
     }
 
     return ret;

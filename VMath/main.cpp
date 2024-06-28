@@ -8,6 +8,8 @@
 #include "FrequencyModulation.h"
 #include "AmplitudeModulation.h"
 #include "MIDI.h"
+#include "DigitalWaveguide.h"
+#include "PluckStringKS.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -17,21 +19,25 @@
 int main() 
 {
 
-    auto func = [](double a, double b)
-        {
-            return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
-        };
+    //auto func = [](double a, double b)
+    //    {
+    //        return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+    //        //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+    //    };
 
-    MIDI dev;
-    dev.setSound(func, 20);
-    dev.open(0);
-    //dev.setVampFunction(MIDI::vampLinear());
-    dev.start();
-    
-    getchar();
-    dev.stop();
-    dev.close();
+    //MIDI dev;
+    //dev.setSound(func, 20);
+    //dev.open(0);
+    ////dev.setVampFunction(MIDI::vampLinear());
+    //dev.start();
+    //
+    //getchar();
+    //dev.stop();
+    //dev.close();
+
+    PluckStringKS X;
+    X.synthesis(0.02, A4, 10.0, 44100, 16);
+    X.playWave();
 
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     //FourierFunction ok(test);
@@ -42,9 +48,9 @@ int main()
     //ok.setLPF(3000, -3);
     //ok.playWave();
 
-    //MelodyFunction s = MelodyFunction::cannon(240);
-    MelodyFunction s = MelodyFunction::over_the_rainbow(150);
-    std::cout << "calculating" << std::endl;
+    ////MelodyFunction s = MelodyFunction::cannon(240);
+    //MelodyFunction s = MelodyFunction::over_the_rainbow(150);
+    //std::cout << "calculating" << std::endl;
 
     
     //auto func = [](double a, double b, double c)
