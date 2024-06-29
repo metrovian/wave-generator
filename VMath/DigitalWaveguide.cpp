@@ -50,3 +50,30 @@ short DigitalWaveguide::passDynamicLPF(const DelayData& _data, double _freq) con
 
     return (short)ret;
 }
+
+short DigitalWaveguide::passPickDirectionLPF(const DelayData& _data, double _pick) const
+{
+    assert(_pick >= 0 && _pick <= 0.9);
+
+    static double buf = 0;
+    double ret = (1.0 - _pick) * (double)_data.front() + _pick * buf;
+
+    buf = ret;
+
+    return (short)ret;
+}
+
+short DigitalWaveguide::passPickPositionCF(const DelayData& _data, double _pick) const
+{
+    assert(_pick >= 0 && _pick <= 1.0);
+
+    DelayData temp = _data;
+    unsigned long long delay = (unsigned long long)ceil(_pick * (double)temp.size() + 0.5);
+
+    for (unsigned long long i = 0; i < delay; ++i)
+    {
+        temp.pop();
+    }
+
+    return _data.front() - temp.front();
+}

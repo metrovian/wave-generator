@@ -18,25 +18,30 @@
 int main() 
 {
 
-    //auto func = [](double a, double b)
-    //    {
-    //        return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-    //        //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
-    //    };
+    auto func = [](double a, double b)
+        {
+            PluckStringEKS s(0.02, a, b, 44100, 16);
+            WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
+            //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+            return *k;
+            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+        };
 
-    //MIDI dev;
-    //dev.setSound(func, 20);
-    //dev.open(0);
-    ////dev.setVampFunction(MIDI::vampLinear());
-    //dev.start();
-    //
-    //getchar();
-    //dev.stop();
-    //dev.close();
+    MIDI dev;
+    dev.setSound(func, 5);
+    dev.open(0);
+    //dev.setVampFunction(MIDI::vampLinear());
+    dev.start();
+    
+    getchar();
+    dev.stop();
+    dev.close();
 
-    PluckStringKS X(0.02, A4, 10.0, 44100, 16, 2);
-    X.playWave();
+    //PluckStringEKS X(0.02, A4, 2.0, 44100, 16);
+    //X.playWave();
 
+    //PluckStringKS Y(0.02, A4, 2.0, 44100, 16);
+    //Y.playWave();
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     //FourierFunction ok(test);
 
