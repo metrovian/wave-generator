@@ -4,7 +4,6 @@
 #include "FourierTransform.h"
 #include "Predefined.h"
 #include "WaveletTransform.h"
-#include "KarplusStrong.h"
 #include "FrequencyModulation.h"
 #include "AmplitudeModulation.h"
 #include "MIDI.h"
@@ -35,7 +34,7 @@ int main()
     //dev.stop();
     //dev.close();
 
-    PluckStringKS X(0.02, A4, 10.0, 44100, 16, 5);
+    PluckStringKS X(0.02, A4, 10.0, 44100, 16, 2);
     X.playWave();
 
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);

@@ -1,4 +1,5 @@
 #include "DigitalWaveguide.h"
+#include "Predefined.h"
 
 DelayData DigitalWaveguide::calcRandomDelayLine(double _namp, double _freq)
 {
@@ -36,4 +37,16 @@ short DigitalWaveguide::passSimpleLPF(const DelayData& _data, unsigned char _pow
     }
 
     return (short)((double)sum / (double)_pow);
+}
+
+short DigitalWaveguide::passDynamicLPF(const DelayData& _data, double _freq) const
+{
+    static double buf = 0;
+
+    double coe = std::exp(-PI * _freq/ (double)header.SAMPLE_RATE);
+    double ret = (1.0 - coe) * (double)_data.front() + coe * buf;
+
+    buf = ret;
+
+    return (short)ret;
 }
