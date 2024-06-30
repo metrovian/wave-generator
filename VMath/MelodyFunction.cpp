@@ -79,7 +79,7 @@ MelodyFunction MelodyFunction::over_the_rainbow(double _bpm)
 
     for (auto& pt : ret.beat)
     {
-        ret.dynamic.push_back(0.02);
+        ret.dynamic.push_back(0.8);
         pt *= 60.0 / _bpm;
     }
     
@@ -136,7 +136,7 @@ MelodyFunction MelodyFunction::cannon(double _bpm)
 
     for (auto& pt : ret.beat)
     {
-        ret.dynamic.push_back(0.02);
+        ret.dynamic.push_back(0.8);
         pt *= 60.0 / _bpm;
     }
 

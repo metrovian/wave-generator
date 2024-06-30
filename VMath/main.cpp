@@ -18,26 +18,26 @@
 int main() 
 {
 
-    auto func = [](double a, double b)
-        {
-            PluckStringEKS s(0.02, a, b, 44100, 16);
-            WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
-            //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-            return *k;
-            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
-        };
+    //auto func = [](double a, double b)
+    //    {
+    //        PluckStringEKS s(0.8, a, b, 44100, 16);
+    //        WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
+    //        //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+    //        return *k;
+    //        //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+    //    };
 
-    MIDI dev;
-    dev.setSound(func, 5);
-    dev.open(0);
-    //dev.setVampFunction(MIDI::vampLinear());
-    dev.start();
-    
-    getchar();
-    dev.stop();
-    dev.close();
+    //MIDI dev;
+    //dev.setSound(func, 5);
+    //dev.open(0);
+    ////dev.setVampFunction(MIDI::vampLinear());
+    //dev.start();
+    //
+    //getchar();
+    //dev.stop();
+    //dev.close();
 
-    //PluckStringEKS X(0.02, A4, 2.0, 44100, 16);
+    //PluckStringEKS X(0.2, E5, 5.0, 44100, 16);
     //X.playWave();
 
     //PluckStringKS Y(0.02, A4, 2.0, 44100, 16);
@@ -51,8 +51,19 @@ int main()
     //ok.setLPF(3000, -3);
     //ok.playWave();
 
-    ////MelodyFunction s = MelodyFunction::cannon(240);
-    //MelodyFunction s = MelodyFunction::over_the_rainbow(150);
+    auto func = [](double a, double b, double c)
+        {
+            PluckStringEKS s(a, b, c, 44100, 16);
+            WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
+            //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+            return *k;
+            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+        };
+
+    //MelodyFunction s = MelodyFunction::cannon(240);
+    MelodyFunction s = MelodyFunction::cannon(150);
+    WaveFunction l = s.getWaveFunction(func);
+    l.playWave();
     //std::cout << "calculating" << std::endl;
 
     
