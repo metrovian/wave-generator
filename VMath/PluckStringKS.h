@@ -17,11 +17,11 @@ protected: /* virtual */
 class PluckStringEKS : public DigitalWaveguide
 {
 private: /* data */
-	double damp = 0.200;
+	double damp = 0.300;
 	double tune = 0.900;
-	double dir = 0.900;
-	double pos = 0.000;
-	double low = 8.500;
+	double dir = 0.700;
+	double pos = 0.200;
+	double low = 1.500;
 
 public: /* constructor */
 	PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit);

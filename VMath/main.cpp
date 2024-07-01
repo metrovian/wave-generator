@@ -53,7 +53,7 @@ int main()
 
     auto func = [](double a, double b, double c)
         {
-            PluckStringEKS s(a, b, c, 44100, 16);
+            PluckStringEKS s(a, b * pow(2.0, 3.0/12.0), c, 44100, 16);
             WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
             //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
             return *k;
@@ -61,7 +61,7 @@ int main()
         };
 
     //MelodyFunction s = MelodyFunction::cannon(240);
-    MelodyFunction s = MelodyFunction::cannon(150);
+    MelodyFunction s = MelodyFunction::over_the_rainbow(100);
     WaveFunction l = s.getWaveFunction(func);
     l.playWave();
     //std::cout << "calculating" << std::endl;
