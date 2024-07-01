@@ -19,7 +19,7 @@ class PluckStringEKS : public DigitalWaveguide
 private: /* data */
 	double damp = 0.300;
 	double tune = 0.900;
-	double dir = 0.700;
+	double dir = 0.500;
 	double pos = 0.200;
 	double low = 1.500;
 
