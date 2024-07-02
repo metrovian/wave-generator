@@ -142,16 +142,19 @@ DelayData DigitalWaveguide::passPickPositionCF(const DelayData& _data, double _p
     DelayData ret;
     WaveData ext = extractFrontData(_data);
 
-    unsigned long long delay1 = (unsigned long long)ceil(_pick * (double)_data.size());
-    unsigned long long delay2 = (unsigned long long)ceil((1.0 - _pick) * (double)_data.size());
+    unsigned long long delay = (unsigned long long)ceil(_pick * (double)_data.size());
 
     for (unsigned long long i = 0; i < _data.size(); ++i)
     {
-        short spos = 0;
-        if (i >= delay1) spos += ext[i - delay1];
-        if (i >= delay2) spos += ext[i - delay2];
+        if (i >= delay) 
+        {
+            ret.push(ext[i] - ext[i - delay]);
+        }
 
-        ret.push(ext[i] - spos);
+        else
+        {
+            ret.push(ext[i]);
+        }
     }
 
     return ret;
