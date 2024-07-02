@@ -1,6 +1,25 @@
 #include "DigitalWaveguide.h"
 #include "Predefined.h"
 
+WaveData DigitalWaveguide::extractFrontData(const DelayData& _data) const
+{
+    return extractFrontData(_data, _data.size());
+}
+
+WaveData DigitalWaveguide::extractFrontData(const DelayData& _data, unsigned long long _count) const
+{
+    WaveData ret;
+    DelayData temp = _data;
+
+    for (unsigned long long i = 0; i < _count; ++i)
+    {
+        ret.push_back(temp.front());
+        temp.pop();
+    }
+
+    return ret;
+}
+
 DelayData DigitalWaveguide::calcRandomDelayLine(double _namp, double _freq)
 {
     if (_freq > 0)
@@ -23,26 +42,59 @@ DelayData DigitalWaveguide::calcRandomDelayLine(double _namp, double _freq)
     return std::queue<short>();
 }
 
+DelayData DigitalWaveguide::calcBandLimDelayLine(double _namp, double _freq, unsigned char _band)
+{
+    if (_freq > 0)
+    {
+        double ramp = _namp * pow(2.0, (double)header.BIT_PER_SAMPLE - 1.0);
+        double dt = 1.0 / (double)header.SAMPLE_RATE;
+        unsigned long long size = (unsigned long long)((double)header.SAMPLE_RATE / _freq);
+
+        if (size > 0)
+        {
+            std::queue<short> ret;
+            for (unsigned long long i = 0; i < size; ++i)
+            {
+                double sum = 0;
+                for (unsigned long long j = 1; j < (unsigned long long)_band; ++j)
+                {
+                    sum += cos(2.0 * PI * _freq * dt * (double)i * (double)j);
+                }
+
+                ret.push((short)(ramp * sum / (double)_band));
+            }
+
+            return ret;
+        }
+    }
+
+    return std::queue<short>();
+}
+
 short DigitalWaveguide::passSimpleLPF(const DelayData& _data, unsigned char _pow) const
 {
     assert(_data.size() > _pow);
 
-    DelayData temp = _data;
+    WaveData ext = extractFrontData(_data, (unsigned long long)_pow);
     long long sum = 0;
 
-    for (unsigned char i = 0; i < _pow; ++i)
+    for (unsigned long long i = 0; i < ext.size(); ++i)
     {
-        sum += temp.front();
-        temp.pop();
+        sum += ext[i];
     }
 
     return (short)((double)sum / (double)_pow);
 }
 
-short DigitalWaveguide::passDynamicLPF(const DelayData& _data, short _prev, double _freq) const
+short DigitalWaveguide::passDynamicLPF(const DelayData& _data, short _prev, double _freq, double _level) const
 {
-    double coe = std::exp(-PI * _freq/ (double)header.SAMPLE_RATE);
+    assert(_level >= 0.0 && _level <= 1.0);
+
+    double ome = PI * _freq / (double)header.SAMPLE_RATE;
+    double coe = (1.0 - ome) / (1.0 + ome);
     double ret = (1.0 - coe) * (double)_data.front() + coe * (double)_prev;
+
+    ret = pow(_level, 4.0 / 3.0) + (1.0 - _level) * ret;
 
     return (short)ret;
 }
@@ -51,11 +103,8 @@ short DigitalWaveguide::passStringDF(const DelayData& _data, double _damp) const
 {
     assert(_damp >= 0.0 && _damp <= 1.0);
 
-    DelayData temp = _data;
-    double sum = (1.0 - _damp) * (double)temp.front();
-
-    temp.pop();
-    sum += _damp * (double)temp.front();
+    WaveData ext = extractFrontData(_data, 2);
+    double sum = (1.0 - _damp) * (double)ext[0] + _damp * (double)ext[1];
 
     return (short)sum;
 }
@@ -64,34 +113,25 @@ short DigitalWaveguide::passStringAPF(const DelayData& _data, short _prev, doubl
 {
     assert(_damp >= -1.0 && _damp <= 1.0);
 
-    DelayData temp = _data;
-    double sum = _damp * (double)temp.front();
-
-    temp.pop();
-    sum += (double)temp.front();
-    sum -= _damp * (double)_prev;
+    WaveData ext = extractFrontData(_data, 2);
+    double sum = _damp * (double)ext[0] + (double)ext[1] - _damp * (double)_prev;
 
     return (short)sum;
 }
 
 DelayData DigitalWaveguide::passPickDirectionLPF(const DelayData& _data, double _pick) const
 {
-    assert(_pick >= 0.0 && _pick <= 0.9);
+    assert(_pick >= 0.0 && _pick <= 1.0);
 
     DelayData ret;
-    DelayData temp = _data;
+    WaveData ext = extractFrontData(_data);
 
-    double buf = 0;
     double res = 0;
 
     for (unsigned long long i = 0; i < _data.size(); ++i)
     {
-        res = (1.0 - _pick) * (double)temp.front() + _pick * buf;
-
+        res = (1.0 - _pick) * (double)ext[i] + _pick * res;
         ret.push(res);
-        temp.pop();
-
-        buf = res;
     }
 
     return ret;
@@ -102,24 +142,24 @@ DelayData DigitalWaveguide::passPickPositionCF(const DelayData& _data, double _p
     assert(_pick >= 0.0 && _pick <= 1.0);
 
     DelayData ret;
-    DelayData demp = _data;
-    DelayData temp = _data;
+    WaveData ext = extractFrontData(_data);
 
-    unsigned long long delay = (unsigned long long)ceil(_pick * (double)temp.size() + 0.5);
-
-    for (unsigned long long i = 0; i < delay; ++i)
-    {
-        demp.push(0);
-        demp.pop();
-    }
+    unsigned long long delay1 = (unsigned long long)ceil(_pick * (double)_data.size());
+    unsigned long long delay2 = (unsigned long long)ceil((1.0 - _pick) * (double)_data.size());
 
     for (unsigned long long i = 0; i < _data.size(); ++i)
     {
-        ret.push(temp.front() - demp.front());
+        short spos = 0;
+        if (i >= delay1) spos += ext[i - delay1];
+        if (i >= delay2) spos += ext[i - delay2];
 
-        demp.pop();
-        temp.pop();
+        ret.push(ext[i] - spos);
     }
 
     return ret;
+}
+
+WaveFunction DigitalWaveguide::castWaveFunction()
+{
+    return *(dynamic_cast<WaveFunction*>(this));
 }

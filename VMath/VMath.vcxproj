@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AmplitudeModulation.h" />
+    <ClInclude Include="BowStringLP.h" />
     <ClInclude Include="DigitalWaveguide.h" />
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyModulation.h" />
@@ -140,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AmplitudeModulation.cpp" />
+    <ClCompile Include="BowStringLP.cpp" />
     <ClCompile Include="DigitalWaveguide.cpp" />
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />

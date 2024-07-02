@@ -64,6 +64,9 @@
     <ClInclude Include="PluckStringKS.h">
       <Filter>Acoustic Wave\Sound Synthesis\Digital Waveguide\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="BowStringLP.h">
+      <Filter>Acoustic Wave\Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -94,6 +97,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PluckStringKS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BowStringLP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -18,16 +18,18 @@ bool PluckStringKS::synthesis(double _namp, double _freq, double _dura, unsigned
     DelayData rand = calcRandomDelayLine(_namp, _freq);
     WaveData dat(calcWaveDataSize(_dura, _srate));
 
-    for (unsigned long long i = 0; i < dat.size(); ++i)
+    if (rand.size() > 0)
     {
-        dat[i] = rand.front();
+        for (unsigned long long i = 0; i < dat.size(); ++i)
+        {
+            dat[i] = rand.front();
 
-        rand.push(passSimpleLPF(rand, pow));
-        rand.pop();
+            rand.push(passSimpleLPF(rand, pow));
+            rand.pop();
+        }
     }
 
     setWaveData(dat);
-
     return true;
 }
 
@@ -36,13 +38,14 @@ PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigne
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _damp, double _tune, double _dir, double _pos, double _low)
+PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _damp, double _tune, double _dir, double _pos, double _low, double _level)
 {
     damp = _damp;
     tune = _tune;
     dir = _dir;
     pos = _pos;
     low = _low;
+    level = _level;
 
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
@@ -64,7 +67,7 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
 
         double buf = 0;
 
-        dat[0] = passDynamicLPF(proc2, 0, _freq * low);
+        dat[0] = passDynamicLPF(proc2, 0, _freq * low, level);
 
         proc3.push(passStringDF(proc2, damp));
         proc3.push(passStringDF(proc2m1, damp));
@@ -78,7 +81,7 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
 
         for (unsigned long long i = 1; i < dat.size(); ++i)
         {
-            dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq * low);
+            dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq * low, level);
 
             proc3.pop();
             proc3.push(passStringDF(proc2, damp));

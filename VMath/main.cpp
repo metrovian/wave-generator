@@ -51,20 +51,30 @@ int main()
     //ok.setLPF(3000, -3);
     //ok.playWave();
 
+
+    ////PluckStringEKS s(0.8, G4 * pow(2.0, 3.0/12.0) / 2.0, 5.0, 44100, 16);
+    //PluckStringEKS s1(0.8, E4 * pow(2.0, 3.0/12.0) / 2.0, 5.0, 44100, 16);
+    //s1.playWave();
+    //s1.playWave();
+
     auto func = [](double a, double b, double c)
         {
-            PluckStringEKS s(a, b * pow(2.0, 3.0/12.0), c, 44100, 16);
-            WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
-            //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-            return *k;
+            PluckStringEKS s(a, b * pow(2.0, 3.0/12.0) / 2.0, c, 44100, 16);
+            return s.castWaveFunction();
             //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
         };
-
+    auto func2 = [](double a, double b, double c)
+        {
+            PluckStringKS s(a, b * pow(2.0, 3.0 / 12.0) / 2.0, c, 44100, 16);
+            return s.castWaveFunction();
+            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+        };
     //MelodyFunction s = MelodyFunction::cannon(240);
-    MelodyFunction s = MelodyFunction::over_the_rainbow(100);
-    WaveFunction l = s.getWaveFunction(func);
-    l.playWave();
-    //std::cout << "calculating" << std::endl;
+    MelodyFunction s = MelodyFunction::cannon(150);
+    WaveFunction l1 = s.getWaveFunction(func);
+
+    (l1).exportWave("C:\\Users\\lovel\\Desktop\\cannon_newks");
+
 
     
     //auto func = [](double a, double b, double c)
