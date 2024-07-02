@@ -14,7 +14,7 @@ protected: /* delay */
 
 protected: /* filter */
 	short passSimpleLPF(const DelayData& _data, unsigned char _pow) const;
-	short passDynamicLPF(const DelayData& _data, short _prev, double _freq, double _level) const;
+	short passDynamicLPF(const DelayData& _data, short _prev, double _freq) const;
 	short passStringDF(const DelayData& _data, double _damp) const;
 	short passStringAPF(const DelayData& _data, short _prev, double _damp) const;
 	short passLPCF(const DelayData& _data) const;

@@ -53,8 +53,19 @@ int main()
 
 
     ////PluckStringEKS s(0.8, G4 * pow(2.0, 3.0/12.0) / 2.0, 5.0, 44100, 16);
-    //PluckStringEKS s1(0.8, E4 * pow(2.0, 3.0/12.0) / 2.0, 5.0, 44100, 16);
+    //PluckStringEKS s1(0.8, E2, 3.0, 44100, 16);
+    //PluckStringEKS s2(0.8, A2, 3.0, 44100, 16);
+    //PluckStringEKS s3(0.8, D3, 3.0, 44100, 16);
+    //PluckStringEKS s4(0.8, G3, 3.0, 44100, 16);
+    //PluckStringEKS s5(0.8, B3, 3.0, 44100, 16);
+    //PluckStringEKS s6(0.8, E4, 3.0, 44100, 16);
+
     //s1.playWave();
+    //s2.playWave();
+    //s3.playWave();
+    //s4.playWave();
+    //s5.playWave();
+    //s6.playWave();
     //s1.playWave();
 
     auto func = [](double a, double b, double c)
@@ -63,14 +74,14 @@ int main()
             return s.castWaveFunction();
             //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
         };
-    auto func2 = [](double a, double b, double c)
-        {
-            PluckStringKS s(a, b * pow(2.0, 3.0 / 12.0) / 2.0, c, 44100, 16);
-            return s.castWaveFunction();
-            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
-        };
+    //auto func2 = [](double a, double b, double c)
+    //    {
+    //        PluckStringKS s(a, b * pow(2.0, 3.0 / 12.0) / 2.0, c, 44100, 16);
+    //        return s.castWaveFunction();
+    //        //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+    //    };
     //MelodyFunction s = MelodyFunction::cannon(240);
-    MelodyFunction s = MelodyFunction::cannon(150);
+    MelodyFunction s = MelodyFunction::cannon(90);
     WaveFunction l1 = s.getWaveFunction(func);
 
     (l1).exportWave("C:\\Users\\lovel\\Desktop\\cannon_newks");

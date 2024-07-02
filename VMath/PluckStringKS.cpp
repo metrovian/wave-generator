@@ -38,14 +38,12 @@ PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigne
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _damp, double _tune, double _dir, double _pos, double _low, double _level)
+PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _damp, double _tune, double _dir, double _pos)
 {
     damp = _damp;
     tune = _tune;
     dir = _dir;
     pos = _pos;
-    low = _low;
-    level = _level;
 
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
@@ -67,21 +65,19 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
 
         double buf = 0;
 
-        dat[0] = passDynamicLPF(proc2, 0, _freq * low, level);
+        dat[0] = passDynamicLPF(proc2, 0, _freq);
 
         proc3.push(passStringDF(proc2, damp));
         proc3.push(passStringDF(proc2m1, damp));
 
         proc2.push(passStringAPF(proc3, buf, tune));
-        proc2m1.push(passStringAPF(proc3, buf, tune));
-        proc2m1.pop();
 
         buf = proc2.back();
         proc2.pop();
 
         for (unsigned long long i = 1; i < dat.size(); ++i)
         {
-            dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq * low, level);
+            dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq);
 
             proc3.pop();
             proc3.push(passStringDF(proc2, damp));
