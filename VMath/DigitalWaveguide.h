@@ -4,7 +4,7 @@
 typedef std::queue<short> DelayData;
 class DigitalWaveguide : public WaveFunction
 {
-private: /* parts */
+protected: /* parts */
 	WaveData extractFrontData(const DelayData& _data) const;
 	WaveData extractFrontData(const DelayData& _data, unsigned long long _count) const;
 

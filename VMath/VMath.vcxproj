@@ -24,6 +24,7 @@
     <ProjectGuid>{17de4152-22ac-452f-879f-b9f5e4493590}</ProjectGuid>
     <RootNamespace>VMath</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>VMath</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

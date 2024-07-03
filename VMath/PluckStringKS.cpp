@@ -64,30 +64,28 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
         DelayData proc2m1 = proc2; proc2m1.pop();
 
         double buf = 0;
+        auto flap = [&]()
+            {
+                proc3.push(passStringDF(proc2m1, damp));
+
+                proc2.push(passStringAPF(proc3, buf, tune));
+                proc2m1.push(passStringAPF(proc3, buf, tune));
+                proc2m1.pop();
+
+                buf = proc2.back();
+                proc2.pop();
+                proc3.pop();
+            };
 
         dat[0] = passDynamicLPF(proc2, 0, _freq);
-
         proc3.push(passStringDF(proc2, damp));
-        proc3.push(passStringDF(proc2m1, damp));
 
-        proc2.push(passStringAPF(proc3, buf, tune));
-
-        buf = proc2.back();
-        proc2.pop();
+        flap();
 
         for (unsigned long long i = 1; i < dat.size(); ++i)
         {
             dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq);
-
-            proc3.pop();
-            proc3.push(passStringDF(proc2, damp));
-
-            proc2.push(passStringAPF(proc3, buf, tune));
-            proc2m1.push(passStringAPF(proc3, buf, tune));
-            proc2m1.pop();
-
-            buf = proc2.back();
-            proc2.pop();
+            flap();
         }
     }
 
