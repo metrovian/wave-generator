@@ -17,14 +17,15 @@ protected: /* virtual */
 class PluckStringEKS : public DigitalWaveguide
 {
 private: /* data */
-	double damp = 0.300;
+	double decay = 15.000;
+	double damp = 0.500;
 	double tune = 0.100;
-	double dir = 0.150;
+	double modulus = 0.850;
 	double pos = 0.100;
 
 public: /* constructor */
 	PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit);
-	PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _damp, double _tune, double _dir, double _pos);
+	PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _decay, double _damp, double _tune, double _mod, double _pos);
 
 protected: /* virtual */
 	bool synthesis(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit) override;

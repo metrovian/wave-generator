@@ -27,14 +27,14 @@ int main()
             return *k;
             //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
         };
-    //auto func = [](double a, double b)
+    //auto func2 = [](double a, double b)
     //    {
     //        PluckStringEKS s(0.8, a, b, 44100, 16);
     //        return s.castWaveFunction();
     //        //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
     //    };
     //MIDI dev;
-    //dev.setSound(func, 5);
+    //dev.setSound(func2, 5);
     //dev.open(0);
     ////dev.setVampFunction(MIDI::vampLinear());
     //dev.start();
@@ -46,11 +46,14 @@ int main()
     //PluckStringEKS X(0.2, E5, 5.0, 44100, 16);
     //X.playWave();
 
-    //PluckStringEKS X(0.80, G3, 0.5, 44100, 16, 0.3, 0.1, 0.9, 0.1);
-    //
-    //PluckStringEKS Xs(0.80, G3, 0.5, 44100, 16, 0.3, 0.1, 0.1, 0.1);
-    //X.playWave();
-    //Xs.playWave();
+
+    PluckStringEKS X5(0.80, E4, 5.5, 44100, 16, 15.0, 0.3, 0.1, 0.9, 0.1); // electric? nylon? 
+    PluckStringEKS Xs5(0.80, E4, 5.5, 44100, 16, 15.0, 0.3, 0.1, 0.1, 0.1); // acoustic
+
+
+    X5.playWave();
+    Xs5.playWave();
+
     //X.playWave();
     //Xs.playWave();
     //X.playWave();

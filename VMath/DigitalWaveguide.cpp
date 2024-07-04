@@ -97,16 +97,6 @@ short DigitalWaveguide::passDynamicLPF(const DelayData& _data, short _prev, doub
     return (short)ret;
 }
 
-short DigitalWaveguide::passStringDF(const DelayData& _data, double _damp) const
-{
-    assert(_damp >= 0.0 && _damp <= 1.0);
-
-    WaveData ext = extractFrontData(_data, 2);
-    double sum = (1.0 - _damp) * (double)ext[0] + _damp * (double)ext[1];
-
-    return (short)sum;
-}
-
 short DigitalWaveguide::passStringAPF(const DelayData& _data, short _prev, double _damp) const
 {
     assert(_damp >= -1.0 && _damp <= 1.0);
@@ -117,9 +107,19 @@ short DigitalWaveguide::passStringAPF(const DelayData& _data, short _prev, doubl
     return (short)sum;
 }
 
-DelayData DigitalWaveguide::passPickDirectionLPF(const DelayData& _data, double _dir) const
+short DigitalWaveguide::passStringDF(const DelayData& _data, double _freq, double _damp, double _decay) const
 {
-    assert(_dir >= 0.0 && _dir <= 1.0);
+    assert(_damp >= 0.0 && _damp <= 1.0);
+
+    WaveData ext = extractFrontData(_data, 2);
+    double sum = pow(0.01, 1.0 / _freq / _decay) * ((1.0 - _damp) * (double)ext[0] + _damp * (double)ext[1]);
+
+    return (short)sum;
+}
+
+DelayData DigitalWaveguide::passStringElasticModulusLPF(const DelayData& _data, double _mod) const
+{
+    assert(_mod >= 0.0 && _mod <= 1.0);
 
     DelayData ret;
     WaveData ext = extractFrontData(_data);
@@ -128,7 +128,7 @@ DelayData DigitalWaveguide::passPickDirectionLPF(const DelayData& _data, double 
 
     for (unsigned long long i = 0; i < _data.size(); ++i)
     {
-        res = (1.0 - _dir) * (double)ext[i] + _dir * res;
+        res = _mod * (double)ext[i] + (1.0 - _mod) * res;
         ret.push(res);
     }
 

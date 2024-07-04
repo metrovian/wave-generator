@@ -38,11 +38,12 @@ PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigne
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _damp, double _tune, double _dir, double _pos)
+PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _decay, double _damp, double _tune, double _mod, double _pos)
 {
+    decay = _decay;
     damp = _damp;
     tune = _tune;
-    dir = _dir;
+    modulus = _mod;
     pos = _pos;
 
     synthesis(_namp, _freq, _dura, _srate, _sbit);
@@ -57,7 +58,7 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
     
     if (rand.size() > 0)
     {
-        DelayData proc1 = passPickDirectionLPF(rand, dir);
+        DelayData proc1 = passStringElasticModulusLPF(rand, modulus);
         DelayData proc2 = passStringPositionCF(proc1, pos);
         DelayData proc3;
 
@@ -66,7 +67,7 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
         double buf = 0;
         auto flap = [&]()
             {
-                proc3.push(passStringDF(proc2m1, damp));
+                proc3.push(passStringDF(proc2m1, _freq, damp, decay));
 
                 proc2.push(passStringAPF(proc3, buf, tune));
                 proc2m1.push(passStringAPF(proc3, buf, tune));
@@ -78,7 +79,7 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
             };
 
         dat[0] = passDynamicLPF(proc2, 0, _freq);
-        proc3.push(passStringDF(proc2, damp));
+        proc3.push(passStringDF(proc2, _freq, damp, decay));
 
         flap();
 

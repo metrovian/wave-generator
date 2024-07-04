@@ -15,12 +15,12 @@ protected: /* delay */
 protected: /* filter */
 	short passSimpleLPF(const DelayData& _data, unsigned char _pow) const;
 	short passDynamicLPF(const DelayData& _data, short _prev, double _freq) const;
-	short passStringDF(const DelayData& _data, double _damp) const;
 	short passStringAPF(const DelayData& _data, short _prev, double _damp) const;
+	short passStringDF(const DelayData& _data, double _freq, double _damp, double _decay) const;
 	short passLPCF(const DelayData& _data) const;
 
 protected: /* batch-filter */
-	DelayData passPickDirectionLPF(const DelayData& _data, double _dir) const;
+	DelayData passStringElasticModulusLPF(const DelayData& _data, double _mod) const;
 	DelayData passStringPositionCF(const DelayData& _data, double _pos) const;
 
 public: /* public use */
