@@ -20,8 +20,8 @@ protected: /* filter */
 	short passLPCF(const DelayData& _data) const;
 
 protected: /* batch-filter */
-	DelayData passPickDirectionLPF(const DelayData& _data, double _pick) const;
-	DelayData passPickPositionCF(const DelayData& _data, double _pick) const;
+	DelayData passPickDirectionLPF(const DelayData& _data, double _dir) const;
+	DelayData passStringPositionCF(const DelayData& _data, double _pos) const;
 
 public: /* public use */
 	WaveFunction castWaveFunction();

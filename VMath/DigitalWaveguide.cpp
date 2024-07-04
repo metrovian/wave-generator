@@ -117,9 +117,9 @@ short DigitalWaveguide::passStringAPF(const DelayData& _data, short _prev, doubl
     return (short)sum;
 }
 
-DelayData DigitalWaveguide::passPickDirectionLPF(const DelayData& _data, double _pick) const
+DelayData DigitalWaveguide::passPickDirectionLPF(const DelayData& _data, double _dir) const
 {
-    assert(_pick >= 0.0 && _pick <= 1.0);
+    assert(_dir >= 0.0 && _dir <= 1.0);
 
     DelayData ret;
     WaveData ext = extractFrontData(_data);
@@ -128,22 +128,22 @@ DelayData DigitalWaveguide::passPickDirectionLPF(const DelayData& _data, double 
 
     for (unsigned long long i = 0; i < _data.size(); ++i)
     {
-        res = (1.0 - _pick) * (double)ext[i] + _pick * res;
+        res = (1.0 - _dir) * (double)ext[i] + _dir * res;
         ret.push(res);
     }
 
     return ret;
 }
 
-DelayData DigitalWaveguide::passPickPositionCF(const DelayData& _data, double _pick) const
+DelayData DigitalWaveguide::passStringPositionCF(const DelayData& _data, double _pos) const
 {
-    assert(_pick >= 0.0 && _pick <= 1.0);
+    assert(_pos >= 0.0 && _pos <= 1.0);
 
     DelayData ret;
     WaveData ext = extractFrontData(_data);
 
-    unsigned long long delay1 = (unsigned long long)ceil(_pick * (double)_data.size());
-    unsigned long long delay2 = (unsigned long long)ceil((1.0 - _pick) * (double)_data.size());
+    unsigned long long delay1 = (unsigned long long)ceil(_pos * (double)_data.size());
+    unsigned long long delay2 = (unsigned long long)ceil((1.0 - _pos) * (double)_data.size());
 
     for (unsigned long long i = 0; i < _data.size(); ++i)
     {

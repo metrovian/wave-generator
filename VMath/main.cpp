@@ -9,6 +9,7 @@
 #include "MIDI.h"
 #include "DigitalWaveguide.h"
 #include "PluckStringKS.h"
+#include "BowStringLP.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -45,8 +46,22 @@ int main()
     //PluckStringEKS X(0.2, E5, 5.0, 44100, 16);
     //X.playWave();
 
-    //PluckStringKS Y(0.02, A4, 2.0, 44100, 16);
-    //Y.playWave();
+    //PluckStringEKS X(0.80, G3, 0.5, 44100, 16, 0.3, 0.1, 0.9, 0.1);
+    //
+    //PluckStringEKS Xs(0.80, G3, 0.5, 44100, 16, 0.3, 0.1, 0.1, 0.1);
+    //X.playWave();
+    //Xs.playWave();
+    //X.playWave();
+    //Xs.playWave();
+    //X.playWave();
+    //Xs.playWave();
+    //X.playWave();
+    //Xs.playWave();
+    //X.playWave();
+    //Xs.playWave();
+
+    BowStringLP Y(0.80, E2, 2.0, 44100, 16);
+    Y.playWave();
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     //FourierFunction ok(test);
 
@@ -96,13 +111,7 @@ int main()
     //s6k.playWave();
 
 
-    //auto func2 = [](double a, double b, double c)
-    //    {
-    //        PluckStringKS s(a, b * pow(2.0, 3.0 / 12.0) / 2.0, c, 44100, 16);
-    //        return s.castWaveFunction();
-    //        //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
-    //    };
-    MelodyFunction s = MelodyFunction::cannon(90);
+    MelodyFunction s = MelodyFunction::cannon(150);
     WaveFunction l1 = s.getWaveFunction(func);
 
     l1.playWave();

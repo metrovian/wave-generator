@@ -58,7 +58,7 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
     if (rand.size() > 0)
     {
         DelayData proc1 = passPickDirectionLPF(rand, dir);
-        DelayData proc2 = passPickPositionCF(proc1, pos);
+        DelayData proc2 = passStringPositionCF(proc1, pos);
         DelayData proc3;
 
         DelayData proc2m1 = proc2; proc2m1.pop();
