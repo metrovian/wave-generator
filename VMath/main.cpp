@@ -47,12 +47,12 @@ int main()
     //X.playWave();
 
 
-    PluckStringEKS X5(0.80, E4, 5.5, 44100, 16, 15.0, 0.3, 0.1, 0.9, 0.1); // electric? nylon? 
-    PluckStringEKS Xs5(0.80, E4, 5.5, 44100, 16, 15.0, 0.3, 0.1, 0.1, 0.1); // acoustic
+    //PluckStringEKS X5(0.80, E5, 5.5, 44100, 16, 15.0, 0.3, 0.1, 0.9, 0.1);
+    //PluckStringEKS Xs5(0.80, E5, 5.5, 44100, 16, 15.0, 0.3, 0.1, 0.1, 0.1);
 
 
-    X5.playWave();
-    Xs5.playWave();
+    //X5.playWave();
+    //Xs5.playWave();
 
     //X.playWave();
     //Xs.playWave();
@@ -63,7 +63,7 @@ int main()
     //X.playWave();
     //Xs.playWave();
 
-    BowStringLP Y(0.80, E2, 2.0, 44100, 16);
+    BowStringLP Y(0.80, E4, 2.0, 44100, 16);
     Y.playWave();
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     //FourierFunction ok(test);

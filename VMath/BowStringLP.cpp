@@ -22,7 +22,7 @@ bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned s
         {
             dat[i] = passDynamicLPF(proc1, dat[i - 1], _freq);
 
-            proc1.push(passStringDF(proc1, _freq, damp, 1.0));
+            proc1.push(passStringDF(proc1, _freq, damp, 100.0));
             proc1.pop();
         }
     }
