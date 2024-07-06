@@ -67,6 +67,9 @@
     <ClInclude Include="BowStringLP.h">
       <Filter>Acoustic Wave\Sound Synthesis\Digital Waveguide\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="EigenMatrix.h">
+      <Filter>Acoustic Wave\Data Structure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -100,6 +103,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BowStringLP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EigenMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

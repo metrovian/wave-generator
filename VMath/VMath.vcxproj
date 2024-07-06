@@ -132,6 +132,7 @@
     <ClInclude Include="AmplitudeModulation.h" />
     <ClInclude Include="BowStringLP.h" />
     <ClInclude Include="DigitalWaveguide.h" />
+    <ClInclude Include="EigenMatrix.h" />
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyModulation.h" />
     <ClInclude Include="MelodyFunction.h" />
@@ -145,6 +146,7 @@
     <ClCompile Include="AmplitudeModulation.cpp" />
     <ClCompile Include="BowStringLP.cpp" />
     <ClCompile Include="DigitalWaveguide.cpp" />
+    <ClCompile Include="EigenMatrix.cpp" />
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />
     <ClCompile Include="main.cpp" />

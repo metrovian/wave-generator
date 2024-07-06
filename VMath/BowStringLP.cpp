@@ -20,10 +20,14 @@ bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned s
         dat[0] = 0;
         for (unsigned long long i = 1; i < dat.size(); ++i)
         {
-            dat[i] = passDynamicLPF(proc1, dat[i - 1], _freq);
+            //dat[i] = passDynamicLPF(proc1, dat[i - 1], _freq);
+            dat[i] = proc1.front();
 
-            proc1.push(passStringDF(proc1, _freq, damp, 100.0));
+            proc1.push(passAutoRegressionLPC(proc1, 21));
+            //proc1.push(proc1.front());
             proc1.pop();
+
+            std::cout << (double)i / (double)dat.size() << std::endl;
         }
     }
 

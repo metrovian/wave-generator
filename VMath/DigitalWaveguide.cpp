@@ -117,6 +117,38 @@ short DigitalWaveguide::passStringDF(const DelayData& _data, double _freq, doubl
     return (short)sum;
 }
 
+short DigitalWaveguide::passAutoRegressionLPC(const DelayData& _data, unsigned char _num) const
+{
+    WaveData ext = extractFrontData(_data);
+
+    if (_data.size() > (unsigned long long)_num)
+    {
+        unsigned long long rows = _data.size() - (unsigned long long)_num;
+
+        Eigen::VectorXd answer(rows);
+        Eigen::MatrixXd clue(rows, _num);
+
+        for (unsigned long long i = 0; i < rows; ++i)
+        {
+            answer(i) = ext[i];
+
+            for (unsigned long long j = 1; j < (unsigned long long)_num + 1; ++j)
+            {
+                clue(i, j - 1) = ext[i + j];
+            }
+        }
+
+        Eigen::VectorXd lpc = pinv(clue) * answer;
+
+        return lpc.dot(clue.row(0));
+    }
+
+    else
+    {
+        return _data.front();
+    }
+}
+
 DelayData DigitalWaveguide::passStringElasticModulusLPF(const DelayData& _data, double _mod) const
 {
     assert(_mod >= 0.0 && _mod <= 1.0);

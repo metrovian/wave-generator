@@ -63,7 +63,7 @@ int main()
     //X.playWave();
     //Xs.playWave();
 
-    BowStringLP Y(0.80, E4, 2.0, 44100, 16);
+    BowStringLP Y(0.80, B5, 1.0, 44100, 16);
     Y.playWave();
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     //FourierFunction ok(test);
