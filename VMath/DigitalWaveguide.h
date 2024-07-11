@@ -23,6 +23,7 @@ protected: /* filter */
 protected: /* batch-filter */
 	DelayData passStringElasticModulusLPF(const DelayData& _data, double _mod) const;
 	DelayData passStringPositionCF(const DelayData& _data, double _pos) const;
+	WaveData passAutoRegressionLPC(const WaveData& _data, unsigned char _num) const;
 
 public: /* public use */
 	WaveFunction castWaveFunction();

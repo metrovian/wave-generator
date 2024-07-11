@@ -138,10 +138,9 @@ short DigitalWaveguide::passAutoRegressionLPC(const DelayData& _data, unsigned c
             }
         }
 
-        static Eigen::VectorXd lpc = pinv(clue) * answer;
+        Eigen::VectorXd lpc = pinvSVD(clue) * answer;
 
-        std::cout << lpc << std::endl;
-
+        //std::cout << lpc.dot(clue.row(0)) - answer(0) << std::endl;
         return lpc.dot(clue.row(0));
     }
 
@@ -189,6 +188,43 @@ DelayData DigitalWaveguide::passStringPositionCF(const DelayData& _data, double 
     }
 
     return ret;
+}
+
+WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned char _num) const
+{
+    WaveData ret(_data.size());
+
+    if (_data.size() > (unsigned long long)_num)
+    {
+        unsigned long long rows = _data.size() - (unsigned long long)_num;
+
+        Eigen::VectorXd answer(rows);
+        Eigen::MatrixXd clue(rows, _num);
+
+        for (unsigned long long i = 0; i < rows; ++i)
+        {
+            answer(i) = _data[i];
+
+            for (unsigned long long j = 1; j < (unsigned long long)_num + 1; ++j)
+            {
+                clue(i, j - 1) = _data[i + j];
+            }
+        }
+        
+        Eigen::VectorXd lpc = pinvMP(clue) * answer;
+        
+        for (unsigned long long i = 0; i < _data.size(); ++i)
+        {
+            ret[i] = lpc.dot(clue.row(i));
+        }
+
+        return ret;
+    }
+
+    else
+    {
+        return _data;
+    }
 }
 
 WaveFunction DigitalWaveguide::castWaveFunction()
