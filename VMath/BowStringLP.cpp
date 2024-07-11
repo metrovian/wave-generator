@@ -1,11 +1,11 @@
 #include "BowStringLP.h"
 
-BowStringLP::BowStringLP(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+BowStringLP::BowStringLP(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     setWaveHeader(_srate, _sbit);
 
@@ -23,11 +23,9 @@ bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned s
             //dat[i] = passDynamicLPF(proc1, dat[i - 1], _freq);
             dat[i] = proc1.front();
 
-            proc1.push(passAutoRegressionLPC(proc1, 21));
+            proc1.push(passAutoRegressionLPC(proc1, 80));
             //proc1.push(proc1.front());
             proc1.pop();
-
-            std::cout << (double)i / (double)dat.size() << std::endl;
         }
     }
 

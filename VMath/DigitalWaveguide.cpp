@@ -138,7 +138,9 @@ short DigitalWaveguide::passAutoRegressionLPC(const DelayData& _data, unsigned c
             }
         }
 
-        Eigen::VectorXd lpc = pinv(clue) * answer;
+        static Eigen::VectorXd lpc = pinv(clue) * answer;
+
+        std::cout << lpc << std::endl;
 
         return lpc.dot(clue.row(0));
     }

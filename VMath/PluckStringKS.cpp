@@ -1,17 +1,17 @@
 #include "PluckStringKS.h"
 
-PluckStringKS::PluckStringKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+PluckStringKS::PluckStringKS(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-PluckStringKS::PluckStringKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, unsigned char _pow)
+PluckStringKS::PluckStringKS(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, unsigned char _pow)
 {
     pow = _pow;
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-bool PluckStringKS::synthesis(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+bool PluckStringKS::synthesis(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     setWaveHeader(_srate, _sbit);
 
@@ -33,12 +33,12 @@ bool PluckStringKS::synthesis(double _namp, double _freq, double _dura, unsigned
     return true;
 }
 
-PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _decay, double _damp, double _tune, double _mod, double _pos)
+PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, double _decay, double _damp, double _tune, double _mod, double _pos)
 {
     decay = _decay;
     damp = _damp;
@@ -49,7 +49,7 @@ PluckStringEKS::PluckStringEKS(double _namp, double _freq, double _dura, unsigne
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     setWaveHeader(_srate, _sbit);
 

@@ -63,8 +63,9 @@ int main()
     //X.playWave();
     //Xs.playWave();
 
-    BowStringLP Y(0.80, B5, 1.0, 44100, 16);
+    BowStringLP Y(0.80, B4, 1.0, 99100, 16);
     Y.playWave();
+    //Y.exportWave("NORMAL");
     //WaveFunction test = WaveFunction::sqr(0.02, 2000, 5.0, 44100, 16, 0.3);
     //FourierFunction ok(test);
 
@@ -114,10 +115,10 @@ int main()
     //s6k.playWave();
 
 
-    MelodyFunction s = MelodyFunction::cannon(150);
-    WaveFunction l1 = s.getWaveFunction(func);
+    //MelodyFunction s = MelodyFunction::cannon(150);
+    //WaveFunction l1 = s.getWaveFunction(func);
 
-    l1.playWave();
+    //l1.playWave();
     //(l1).exportWave("C:\\Users\\lovel\\Desktop\\cannon_newks_mod");
 
 

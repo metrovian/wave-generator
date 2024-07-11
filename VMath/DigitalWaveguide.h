@@ -28,5 +28,5 @@ public: /* public use */
 	WaveFunction castWaveFunction();
 
 protected: /* virtual */
-	virtual bool synthesis(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit) = 0;
+	virtual bool synthesis(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit) = 0;
 };

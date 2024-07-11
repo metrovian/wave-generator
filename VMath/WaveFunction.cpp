@@ -112,7 +112,7 @@ bool WaveFunction::isWaveFile(const std::string& _fname)
     return isWaveHeader(head);
 }
 
-bool WaveFunction::setWaveHeader(unsigned short _srate, unsigned short _sbit)
+bool WaveFunction::setWaveHeader(unsigned int _srate, unsigned short _sbit)
 {
     if (_sbit % 8 != 0) return false;
 
@@ -145,7 +145,7 @@ bool WaveFunction::setWaveData(const WaveData& _data)
     return true;
 }
 
-unsigned long long WaveFunction::calcWaveDataSize(double _dura, unsigned short _srate)
+unsigned long long WaveFunction::calcWaveDataSize(double _dura, unsigned int _srate)
 {
     return (unsigned long long)(_dura * (double)_srate);
 }
@@ -160,7 +160,7 @@ bool WaveFunction::setWaveFunction(const WaveData& _data, const WaveHeader& _hea
     return setWaveFunction(_data, _header.SAMPLE_RATE, _header.BIT_PER_SAMPLE);
 }
 
-bool WaveFunction::setWaveFunction(const WaveData& _data, unsigned short _srate, unsigned short _sbit)
+bool WaveFunction::setWaveFunction(const WaveData& _data, unsigned int _srate, unsigned short _sbit)
 {
     bool cond1 = setWaveData(_data);
     bool cond2 = setWaveHeader(_srate, _sbit);
@@ -403,7 +403,7 @@ short WaveFunction::getWaveData(unsigned long long _tdx) const
     return wdata[_tdx];
 }
 
-WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     WaveFunction ret;
     WaveData dat;
@@ -426,7 +426,7 @@ WaveFunction WaveFunction::sin(double _namp, double _freq, double _dura, unsigne
     return ret;
 }
 
-WaveFunction WaveFunction::sqr(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, double _duty)
+WaveFunction WaveFunction::sqr(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, double _duty)
 {
     WaveFunction ret;
     WaveData dat;
@@ -456,7 +456,7 @@ WaveFunction WaveFunction::sqr(double _namp, double _freq, double _dura, unsigne
     return ret;
 }
 
-WaveFunction WaveFunction::tri(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit)
+WaveFunction WaveFunction::tri(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     WaveFunction ret;
     WaveData dat;
@@ -488,7 +488,7 @@ WaveFunction WaveFunction::tri(double _namp, double _freq, double _dura, unsigne
     return ret;
 }
 
-WaveFunction WaveFunction::saw(double _namp, double _freq, double _dura, unsigned short _srate, unsigned short _sbit, bool _reverse)
+WaveFunction WaveFunction::saw(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, bool _reverse)
 {
     WaveFunction ret;
     WaveData dat;
@@ -519,7 +519,7 @@ WaveFunction WaveFunction::saw(double _namp, double _freq, double _dura, unsigne
     return ret;
 }
 
-WaveFunction WaveFunction::ofs(double _ofs, double _dura, unsigned short _srate, unsigned short _sbit)
+WaveFunction WaveFunction::ofs(double _ofs, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     WaveFunction ret;
     WaveData dat;
