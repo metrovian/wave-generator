@@ -135,6 +135,7 @@
     <ClInclude Include="EigenMatrix.h" />
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyModulation.h" />
+    <ClInclude Include="HammerStringCM.h" />
     <ClInclude Include="MelodyFunction.h" />
     <ClInclude Include="MIDI.h" />
     <ClInclude Include="Predefined.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="EigenMatrix.cpp" />
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />
+    <ClCompile Include="HammerStringCM.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="MIDI.cpp" />
