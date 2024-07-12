@@ -18,13 +18,24 @@
 
 int main() 
 {
+    //BowStringLP Y(0.80, G1, 1.0, 44100, 16);
+    //Y.playWave();
+
+    //BowStringLP Y2(0.80, D2, 1.0, 44100, 16);
+    //Y2.playWave();
+
+    
+    BowStringLP Y3(0.80, G4, 1.0, 44100, 16);
+    FrequencyModulation::vibrato(Y3.castWaveFunction(), G4, 5.0, 0.7).playWave();
 
     auto func = [](double a, double b, double c)
         {
-            PluckStringEKS s(a, b * pow(2.0, 3.0/12.0) / 2.0, c, 44100, 16);
-            WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
-            //return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-            return *k;
+            BowStringLP Y(a, b / 2.0, c, 44100, 16);
+            return FrequencyModulation::vibrato(Y.castWaveFunction(), b / 2.0, 5.0, 0.7);
+            //PluckStringEKS s(a, b * pow(2.0, 3.0/12.0) / 2.0, c, 44100, 16);
+            //WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
+            ////return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+            //return *k;
             //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
         };
     //auto func2 = [](double a, double b)
@@ -63,8 +74,10 @@ int main()
     //X.playWave();
     //Xs.playWave();
 
-    BowStringLP Y(0.80, G2, 2.0, 44100, 16);
-    Y.playWave();
+    //BowStringLP Y(0.80, C2, 2.0, 44100, 16);
+    //Y.playWave();
+
+    //WaveFunction::sqr(0.80, G2, 2.0, 44100, 16, 0.2).playWave();
     //FourierFunction Z(Y.castWaveFunction());
     //Z.exportWaveSpectrum("NORM");
     //Y.exportWave("NORMAL");
@@ -117,10 +130,10 @@ int main()
     //s6k.playWave();
 
 
-    //MelodyFunction s = MelodyFunction::cannon(150);
-    //WaveFunction l1 = s.getWaveFunction(func);
+    MelodyFunction s = MelodyFunction::over_the_rainbow(80);
+    WaveFunction l1 = s.getWaveFunction(func);
 
-    //l1.playWave();
+    l1.playWave();
     //(l1).exportWave("C:\\Users\\lovel\\Desktop\\cannon_newks_mod");
 
 

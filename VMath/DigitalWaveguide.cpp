@@ -203,7 +203,7 @@ WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned
 
         for (unsigned long long i = 0; i < rows; ++i)
         {
-            answer(i) = _data[i];
+            answer(i) = _data[i]; 
 
             for (unsigned long long j = 1; j < (unsigned long long)_num + 1; ++j)
             {
@@ -213,7 +213,7 @@ WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned
         
         Eigen::VectorXd lpc = pinvMP(clue) * answer;
         
-        for (unsigned long long i = 0; i < _data.size(); ++i)
+        for (unsigned long long i = 0; i < rows; ++i)
         {
             ret[i] = lpc.dot(clue.row(i));
         }
