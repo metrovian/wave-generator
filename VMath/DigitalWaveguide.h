@@ -18,7 +18,6 @@ protected: /* filter */
 	short passDynamicLPF(const DelayData& _data, short _prev, double _freq) const;
 	short passStringAPF(const DelayData& _data, short _prev, double _damp) const;
 	short passStringDF(const DelayData& _data, double _freq, double _damp, double _decay) const;
-	short passAutoRegressionLPC(const DelayData& _data, unsigned char _num) const;
 
 protected: /* batch-filter */
 	DelayData passStringElasticModulusLPF(const DelayData& _data, double _mod) const;

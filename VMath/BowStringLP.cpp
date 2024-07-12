@@ -1,7 +1,40 @@
 #include "BowStringLP.h"
 
+double BowStringLP::linearBow(double _decay, double _bwmax, double _bwrel, double _rtime) const
+{
+    double min = 0.01;
+
+    if (_rtime < _bwmax)
+    {
+        return min + _rtime * decay / bwmax;
+    }
+
+    else if (_rtime < _bwrel)
+    {
+        return min + decay;
+    }
+
+    else
+    {
+        return min + (1.0 - _rtime) * decay;
+    }
+}
+
 BowStringLP::BowStringLP(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
+    synthesis(_namp, _freq, _dura, _srate, _sbit);
+}
+
+BowStringLP::BowStringLP(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, unsigned char _band, unsigned char _pnum, double _mod, double _pos, double _decay, double _bwmax, double _bwrel)
+{
+    band = _band;
+    pnum = _pnum;
+    modulus = _mod;
+    pos = _pos;
+    decay = _decay;
+    bwmax = _bwmax;
+    bwrel = _bwrel;
+
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
@@ -20,28 +53,13 @@ bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned i
         DelayData proc2 = proc1;
         
         dat[0] = 0;
+
         for (unsigned long long i = 1; i < dat.size(); ++i)
         {
             dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq);
 
-            double dcy = 0.0;
-            if ((double)i < (double)dat.size() * start)
-            {
-                dcy = 0.01 + ((double)i / (double)dat.size()) * decay / start;
-            }
-
-            else if ((double)i < (double)dat.size() * end)
-            {
-                dcy = 0.01 + decay;
-            }
-
-            else
-            {
-                dcy = 0.01 + (1.0 - (double)i / (double)dat.size()) * decay;
-            }
-
             raw2.push(raw2.front());
-            proc1.push(passStringDF(raw2, _freq, 0.0, dcy));
+            proc1.push(passStringDF(raw2, _freq, 0.0, linearBow(decay, bwmax, bwrel, (double)i / (double)dat.size())));
             proc2.push(passStringDF(proc1, _freq, 0.5, decay));
 
             raw2.pop();
@@ -49,8 +67,7 @@ bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned i
             proc2.pop();
         }
 
-        //setWaveData(dat);
-        setWaveData(passAutoRegressionLPC(dat, num));
+        setWaveData(passAutoRegressionLPC(dat, pnum));
     }
 
     else

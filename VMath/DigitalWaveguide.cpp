@@ -56,14 +56,14 @@ DelayData DigitalWaveguide::calcBandLimDelayLine(double _namp, double _freq, uns
             for (unsigned long long i = 0; i < size; ++i)
             {
                 double sum = 0;
-                for (unsigned long long j = 1; j < (unsigned long long)_band; ++j)
+                for (unsigned long long j = 0; j < (unsigned long long)_band * 1000; ++j)
                 {
-                    sum += cos(2.0 * PI * _freq * dt * (double)i * (double)j);
+                    sum += cos(2.0 * PI * _freq * dt * (double)i * (1 + (double)j / 1000.0));
                 }
 
                 ret.push((short)(ramp * sum / (double)_band));
             }
-
+             
             return ret;
         }
     }
@@ -115,39 +115,6 @@ short DigitalWaveguide::passStringDF(const DelayData& _data, double _freq, doubl
     double sum = pow(0.01, 1.0 / _freq / _decay) * ((1.0 - _damp) * (double)ext[0] + _damp * (double)ext[1]);
 
     return (short)sum;
-}
-
-short DigitalWaveguide::passAutoRegressionLPC(const DelayData& _data, unsigned char _num) const
-{
-    WaveData ext = extractFrontData(_data);
-
-    if (_data.size() > (unsigned long long)_num)
-    {
-        unsigned long long rows = _data.size() - (unsigned long long)_num;
-
-        Eigen::VectorXd answer(rows);
-        Eigen::MatrixXd clue(rows, _num);
-
-        for (unsigned long long i = 0; i < rows; ++i)
-        {
-            answer(i) = ext[i];
-
-            for (unsigned long long j = 1; j < (unsigned long long)_num + 1; ++j)
-            {
-                clue(i, j - 1) = ext[i + j];
-            }
-        }
-
-        Eigen::VectorXd lpc = pinvSVD(clue) * answer;
-
-        //std::cout << lpc.dot(clue.row(0)) - answer(0) << std::endl;
-        return lpc.dot(clue.row(0));
-    }
-
-    else
-    {
-        return _data.front();
-    }
 }
 
 DelayData DigitalWaveguide::passStringElasticModulusLPF(const DelayData& _data, double _mod) const
@@ -212,7 +179,7 @@ WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned
         }
         
         Eigen::VectorXd lpc = pinvMP(clue) * answer;
-        
+
         for (unsigned long long i = 0; i < rows; ++i)
         {
             ret[i] = lpc.dot(clue.row(i));
