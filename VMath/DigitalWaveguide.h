@@ -12,6 +12,7 @@ protected: /* parts */
 protected: /* delay */
 	DelayData calcRandomDelayLine(double _namp, double _freq);
 	DelayData calcBandLimDelayLine(double _namp, double _freq, unsigned char _band);
+	DelayData calcImpulseDelayLine(double _namp, double _freq, double _istar, double _iend);
 
 protected: /* filter */
 	short passSimpleLPF(const DelayData& _data, unsigned char _pow) const;

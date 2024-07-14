@@ -71,6 +71,30 @@ DelayData DigitalWaveguide::calcBandLimDelayLine(double _namp, double _freq, uns
     return std::queue<short>();
 }
 
+DelayData DigitalWaveguide::calcImpulseDelayLine(double _namp, double _freq, double _istar, double _iend)
+{
+    if (_freq > 0)
+    {
+        double ramp = _namp * pow(2.0, (double)header.BIT_PER_SAMPLE - 1.0);
+        unsigned long long size = (unsigned long long)((double)header.SAMPLE_RATE / _freq);
+
+        if (size > 0)
+        {
+            std::queue<short> ret;
+            for (unsigned long long i = 0; i < size; ++i)
+            {
+                if (i < (unsigned long long)(_istar * size)) ret.push(0);
+                else if (i < (unsigned long long)(_iend * size)) ret.push((short)ramp);
+                else ret.push(0);
+            }
+
+            return ret;
+        }
+    }
+
+    return std::queue<short>();
+}
+
 short DigitalWaveguide::passSimpleLPF(const DelayData& _data, unsigned char _pow) const
 {
     assert(_data.size() > _pow);

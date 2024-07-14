@@ -10,6 +10,7 @@
 #include "DigitalWaveguide.h"
 #include "PluckStringKS.h"
 #include "BowStringLP.h"
+#include "HammerStringCM.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -24,20 +25,25 @@ int main()
     //BowStringLP Y2(0.80, D2, 1.0, 44100, 16);
     //Y2.playWave();
 
-    
-    BowStringLP Y3(0.80, G4, 1.0, 44100, 16);
-    FrequencyModulation::vibrato(Y3.castWaveFunction(), G4, 5.0, 0.7).playWave();
+    HammerStringCM Z(0.80, G3, 1.0, 44100, 16);
+    Z.playWave();
 
-    auto func = [](double a, double b, double c)
-        {
-            BowStringLP Y(a, b, c, 44100, 16);
-            return FrequencyModulation::vibrato(Y.castWaveFunction(), b, 5.0, 0.7);
-            //PluckStringEKS s(a, b * pow(2.0, 3.0/12.0) / 2.0, c, 44100, 16);
-            //WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
-            ////return WaveFunction::saw(0.02, a, b, 44100, 16, false);
-            //return *k;
-            //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
-        };
+    PluckStringKS X(0.80, G3, 1.0, 44100, 16);
+    X.playWave();
+
+    //BowStringLP Y3(0.80, G4, 1.0, 44100, 16);
+    //FrequencyModulation::vibrato(Y3.castWaveFunction(), G4, 5.0, 0.7).playWave();
+
+    //auto func = [](double a, double b, double c)
+    //    {
+    //        BowStringLP Y(a, b, c, 44100, 16);
+    //        return FrequencyModulation::vibrato(Y.castWaveFunction(), b, 5.0, 0.7);
+    //        //PluckStringEKS s(a, b * pow(2.0, 3.0/12.0) / 2.0, c, 44100, 16);
+    //        //WaveFunction* k = dynamic_cast<WaveFunction*>(&s);
+    //        ////return WaveFunction::saw(0.02, a, b, 44100, 16, false);
+    //        //return *k;
+    //        //return KarplusStrong::synthesis(0.02, a, b, 44100, 16, KarplusStrong::decayMoveAverage, 2);
+    //    };
     //auto func2 = [](double a, double b)
     //    {
     //        PluckStringEKS s(0.8, a, b, 44100, 16);
@@ -130,10 +136,10 @@ int main()
     //s6k.playWave();
 
 
-    MelodyFunction s = MelodyFunction::over_the_rainbow(80);
-    WaveFunction l1 = s.getWaveFunction(func);
+    //MelodyFunction s = MelodyFunction::over_the_rainbow(80);
+    //WaveFunction l1 = s.getWaveFunction(func);
 
-    l1.playWave();
+    //l1.playWave();
     //(l1).exportWave("C:\\Users\\lovel\\Desktop\\cannon_newks_mod");
 
 
