@@ -1,4 +1,4 @@
-# V-Math #
+# Wave Generator #
 
 Personal mathematical software to understand dimensions in depth.
 
