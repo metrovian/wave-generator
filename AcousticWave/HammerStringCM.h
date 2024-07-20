@@ -6,7 +6,7 @@ class HammerStringCM : public DigitalWaveguide
 private: /* data */
 	double imps[3] = { 0.200, 0.600, 0.800 };
 	double impe[3] = { 0.250, 0.650, 0.850 };
-	double modulus[3] = { 0.850, 0.450, 0.150 };
+	double modulus[3] = { 0.950, 0.850, 0.650 };
 	double decay = 3.500;
 
 public: /* constructor */
