@@ -38,7 +38,7 @@ int main()
         {
             //BowStringLP Y(a, b, c, 44100, 16);
             //return FrequencyModulation::vibrato(Y.castWaveFunction(), b, 5.0, 0.7);
-            HammerStringCM Z(a, b, c, 44100, 16);
+            HammerStringCM Z(a, b / 2.0, c, 44100, 16);
             return Z.castWaveFunction();
             //PluckStringEKS s(a, b * pow(2.0, 3.0/12.0) / 2.0, c, 44100, 16);
             //WaveFunction* k = dynamic_cast<WaveFunction*>(&s);

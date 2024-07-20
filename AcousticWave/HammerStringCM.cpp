@@ -5,45 +5,60 @@ HammerStringCM::HammerStringCM(double _namp, double _freq, double _dura, unsigne
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
+HammerStringCM::HammerStringCM(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, double* _imps, double* _impe, double* _mod, double _decay)
+{
+    if (sizeof(_imps) / sizeof(double) != 3) return;
+    if (sizeof(_impe) / sizeof(double) != 3) return;
+    if (sizeof(_mod) / sizeof(double) != 3) return;
+
+    for (unsigned char i = 0; i < 3; ++i)
+    {
+        imps[i] = _imps[i];
+        impe[i] = _impe[i];
+        modulus[i] = _mod[i];
+    }
+
+    synthesis(_namp, _freq, _dura, _srate, _sbit);
+}
+
 bool HammerStringCM::synthesis(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
     setWaveHeader(_srate, _sbit);
+    
+    DelayData impulse[3];
+    DelayData cmsum;
 
-    DelayData rand1 = calcImpulseDelayLine(_namp, _freq, 0.20, 0.29);
-    DelayData rand2 = calcImpulseDelayLine(_namp, _freq, 0.60, 0.65);
-    DelayData rand3 = calcImpulseDelayLine(_namp, _freq, 0.80, 0.82);
+    for (unsigned char i = 0; i < 3; ++i)
+    {
+        impulse[i] = calcImpulseDelayLine(_namp, _freq, imps[i], impe[i]);
+        impulse[i] = passStringElasticModulusLPF(impulse[i], modulus[i]);
+    }
 
-    rand1 = passStringElasticModulusLPF(rand1, 0.050);
-    rand2 = passStringElasticModulusLPF(rand2, 0.010);
-    rand3 = passStringElasticModulusLPF(rand3, 0.010);
-
-    unsigned long long size = rand1.size();
-
-    DelayData rand;
+    unsigned long long size = impulse[0].size();
     for (unsigned long long i = 0; i < size; ++i)
     {
-        rand.push(rand1.front());
+        cmsum.push(impulse[0].front() + impulse[1].front() + impulse[2].front());
 
-        rand1.pop();
-        rand2.pop();
-        rand3.pop();
+        impulse[0].pop();
+        impulse[1].pop();
+        impulse[2].pop();
     }
 
     WaveData dat(calcWaveDataSize(_dura, _srate));
 
-    if (rand.size() > 0)
+    if (cmsum.size() > 0)
     {
-        dat[0] = passDynamicLPF(rand, 0, _freq);
+        dat[0] = passDynamicLPF(cmsum, 0, _freq);
 
-        rand.push(passStringDF(rand, _freq, 0.9, 10.0));
-        rand.pop();
+        cmsum.push(passStringDF(cmsum, _freq, 0.1, decay));
+        cmsum.pop();
 
         for (unsigned long long i = 1; i < dat.size(); ++i)
         {
-            dat[i] = passDynamicLPF(rand, dat[i-1], _freq);
+            dat[i] = passDynamicLPF(cmsum, dat[i-1], _freq);
 
-            rand.push(passStringDF(rand, _freq, 0.5, 10.0));
-            rand.pop();
+            cmsum.push(passStringDF(cmsum, _freq, 0.1, decay));
+            cmsum.pop();
         }
     }
 
