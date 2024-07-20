@@ -5,12 +5,8 @@ HammerStringCM::HammerStringCM(double _namp, double _freq, double _dura, unsigne
     synthesis(_namp, _freq, _dura, _srate, _sbit);
 }
 
-HammerStringCM::HammerStringCM(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, double* _imps, double* _impe, double* _mod, double _decay)
+HammerStringCM::HammerStringCM(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, double _decay, double _mod[3], double _imps[3], double _impe[3])
 {
-    if (sizeof(_imps) / sizeof(double) != 3) return;
-    if (sizeof(_impe) / sizeof(double) != 3) return;
-    if (sizeof(_mod) / sizeof(double) != 3) return;
-
     for (unsigned char i = 0; i < 3; ++i)
     {
         imps[i] = _imps[i];

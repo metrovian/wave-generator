@@ -11,7 +11,7 @@ private: /* data */
 
 public: /* constructor */
 	HammerStringCM(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit);
-	HammerStringCM(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, double* _imps, double* _impe, double* _mod, double _decay);
+	HammerStringCM(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit, double _decay, double _mod[3], double _imps[3], double _impe[3]);
 
 protected: /* protected */
 	bool synthesis(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit) override;
