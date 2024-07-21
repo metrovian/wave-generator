@@ -3,6 +3,7 @@
 Personal mathematical software to understand dimensions in depth.
 
 ## Acoustic Wave [ 1+1D ] ##
+- MIDI device control
 - Time-frequency transform ( FFT / CWT )
 - Waveform modulation ( AM / FM )
 - Digital waveguide synthesis
