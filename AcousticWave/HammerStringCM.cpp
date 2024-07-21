@@ -27,6 +27,7 @@ bool HammerStringCM::synthesis(double _namp, double _freq, double _dura, unsigne
     for (unsigned char i = 0; i < 3; ++i)
     {
         impulse[i] = calcImpulseDelayLine(_namp, _freq, imps[i], impe[i]);
+        // impulse[i] = commuted response (impulse, ...);
         impulse[i] = passStringElasticModulusLPF(impulse[i], modulus[i]);
     }
 

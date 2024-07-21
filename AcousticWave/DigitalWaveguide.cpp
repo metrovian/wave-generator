@@ -181,6 +181,11 @@ DelayData DigitalWaveguide::passStringPositionCF(const DelayData& _data, double 
     return ret;
 }
 
+DelayData DigitalWaveguide::passSoundBoardCMF(const DelayData& _data, double _param) const
+{
+    return DelayData();
+}
+
 WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned char _num) const
 {
     WaveData ret(_data.size());

@@ -23,6 +23,7 @@ protected: /* filter */
 protected: /* batch-filter */
 	DelayData passStringElasticModulusLPF(const DelayData& _data, double _mod) const;
 	DelayData passStringPositionCF(const DelayData& _data, double _pos) const;
+	DelayData passSoundBoardCMF(const DelayData& _data, double _param) const;
 	WaveData passAutoRegressionLPC(const WaveData& _data, unsigned char _num) const;
 
 public: /* public use */
