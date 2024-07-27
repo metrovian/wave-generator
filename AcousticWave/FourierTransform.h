@@ -26,5 +26,7 @@ public: /* public use */
 	bool setHPF(double _freq, double _brate);
 	bool setBPF(double _freq1, double _freq2, double _brate);
 
+	bool setInverseFrequencyLPF(double _freq, double _invp);
+
 	bool exportWaveSpectrum(const std::string& _fname) const;
 };

@@ -27,14 +27,14 @@ bool HammerStringCM::synthesis(double _namp, double _freq, double _dura, unsigne
     for (unsigned char i = 0; i < 3; ++i)
     {
         impulse[i] = calcImpulseDelayLine(_namp, _freq, imps[i], impe[i]);
-        // impulse[i] = commuted response (impulse, ...);
+        impulse[i] = passSoundBoardCMF(impulse[i], _freq, invp, _srate, _sbit);
         impulse[i] = passStringElasticModulusLPF(impulse[i], modulus[i]);
     }
 
     unsigned long long size = impulse[0].size();
     for (unsigned long long i = 0; i < size; ++i)
     {
-        cmsum.push(impulse[0].front() + impulse[1].front() + impulse[2].front());
+        cmsum.push((short)((impulse[0].front() + impulse[1].front() + impulse[2].front()) / 3.0));
 
         impulse[0].pop();
         impulse[1].pop();
@@ -52,8 +52,8 @@ bool HammerStringCM::synthesis(double _namp, double _freq, double _dura, unsigne
 
         for (unsigned long long i = 1; i < dat.size(); ++i)
         {
-            dat[i] = passDynamicLPF(cmsum, dat[i-1], _freq);
-
+            dat[i] = passDynamicLPF(cmsum, dat[i - 1], _freq);
+            
             cmsum.push(passStringDF(cmsum, _freq, 0.1, decay));
             cmsum.pop();
         }

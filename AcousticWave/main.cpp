@@ -139,7 +139,7 @@ int main()
     //s6k.playWave();
 
 
-    MelodyFunction s = MelodyFunction::over_the_rainbow(80);
+    MelodyFunction s = MelodyFunction::cannon(120);
     WaveFunction l1 = s.getWaveFunction(func);
 
     l1.playWave();

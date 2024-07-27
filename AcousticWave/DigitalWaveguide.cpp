@@ -181,9 +181,24 @@ DelayData DigitalWaveguide::passStringPositionCF(const DelayData& _data, double 
     return ret;
 }
 
-DelayData DigitalWaveguide::passSoundBoardCMF(const DelayData& _data, double _param) const
+DelayData DigitalWaveguide::passSoundBoardCMF(const DelayData& _data, double _freq, double _invp, unsigned int _srate, unsigned short _sbit) const
 {
-    return DelayData();
+    DelayData ret;
+    WaveData ext = extractFrontData(_data);
+
+    WaveFunction wav;
+    wav.setWaveFunction(ext, _srate, _sbit);
+
+    FourierFunction fft(wav);
+    fft.setInverseFrequencyLPF(_freq, _invp);
+
+    WaveData res = fft.getWaveData();
+    for (const auto& sample : res)
+    {
+        ret.push(sample);
+    }
+
+    return ret;
 }
 
 WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned char _num) const

@@ -342,6 +342,25 @@ bool FourierFunction::setBPF(double _freq1, double _freq2, double _brate)
     return cond1 && cond2;
 }
 
+bool FourierFunction::setInverseFrequencyLPF(double _freq, double _invp)
+{
+    if (_freq < 0 || _invp < 0) return false;
+
+    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    {
+        if (getFrequency(i) > _freq)
+        {
+            fdata[i] *= pow(_freq / getFrequency(i), _invp);
+            fdata[fdata.size() - i - 1] *= pow(_freq / getFrequency(i), _invp);
+        }
+    }
+
+    bool cond1 = ifft();
+    bool cond2 = fft();
+
+    return cond1 && cond2;
+}
+
 bool FourierFunction::exportWaveSpectrum(const std::string& _fname) const
 {
     std::ofstream file(_fname + ".csv");

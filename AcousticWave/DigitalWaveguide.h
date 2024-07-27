@@ -1,6 +1,7 @@
 #pragma once
 #include "EigenMatrix.h"
 #include "WaveFunction.h"
+#include "FourierTransform.h"
 
 typedef std::queue<short> DelayData;
 class DigitalWaveguide : public WaveFunction
@@ -23,7 +24,7 @@ protected: /* filter */
 protected: /* batch-filter */
 	DelayData passStringElasticModulusLPF(const DelayData& _data, double _mod) const;
 	DelayData passStringPositionCF(const DelayData& _data, double _pos) const;
-	DelayData passSoundBoardCMF(const DelayData& _data, double _param) const;
+	DelayData passSoundBoardCMF(const DelayData& _data, double _freq, double _invp, unsigned int _srate, unsigned short _sbit) const;
 	WaveData passAutoRegressionLPC(const WaveData& _data, unsigned char _num) const;
 
 public: /* public use */
