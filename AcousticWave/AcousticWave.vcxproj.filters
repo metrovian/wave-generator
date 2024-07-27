@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Sound Synthesis">
+      <UniqueIdentifier>{1dcc60da-45a1-4285-9516-12844bfc1a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Digital Waveguide">
+      <UniqueIdentifier>{43c7d39a-2f80-472b-ae8a-488f2394d50f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Digital Waveguide\Base">
+      <UniqueIdentifier>{36109a0f-7c7e-46fc-8dc2-7fbe11819d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Digital Waveguide\Concrete">
+      <UniqueIdentifier>{91dbd8d3-58c5-45e2-8ac7-df1e49e2e879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structure">
+      <UniqueIdentifier>{ae12a065-478d-4f3d-90f2-3d1b15fadf60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Transform">
+      <UniqueIdentifier>{ca1177c0-33fe-4ff9-8be8-238d7f83d3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device Control">
+      <UniqueIdentifier>{4ded4dc8-2d61-49dc-a040-70a9adb91351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Modulaion">
+      <UniqueIdentifier>{af41e376-2bb0-4434-a82e-3c5b44358c26}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WaveFunction.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="FourierTransform.h">
+      <Filter>Data Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveletTransform.h">
+      <Filter>Data Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="MelodyFunction.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="AmplitudeModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequencyModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
+    <ClInclude Include="MIDI.h">
+      <Filter>Device Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Predefined.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DigitalWaveguide.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PluckStringKS.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="BowStringLP.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="EigenMatrix.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="HammerStringCM.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MelodyFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FourierTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveletTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrequencyModulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AmplitudeModulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MIDI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DigitalWaveguide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PluckStringKS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BowStringLP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EigenMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HammerStringCM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

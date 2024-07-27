@@ -19,12 +19,14 @@ protected: /* parts */
 	bool ifft();
 	FourierData getFFT() const;
 	FourierData getIFFT() const;
-	double getFrequency(unsigned long long _idx) const;
+	double getFrequency(unsigned long long _fdx) const;
 
 public: /* public use */
 	bool setLPF(double _freq, double _brate);
 	bool setHPF(double _freq, double _brate);
 	bool setBPF(double _freq1, double _freq2, double _brate);
+
+	bool setInverseFrequencyLPF(double _freq, double _invp);
 
 	bool exportWaveSpectrum(const std::string& _fname) const;
 };

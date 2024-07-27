@@ -1,17 +1,18 @@
-# V-Math #
+# Wave Generator #
 
 Personal mathematical software to understand dimensions in depth.
 
 ## Acoustic Wave [ 1+1D ] ##
-- Time-Frequency Transform ( FFT / CWT )
-- Waveform Modulation ( AM / FM )
-- Karplus-Strong Synthesis
-
+- MIDI device control
+- Time-frequency transform ( FFT / CWT )
+- Waveform modulation ( AM / FM )
+- Digital waveguide synthesis
+<br/></br>
 ## Gravitational Wave [ 3+1D ] ##
-- in Preparation
+- in preparation
 
-<br>
-<br>
-<br>
+<br/></br>
+<br/></br>
+<br/></br>
 
 Copyright (c) 2024 Vian Lee [ MIT LICENSE ]

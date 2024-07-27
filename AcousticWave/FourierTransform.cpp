@@ -279,9 +279,9 @@ FourierData FourierFunction::getIFFT() const
     return ret;
 }
 
-double FourierFunction::getFrequency(unsigned long long _idx) const
+double FourierFunction::getFrequency(unsigned long long _fdx) const
 {
-    return (double)_idx * (double)header.SAMPLE_RATE / (double)fdata.size();
+    return (double)_fdx * (double)header.SAMPLE_RATE / (double)fdata.size();
 }
 
 bool FourierFunction::setLPF(double _freq, double _brate)
@@ -333,6 +333,25 @@ bool FourierFunction::setBPF(double _freq1, double _freq2, double _brate)
         {
             fdata[i] *= pow(10.0, _brate);
             fdata[fdata.size() - i - 1] *= pow(10, _brate);
+        }
+    }
+
+    bool cond1 = ifft();
+    bool cond2 = fft();
+
+    return cond1 && cond2;
+}
+
+bool FourierFunction::setInverseFrequencyLPF(double _freq, double _invp)
+{
+    if (_freq < 0 || _invp < 0) return false;
+
+    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    {
+        if (getFrequency(i) > _freq)
+        {
+            fdata[i] *= pow(_freq / getFrequency(i), _invp);
+            fdata[fdata.size() - i - 1] *= pow(_freq / getFrequency(i), _invp);
         }
     }
 

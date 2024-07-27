@@ -110,6 +110,7 @@ bool MIDI::setSound(WaveFunction(*_wave)(double _freq, double _dura), double _fd
     for (int i = 0; i < 88; i++)
     {
         sound[i] = _wave(A0 * pow(2.0, (double)i / 12.0), _fdura);
+        std::cout << i << std::endl;
     }
 }
 
