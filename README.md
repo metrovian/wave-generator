@@ -6,6 +6,8 @@ Personal mathematical software to understand dimensions in depth.
 - MIDI device control
 - Time-frequency transform ( FFT / CWT )
 - Waveform modulation ( AM / FM )
+<br/></br>
+- Equation-based numerical synthesis
 - Digital waveguide synthesis
 <br/></br>
 ## Gravitational Wave [ 3+1D ] ##
