@@ -29,6 +29,15 @@
     <Filter Include="Sound Modulaion">
       <UniqueIdentifier>{af41e376-2bb0-4434-a82e-3c5b44358c26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain">
+      <UniqueIdentifier>{07eded11-ceac-4417-a352-0aa1a54c0fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain\Base">
+      <UniqueIdentifier>{b924735c-74d2-4ccf-82da-aa4876f101b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain\Concrete">
+      <UniqueIdentifier>{1325f8ce-188d-40e3-acc3-191bc991b219}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
