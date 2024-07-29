@@ -133,6 +133,7 @@
     <ClInclude Include="BowStringLP.h" />
     <ClInclude Include="DigitalWaveguide.h" />
     <ClInclude Include="EigenMatrix.h" />
+    <ClInclude Include="FDTD.h" />
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyModulation.h" />
     <ClInclude Include="HammerStringCM.h" />

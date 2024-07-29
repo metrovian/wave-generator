@@ -79,6 +79,9 @@
     <ClInclude Include="HammerStringCM.h">
       <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="FDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
