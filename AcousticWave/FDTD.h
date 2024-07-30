@@ -21,8 +21,8 @@ private: /* derived */
 	double courant;
 
 protected: /* condition */
-	bool setBasicCondition(double _length, double _period, double _wspeed, unsigned long long _numx, unsigned long long _numt);
+	bool setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numx, unsigned long long _numt);
 
 public: /* virtual */
-	virtual bool solve(double _time) = 0;
+	virtual bool solve() = 0;
 };

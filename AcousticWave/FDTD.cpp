@@ -1,6 +1,6 @@
 #include "FDTD.h"
 
-bool FDTD::setBasicCondition(double _length, double _period, double _wspeed, unsigned long long _numx, unsigned long long _numt)
+bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numx, unsigned long long _numt)
 {
     if (_length < 0) return false;
     if (_period < 0) return false;
@@ -18,6 +18,12 @@ bool FDTD::setBasicCondition(double _length, double _period, double _wspeed, uns
     dt = length / (double)numt;
 
     courant = wspeed * dt / dx;
+
+    wave.resize(numt);
+    for (auto& psi : wave)
+    {
+        psi.resize(numx);
+    }
 
     return true;
 }
