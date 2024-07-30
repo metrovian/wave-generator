@@ -141,6 +141,7 @@
     <ClInclude Include="MIDI.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="PluckStringKS.h" />
+    <ClInclude Include="StringFDTD.h" />
     <ClInclude Include="WaveletTransform.h" />
     <ClInclude Include="WaveFunction.h" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     <ClCompile Include="BowStringLP.cpp" />
     <ClCompile Include="DigitalWaveguide.cpp" />
     <ClCompile Include="EigenMatrix.cpp" />
+    <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />
     <ClCompile Include="HammerStringCM.cpp" />
@@ -156,6 +158,7 @@
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="MIDI.cpp" />
     <ClCompile Include="PluckStringKS.cpp" />
+    <ClCompile Include="StringFDTD.cpp" />
     <ClCompile Include="WaveFunction.cpp" />
     <ClCompile Include="WaveletTransform.cpp" />
   </ItemGroup>

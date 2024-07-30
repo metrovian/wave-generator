@@ -82,6 +82,9 @@
     <ClInclude Include="FDTD.h">
       <Filter>Sound Synthesis\Finite Difference Time Domain\Base</Filter>
     </ClInclude>
+    <ClInclude Include="StringFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -121,6 +124,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HammerStringCM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
