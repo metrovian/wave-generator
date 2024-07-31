@@ -12,8 +12,8 @@ public: /* constructor */
 
 public: /* condition */
 	std::vector<double> generateRandomCondition(double _namp);
-	std::vector<double> generateSinCondition(double _namp);
-	std::vector<double> generateImpulseCondition(double _namp);
+	std::vector<double> generateSinCondition(double _namp, double _freq, double _phase);
+	std::vector<double> generateImpulseCondition(double _namp, double _istar, double _iend);
 
 public: /* public use */
 	bool solve() override;

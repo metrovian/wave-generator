@@ -5,17 +5,17 @@ typedef std::vector<std::vector<double>> DataFDTD;
 
 class FDTD
 {
-private: /* data */
+protected: /* data */
 	DataFDTD wave;
 
-private: /* parameters */
+protected: /* parameters */
 	double length;
 	double period;
 	double wspeed;
 	unsigned long long numx;
 	unsigned long long numt;
 
-private: /* derived */
+protected: /* derived */
 	double dx;
 	double dt;
 	double courant;
