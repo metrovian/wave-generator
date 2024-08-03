@@ -26,6 +26,6 @@ protected: /* condition */
 public: /* public use */
 	WaveFunction castWaveFunction(double _namp, double _inspt, unsigned short _sbit);
 
-public: /* virtual */
+protected: /* virtual */
 	virtual bool solve() = 0;
 };

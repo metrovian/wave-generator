@@ -4,12 +4,15 @@
 StringFDTD::StringFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _tension, double _density)
 {
     setBasicCondition(sqrt(_tension / _density), _length, _period, _numx, _numt);
+    solve();
 }
 
 StringFDTD::StringFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _tension, double _density, double _decay)
 {
     decay = _decay;
+
     setBasicCondition(sqrt(_tension / _density), _length, _period, _numx, _numt);
+    solve();
 }
 
 bool StringFDTD::setBoundaryCondition(std::vector<double>& _wave) const
@@ -75,7 +78,6 @@ std::vector<double> StringFDTD::generateImpulseCondition(double _istar, double _
 bool StringFDTD::solve()
 {
     wave[0] = generateSinCondition(length, 0.0);
-    wave[0] = generateRandomCondition();
     wave[1] = wave[0];
    
     for (unsigned long long n = 1; n < numt - 1; ++n)

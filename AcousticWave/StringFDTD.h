@@ -18,6 +18,6 @@ public: /* initial condition */
 	std::vector<double> generateSinCondition(double _wlen, double _phase) const;
 	std::vector<double> generateImpulseCondition(double _istar, double _iend) const;
 
-public: /* public use */
+protected: /* public use */
 	bool solve() override;
 };
