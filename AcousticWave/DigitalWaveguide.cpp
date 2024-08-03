@@ -112,8 +112,6 @@ short DigitalWaveguide::passSimpleLPF(const DelayData& _data, unsigned char _pow
 
 short DigitalWaveguide::passDynamicLPF(const DelayData& _data, short _prev, double _freq) const
 {
-    assert(_level >= 0.0 && _level <= 1.0);
-
     double ome = PI * _freq / (double)header.SAMPLE_RATE;
     double coe = (1.0 - ome) / (1.0 + ome);
     double ret = (1.0 - coe) * (double)_data.front() + coe * (double)_prev;

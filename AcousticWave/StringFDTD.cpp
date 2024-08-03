@@ -25,8 +25,6 @@ bool StringFDTD::setBoundaryCondition(std::vector<double>& _wave) const
 
 std::vector<double> StringFDTD::generateRandomCondition() const
 {
-    assert(_namp > 0);
-
     std::vector<double> ret(numx);
 
     for (unsigned long long i = 1; i < numx - 1; ++i)
@@ -40,9 +38,6 @@ std::vector<double> StringFDTD::generateRandomCondition() const
 
 std::vector<double> StringFDTD::generateSinCondition(double _wlen, double _phase) const
 {
-    assert(_namp > 0);
-    assert(_freq > 0);
-
     std::vector<double> ret(numx);
 
     for (unsigned long long i = 1; i < numx - 1; ++i)
@@ -56,7 +51,6 @@ std::vector<double> StringFDTD::generateSinCondition(double _wlen, double _phase
 
 std::vector<double> StringFDTD::generateImpulseCondition(double _istar, double _iend) const
 {
-    assert(_namp > 0);
     assert(_istar > 0 && _istar < 1.0);
     assert(_iend > 0 && _iend < 1.0);
     assert(_istar < _iend);
