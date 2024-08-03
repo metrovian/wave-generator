@@ -15,7 +15,7 @@ bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, uns
     numt = _numt;
 
     dx = length / (double)numx;
-    dt = length / (double)numt;
+    dt = period / (double)numt;
 
     courant = wspeed * dt / dx;
 
@@ -25,5 +25,26 @@ bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, uns
         psi.resize(numx);
     }
 
+    std::cout << courant << std::endl;
+
     return true;
+}
+
+WaveFunction FDTD::castWaveFunction(double _namp, double _inspt, unsigned short _sbit)
+{
+    WaveFunction ret;
+    WaveData dat;
+    unsigned long long idx = (unsigned long long)((double)numx * _inspt);
+    double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
+
+    assert(idx < numx);
+
+    for (const auto& samples : wave)
+    {
+        dat.push_back((short)(ramp * samples[idx]));
+    }
+
+    ret.setWaveFunction(dat, (unsigned int)(1.0 / dt), _sbit);
+
+    return ret;
 }

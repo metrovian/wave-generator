@@ -23,6 +23,9 @@ protected: /* derived */
 protected: /* condition */
 	bool setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numx, unsigned long long _numt);
 
+public: /* public use */
+	WaveFunction castWaveFunction(double _namp, double _inspt, unsigned short _sbit);
+
 public: /* virtual */
 	virtual bool solve() = 0;
 };

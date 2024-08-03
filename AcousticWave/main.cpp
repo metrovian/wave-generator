@@ -20,11 +20,14 @@
 
 int main() 
 {
-    StringFDTD x(100.0, 1.0, 1000, 1000, 1000, 1000);
+    StringFDTD x(1, 0.1, 100, 44100, 10000000.0, 1.0);
 
     x.solve();
+    WaveFunction y = x.castWaveFunction(1.0, 0.5, 16);
+    
+    y.playWave();
 
-
+    return 0;
     //BowStringLP Y(0.80, G1, 1.0, 44100, 16);
     //Y.playWave();
 

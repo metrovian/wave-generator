@@ -20,7 +20,7 @@ bool StringFDTD::setBoundaryCondition(std::vector<double>& _wave) const
     _wave[_wave.size() - 1] = 0;
 }
 
-std::vector<double> StringFDTD::generateRandomCondition(double _namp) const
+std::vector<double> StringFDTD::generateRandomCondition() const
 {
     assert(_namp > 0);
 
@@ -28,14 +28,14 @@ std::vector<double> StringFDTD::generateRandomCondition(double _namp) const
 
     for (unsigned long long i = 1; i < numx - 1; ++i)
     {
-        ret[i] = _namp * (1.0 - 2.0 * (double)rand() / (double)RAND_MAX);
+        ret[i] = 1.0 - 2.0 * (double)rand() / (double)RAND_MAX;
     }
 
     setBoundaryCondition(ret);
     return ret;
 }
 
-std::vector<double> StringFDTD::generateSinCondition(double _namp, double _freq, double _phase) const
+std::vector<double> StringFDTD::generateSinCondition(double _wlen, double _phase) const
 {
     assert(_namp > 0);
     assert(_freq > 0);
@@ -44,14 +44,14 @@ std::vector<double> StringFDTD::generateSinCondition(double _namp, double _freq,
 
     for (unsigned long long i = 1; i < numx - 1; ++i)
     {
-        ret[i] = _namp * std::sin(2.0 * PI * _freq * dx * (double)i + _phase);
+        ret[i] = std::sin(2.0 * PI / _wlen * dx * (double)i + _phase);
     }
 
     setBoundaryCondition(ret);
     return ret;
 }
 
-std::vector<double> StringFDTD::generateImpulseCondition(double _namp, double _istar, double _iend) const
+std::vector<double> StringFDTD::generateImpulseCondition(double _istar, double _iend) const
 {
     assert(_namp > 0);
     assert(_istar > 0 && _istar < 1.0);
@@ -64,7 +64,7 @@ std::vector<double> StringFDTD::generateImpulseCondition(double _namp, double _i
     {
         if ((double)numx * _istar < i && i < (double)numx * _iend)
         {
-            ret[i] = _namp;
+            ret[i] = 1.0;
         }
     }
 
@@ -74,7 +74,8 @@ std::vector<double> StringFDTD::generateImpulseCondition(double _namp, double _i
 
 bool StringFDTD::solve()
 {
-    wave[0] = generateRandomCondition(1.0);
+    wave[0] = generateSinCondition(length, 0.0);
+    wave[0] = generateRandomCondition();
     wave[1] = wave[0];
    
     for (unsigned long long n = 1; n < numt - 1; ++n)
@@ -89,12 +90,6 @@ bool StringFDTD::solve()
         }
 
         setBoundaryCondition(wave[n + 1]);
-    }
-
-    std::ofstream out("test.csv");
-    for (unsigned long long i = 0; i < numx; ++i)
-    {
-        out << (double)i * dt << ", " << wave[numt / 4.0][i] << ", " << wave[numt / 2.0][i] << ", " << wave[numt - 1][i] << std::endl;
     }
 
     return false;
