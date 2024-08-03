@@ -11,6 +11,7 @@
 #include "PluckStringKS.h"
 #include "BowStringLP.h"
 #include "HammerStringCM.h"
+#include "StringFDTD.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -19,6 +20,11 @@
 
 int main() 
 {
+    StringFDTD x(100.0, 1.0, 1000, 1000, 1000, 1000);
+
+    x.solve();
+
+
     //BowStringLP Y(0.80, G1, 1.0, 44100, 16);
     //Y.playWave();
 
