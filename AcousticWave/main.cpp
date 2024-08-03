@@ -20,8 +20,8 @@
 
 int main() 
 {
-    StringFDTD x(1, 1.0, 120, 44100, 10000000.0, 1.0);
-    WaveFunction y = x.castWaveFunction(1.0, 0.5, 16);
+    StringFDTD x(0.1, 0.5, 120, 441000, 10000.0, 1.0);
+    WaveFunction y = x.castWaveFunction(1.0, 0.5, 44100, 16);
     y.playWave();
 
     return 0;

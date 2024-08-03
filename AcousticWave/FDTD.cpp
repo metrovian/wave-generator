@@ -25,12 +25,11 @@ bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, uns
         psi.resize(numx);
     }
 
-    assert(courant < 1.0);
-
-    return true;
+    if (courant < 1.0) return true;
+    return false;
 }
 
-WaveFunction FDTD::castWaveFunction(double _namp, double _inspt, unsigned short _sbit)
+WaveFunction FDTD::castWaveFunction(double _namp, double _inspt, unsigned int _srate, unsigned short _sbit)
 {
     WaveFunction ret;
     WaveData dat;
@@ -39,12 +38,15 @@ WaveFunction FDTD::castWaveFunction(double _namp, double _inspt, unsigned short 
 
     assert(idx < numx);
 
-    for (const auto& samples : wave)
+    double sfreq = 1.0 / dt;
+    double sinc = sfreq / (double)_srate;
+
+    for (double i = 0; i < (double)numt; i = i + sinc)
     {
-        dat.push_back((short)(ramp * samples[idx]));
+        dat.push_back((short)(ramp * wave[(unsigned long long)i][idx]));
     }
 
-    ret.setWaveFunction(dat, (unsigned int)(1.0 / dt), _sbit);
+    ret.setWaveFunction(dat, _srate, _sbit);
 
     return ret;
 }
