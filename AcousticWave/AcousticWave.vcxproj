@@ -140,6 +140,7 @@
     <ClInclude Include="HammerStringCM.h" />
     <ClInclude Include="MelodyFunction.h" />
     <ClInclude Include="MIDI.h" />
+    <ClInclude Include="PipeFDTD.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="PluckStringKS.h" />
     <ClInclude Include="StringFDTD.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="MIDI.cpp" />
+    <ClCompile Include="PipeFDTD.cpp" />
     <ClCompile Include="PluckStringKS.cpp" />
     <ClCompile Include="StringFDTD.cpp" />
     <ClCompile Include="WaveFunction.cpp" />
