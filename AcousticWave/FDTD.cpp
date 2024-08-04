@@ -1,4 +1,5 @@
 #include "FDTD.h"
+#include "Predefined.h"
 
 bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numx, unsigned long long _numt)
 {
@@ -27,6 +28,65 @@ bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, uns
 
     if (courant < 1.0) return true;
     return false;
+}
+
+bool FDTD::setFixedEndCondition(std::vector<double>& _wave) const
+{
+    if (_wave.size() == 0) return false;
+
+    _wave[0] = 0;
+    _wave[_wave.size() - 1] = 0;
+}
+
+bool FDTD::setFreeEndCondition(std::vector<double>& _wave) const
+{
+    if (_wave.size() == 0) return false;
+
+    _wave[0] = 0;
+    _wave[_wave.size() - 1] = 0;
+}
+
+std::vector<double> FDTD::generateRandomCondition() const
+{
+    std::vector<double> ret(numx);
+
+    for (unsigned long long i = 1; i < numx - 1; ++i)
+    {
+        ret[i] = 1.0 - 2.0 * (double)rand() / (double)RAND_MAX;
+    }
+
+    return ret;
+}
+
+std::vector<double> FDTD::generateSinCondition(double _wlen, double _phase) const
+{
+    std::vector<double> ret(numx);
+
+    for (unsigned long long i = 1; i < numx - 1; ++i)
+    {
+        ret[i] = std::sin(2.0 * PI / _wlen * dx * (double)i + _phase);
+    }
+
+    return ret;
+}
+
+std::vector<double> FDTD::generateImpulseCondition(double _istar, double _iend) const
+{
+    assert(_istar > 0 && _istar < 1.0);
+    assert(_iend > 0 && _iend < 1.0);
+    assert(_istar < _iend);
+
+    std::vector<double> ret(numx);
+
+    for (unsigned long long i = 1; i < numx - 1; ++i)
+    {
+        if ((double)numx * _istar < i && i < (double)numx * _iend)
+        {
+            ret[i] = 1.0;
+        }
+    }
+
+    return ret;
 }
 
 WaveFunction FDTD::castWaveFunction(double _namp, double _inspt, unsigned int _srate, unsigned short _sbit)
