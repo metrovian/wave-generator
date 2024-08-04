@@ -26,6 +26,7 @@ protected: /* condition */
 protected: /* boundary condition */
 	bool setFixedEndCondition(std::vector<double>& _wave) const;
 	bool setFreeEndCondition(std::vector<double>& _wave) const;
+	bool setFreeFixedEndCondition(std::vector<double>& _wave) const;
 
 protected: /* initial condition */
 	std::vector<double> generateRandomCondition() const;

@@ -40,9 +40,17 @@ bool FDTD::setFixedEndCondition(std::vector<double>& _wave) const
 
 bool FDTD::setFreeEndCondition(std::vector<double>& _wave) const
 {
-    if (_wave.size() == 0) return false;
+    if (_wave.size() < 2) return false;
 
-    _wave[0] = 0;
+    _wave[0] = _wave[1];
+    _wave[_wave.size() - 1] = _wave[_wave.size() - 2];
+}
+
+bool FDTD::setFreeFixedEndCondition(std::vector<double>& _wave) const
+{
+    if (_wave.size() < 2) return false;
+
+    _wave[0] = _wave[1];
     _wave[_wave.size() - 1] = 0;
 }
 

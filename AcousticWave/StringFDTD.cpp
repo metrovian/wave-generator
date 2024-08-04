@@ -17,7 +17,7 @@ StringFDTD::StringFDTD(double _length, double _period, unsigned long long _numx,
 
 bool StringFDTD::solve()
 {
-    wave[0] = generateSinCondition(length, 0.0);
+    wave[0] = generateImpulseCondition(0.8, 0.9);
     wave[1] = wave[0];
    
     setFixedEndCondition(wave[0]);
