@@ -26,6 +26,7 @@ bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, uns
         psi.resize(numx);
     }
 
+    std::cout << courant << std::endl;
     if (courant < 1.0) return true;
     return false;
 }

@@ -4,7 +4,7 @@
 class StringFDTD : public FDTD
 {
 private: /* parameters */
-	double decay = 10.0;
+	double decay = 5.0;
 
 public: /* constructor */
 	StringFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _tension, double _density);

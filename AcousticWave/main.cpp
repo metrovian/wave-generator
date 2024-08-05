@@ -12,6 +12,7 @@
 #include "BowStringLP.h"
 #include "HammerStringCM.h"
 #include "StringFDTD.h"
+#include "PipeFDTD.h"
 #include <Windows.h>
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -20,8 +21,8 @@
 
 int main() 
 {
-    StringFDTD x(0.1, 0.5, 120, 441000, 10000.0, 1.0);
-    WaveFunction y = x.castWaveFunction(1.0, 0.5, 44100, 16);
+    PipeFDTD x(10.0, 0.5, 120, 4410000);
+    WaveFunction y = x.castWaveFunction(1.0, 0.8, 44100, 16);
     y.playWave();
 
     return 0;
