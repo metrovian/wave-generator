@@ -1,8 +1,23 @@
 #include "PipeFDTD.h"
+#include "Predefined.h"
+
+PipeFDTD::PipeFDTD(double _length, double _period, unsigned long long _numt)
+{
+    setBasicCondition(SONIC, _length, _period, _numt);
+    solve();
+}
+
+PipeFDTD::PipeFDTD(double _length, double _period, unsigned long long _numt, double _sonic, double _decay)
+{
+    decay = _decay;
+
+    setBasicCondition(_sonic, _length, _period, _numt);
+    solve();
+}
 
 PipeFDTD::PipeFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt)
 {
-    setBasicCondition(340000.0, _length, _period, _numx, _numt);
+    setBasicCondition(SONIC, _length, _period, _numx, _numt);
     solve();
 }
 

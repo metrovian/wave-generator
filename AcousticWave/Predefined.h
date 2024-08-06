@@ -6,6 +6,8 @@ const BYTE MIDI_KEY_REL = 138;
 const BYTE MIDI_SUSTAIN = 186;
 const BYTE MIDI_PITCH = 234;
 
+const double SONIC = 343000.000;
+
 const double PI = 3.1415926;
 const double Z0 = 0.0;
 

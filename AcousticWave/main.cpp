@@ -21,7 +21,7 @@
 
 int main() 
 {
-    PipeFDTD x(10.0, 0.5, 120, 4410000);
+    PipeFDTD x(780.0, 0.9, 441000);
     WaveFunction y = x.castWaveFunction(1.0, 0.8, 44100, 16);
     y.playWave();
 

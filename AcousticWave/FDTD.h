@@ -21,6 +21,7 @@ protected: /* derived */
 	double courant;
 
 protected: /* condition */
+	bool setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numt);
 	bool setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numx, unsigned long long _numt);
 
 protected: /* boundary condition */
