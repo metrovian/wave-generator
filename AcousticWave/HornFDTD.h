@@ -9,8 +9,6 @@ private: /* parameters */
 public: /* constructor */
 	HornFDTD(double _length, double _period, unsigned long long _numt);
 	HornFDTD(double _length, double _period, unsigned long long _numt, double _sonic, double _decay);
-	HornFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt);
-	HornFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _sonic, double _decay);
 
 protected: /* virtual */
 	bool solve() override;

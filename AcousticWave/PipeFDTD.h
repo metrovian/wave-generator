@@ -9,8 +9,6 @@ private: /* parameters */
 public: /* constructor */
 	PipeFDTD(double _length, double _period, unsigned long long _numt);
 	PipeFDTD(double _length, double _period, unsigned long long _numt, double _sonic, double _decay);
-	PipeFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt);
-	PipeFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _sonic, double _decay);
 
 protected: /* virtual */
 	bool solve() override;

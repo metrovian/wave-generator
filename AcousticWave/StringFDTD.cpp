@@ -15,20 +15,6 @@ StringFDTD::StringFDTD(double _length, double _period, unsigned long long _numt,
     solve();
 }
 
-StringFDTD::StringFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _tension, double _density)
-{
-    setBasicCondition(sqrt(_tension / _density), _length, _period, _numx, _numt);
-    solve();
-}
-
-StringFDTD::StringFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _tension, double _density, double _decay)
-{
-    decay = _decay;
-
-    setBasicCondition(sqrt(_tension / _density), _length, _period, _numx, _numt);
-    solve();
-}
-
 bool StringFDTD::solve()
 {
     wave[0] = generateImpulseCondition(0.7, 0.8);

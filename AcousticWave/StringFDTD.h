@@ -9,8 +9,6 @@ private: /* parameters */
 public: /* constructor */
 	StringFDTD(double _length, double _period, unsigned long long _numt, double _tension, double _density);
 	StringFDTD(double _length, double _period, unsigned long long _numt, double _tension, double _density, double _decay);
-	StringFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _tension, double _density);
-	StringFDTD(double _length, double _period, unsigned long long _numx, unsigned long long _numt, double _tension, double _density, double _decay);
 
 protected: /* public use */
 	bool solve() override;
