@@ -88,6 +88,9 @@
     <ClInclude Include="PipeFDTD.h">
       <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="HornFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -136,6 +139,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PipeFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HornFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -138,6 +138,7 @@
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyModulation.h" />
     <ClInclude Include="HammerStringCM.h" />
+    <ClInclude Include="HornFDTD.h" />
     <ClInclude Include="MelodyFunction.h" />
     <ClInclude Include="MIDI.h" />
     <ClInclude Include="PipeFDTD.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />
     <ClCompile Include="HammerStringCM.cpp" />
+    <ClCompile Include="HornFDTD.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="MIDI.cpp" />
