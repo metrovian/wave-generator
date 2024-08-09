@@ -105,6 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\eigen-3.4.0;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,13 +134,17 @@
     <ClInclude Include="BowStringLP.h" />
     <ClInclude Include="DigitalWaveguide.h" />
     <ClInclude Include="EigenMatrix.h" />
+    <ClInclude Include="FDTD.h" />
     <ClInclude Include="FourierTransform.h" />
     <ClInclude Include="FrequencyModulation.h" />
     <ClInclude Include="HammerStringCM.h" />
+    <ClInclude Include="HornFDTD.h" />
     <ClInclude Include="MelodyFunction.h" />
     <ClInclude Include="MIDI.h" />
+    <ClInclude Include="PipeFDTD.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="PluckStringKS.h" />
+    <ClInclude Include="StringFDTD.h" />
     <ClInclude Include="WaveletTransform.h" />
     <ClInclude Include="WaveFunction.h" />
   </ItemGroup>
@@ -148,13 +153,16 @@
     <ClCompile Include="BowStringLP.cpp" />
     <ClCompile Include="DigitalWaveguide.cpp" />
     <ClCompile Include="EigenMatrix.cpp" />
+    <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FourierTransform.cpp" />
     <ClCompile Include="FrequencyModulation.cpp" />
     <ClCompile Include="HammerStringCM.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="HornFDTD.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="MIDI.cpp" />
+    <ClCompile Include="PipeFDTD.cpp" />
     <ClCompile Include="PluckStringKS.cpp" />
+    <ClCompile Include="StringFDTD.cpp" />
     <ClCompile Include="WaveFunction.cpp" />
     <ClCompile Include="WaveletTransform.cpp" />
   </ItemGroup>

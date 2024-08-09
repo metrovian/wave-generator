@@ -29,6 +29,18 @@
     <Filter Include="Sound Modulaion">
       <UniqueIdentifier>{af41e376-2bb0-4434-a82e-3c5b44358c26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain">
+      <UniqueIdentifier>{07eded11-ceac-4417-a352-0aa1a54c0fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain\Base">
+      <UniqueIdentifier>{b924735c-74d2-4ccf-82da-aa4876f101b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain\Concrete">
+      <UniqueIdentifier>{1325f8ce-188d-40e3-acc3-191bc991b219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Predefined">
+      <UniqueIdentifier>{e401af6f-f84e-4f31-9b9d-5219cc1b97fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WaveFunction.h">
@@ -52,9 +64,6 @@
     <ClInclude Include="MIDI.h">
       <Filter>Device Control</Filter>
     </ClInclude>
-    <ClInclude Include="Predefined.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="DigitalWaveguide.h">
       <Filter>Sound Synthesis\Digital Waveguide\Base</Filter>
     </ClInclude>
@@ -70,11 +79,23 @@
     <ClInclude Include="HammerStringCM.h">
       <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="FDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="StringFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="PipeFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="HornFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="Predefined.h">
+      <Filter>Data Predefined</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="WaveFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,6 +130,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HammerStringCM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PipeFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HornFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
