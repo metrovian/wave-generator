@@ -1,5 +1,8 @@
 #pragma once
+#include <Windows.h>
+#include <mmsystem.h>
 #include <cmath>
+#pragma comment(lib, "winmm.lib")
 
 const BYTE MIDI_KEY_DOWN = 154;
 const BYTE MIDI_KEY_REL = 138;

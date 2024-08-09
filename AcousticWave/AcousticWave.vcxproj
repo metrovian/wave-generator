@@ -158,7 +158,6 @@
     <ClCompile Include="FrequencyModulation.cpp" />
     <ClCompile Include="HammerStringCM.cpp" />
     <ClCompile Include="HornFDTD.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="MelodyFunction.cpp" />
     <ClCompile Include="MIDI.cpp" />
     <ClCompile Include="PipeFDTD.cpp" />
