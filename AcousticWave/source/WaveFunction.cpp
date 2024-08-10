@@ -1,5 +1,5 @@
-#include "WaveFunction.h"
-#include "Predefined.h"
+#include "../include/WaveFunction.h"
+#include "../include/Predefined.h"
 
 bool WaveFunction::operator!=(const WaveFunction& _rhs) const
 {

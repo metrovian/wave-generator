@@ -1,4 +1,4 @@
-#include "HammerStringCM.h"
+#include "../include/HammerStringCM.h"
 
 HammerStringCM::HammerStringCM(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {
