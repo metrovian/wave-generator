@@ -1,5 +1,5 @@
-#include "WaveletTransform.h"
-#include "Predefined.h"
+#include "../include/WaveletTransform.h"
+#include "../include/Predefined.h"
 
 double MorletFunction::getFourierDomainMorlet(double _freq, double _treso, unsigned long long _idx)
 {

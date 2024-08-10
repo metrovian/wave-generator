@@ -1,5 +1,5 @@
-#include "MIDI.h"
-#include "Predefined.h"
+#include "../include/MIDI.h"
+#include "../include/Predefined.h"
 
 void MIDI::inputCallback(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2)
 {

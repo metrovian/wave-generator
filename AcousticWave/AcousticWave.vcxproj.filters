@@ -43,105 +43,105 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WaveFunction.h">
+    <ClInclude Include="include\WaveFunction.h">
       <Filter>Data Structure</Filter>
     </ClInclude>
-    <ClInclude Include="FourierTransform.h">
+    <ClInclude Include="include\FourierTransform.h">
       <Filter>Data Transform</Filter>
     </ClInclude>
-    <ClInclude Include="WaveletTransform.h">
+    <ClInclude Include="include\WaveletTransform.h">
       <Filter>Data Transform</Filter>
     </ClInclude>
-    <ClInclude Include="MelodyFunction.h">
+    <ClInclude Include="include\MelodyFunction.h">
       <Filter>Data Structure</Filter>
     </ClInclude>
-    <ClInclude Include="AmplitudeModulation.h">
+    <ClInclude Include="include\AmplitudeModulation.h">
       <Filter>Sound Modulaion</Filter>
     </ClInclude>
-    <ClInclude Include="FrequencyModulation.h">
+    <ClInclude Include="include\FrequencyModulation.h">
       <Filter>Sound Modulaion</Filter>
     </ClInclude>
-    <ClInclude Include="MIDI.h">
+    <ClInclude Include="include\MIDI.h">
       <Filter>Device Control</Filter>
     </ClInclude>
-    <ClInclude Include="DigitalWaveguide.h">
+    <ClInclude Include="include\DigitalWaveguide.h">
       <Filter>Sound Synthesis\Digital Waveguide\Base</Filter>
     </ClInclude>
-    <ClInclude Include="PluckStringKS.h">
+    <ClInclude Include="include\PluckStringKS.h">
       <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="BowStringLP.h">
+    <ClInclude Include="include\BowStringLP.h">
       <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="EigenMatrix.h">
+    <ClInclude Include="include\EigenMatrix.h">
       <Filter>Data Structure</Filter>
     </ClInclude>
-    <ClInclude Include="HammerStringCM.h">
+    <ClInclude Include="include\HammerStringCM.h">
       <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="FDTD.h">
+    <ClInclude Include="include\FDTD.h">
       <Filter>Sound Synthesis\Finite Difference Time Domain\Base</Filter>
     </ClInclude>
-    <ClInclude Include="StringFDTD.h">
+    <ClInclude Include="include\StringFDTD.h">
       <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="PipeFDTD.h">
+    <ClInclude Include="include\PipeFDTD.h">
       <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="HornFDTD.h">
+    <ClInclude Include="include\HornFDTD.h">
       <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="Predefined.h">
+    <ClInclude Include="include\Predefined.h">
       <Filter>Data Predefined</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WaveFunction.cpp">
+    <ClCompile Include="source\WaveFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MelodyFunction.cpp">
+    <ClCompile Include="source\MelodyFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FourierTransform.cpp">
+    <ClCompile Include="source\FourierTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WaveletTransform.cpp">
+    <ClCompile Include="source\WaveletTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FrequencyModulation.cpp">
+    <ClCompile Include="source\FrequencyModulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AmplitudeModulation.cpp">
+    <ClCompile Include="source\AmplitudeModulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MIDI.cpp">
+    <ClCompile Include="source\MIDI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DigitalWaveguide.cpp">
+    <ClCompile Include="source\DigitalWaveguide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PluckStringKS.cpp">
+    <ClCompile Include="source\PluckStringKS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BowStringLP.cpp">
+    <ClCompile Include="source\BowStringLP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EigenMatrix.cpp">
+    <ClCompile Include="source\EigenMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HammerStringCM.cpp">
+    <ClCompile Include="source\HammerStringCM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FDTD.cpp">
+    <ClCompile Include="source\FDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="StringFDTD.cpp">
+    <ClCompile Include="source\StringFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PipeFDTD.cpp">
+    <ClCompile Include="source\PipeFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HornFDTD.cpp">
+    <ClCompile Include="source\HornFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

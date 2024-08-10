@@ -1,5 +1,5 @@
-#include "MelodyFunction.h"
-#include "Predefined.h"
+#include "../include/MelodyFunction.h"
+#include "../include/Predefined.h"
 
 bool MelodyFunction::isPlayable()
 {

@@ -1,5 +1,5 @@
-#include "FrequencyModulation.h"
-#include "Predefined.h"
+#include "../include/FrequencyModulation.h"
+#include "../include/Predefined.h"
 
 WaveFunction FrequencyModulation::vibrato(WaveFunction _wave, double _freq, double _vfreq, double _vdepth)
 {

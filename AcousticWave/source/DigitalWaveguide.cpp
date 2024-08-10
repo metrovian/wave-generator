@@ -1,5 +1,5 @@
-#include "DigitalWaveguide.h"
-#include "Predefined.h"
+#include "../include/DigitalWaveguide.h"
+#include "../include/Predefined.h"
 
 WaveData DigitalWaveguide::extractFrontData(const DelayData& _data) const
 {
