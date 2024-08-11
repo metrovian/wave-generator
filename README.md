@@ -11,7 +11,7 @@ Personal mathematical software to understand dimensions in depth.
 - Digital waveguide synthesis
 <br/></br>
 ## Electromagnetic Wave [ 2+1D ] ##
-- EH Field distribution viewer
+- Field distribution viewer ( EH )
 - Electromagnetic wave equation solver ( FDTD )
 <br/></br>
 ## Gravitational Wave [ 3+1D ] ##
