@@ -10,6 +10,10 @@ Personal mathematical software to understand dimensions in depth.
 - Acoustic wave equation solver ( FDTD )
 - Digital waveguide synthesis
 <br/></br>
+## Electromagnetic Wave [ 2+1D ] ##
+- EH Field distribution viewer
+- Electromagnetic wave equation solver ( FDTD )
+<br/></br>
 ## Gravitational Wave [ 3+1D ] ##
 - in preparation
 
