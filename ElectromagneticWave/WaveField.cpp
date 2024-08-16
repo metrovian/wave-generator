@@ -87,14 +87,14 @@ Eigen::Vector3d WaveField::getPoyntingVector(unsigned long long _idx, unsigned l
 
 	if (mode == MODE::TRANSVERSE_ELECTRIC)
 	{
-		electric.head<2>() = field[_idx][_idy].head<2>();
-		magnetic.z() = field[_idx][_idy].z();
+		magnetic.head<2>() = field[_idx][_idy].head<2>();
+		electric.z() = field[_idx][_idy].z();
 	}
 
 	else if (mode == MODE::TRANSVERSE_MAGNETIC)
 	{
-		magnetic.head<2>() = field[_idx][_idy].head<2>();
-		electric.z() = field[_idx][_idy].z();
+		electric.head<2>() = field[_idx][_idy].head<2>();
+		magnetic.z() = field[_idx][_idy].z();
 	}
 
 	return electric.cross(magnetic);
