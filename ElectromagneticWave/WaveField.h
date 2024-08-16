@@ -26,6 +26,9 @@ private: /* derived */
 	double dx;
 	double dy;
 
+private: /* status */
+	bool isvalid = false;
+
 public: /* constructor */
 	WaveField(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy);
 	~WaveField();
@@ -37,7 +40,7 @@ private: /* memory */
 
 public: /* public use */
 	bool setField(Eigen::Vector3d _field, unsigned long long _idx, unsigned long long _idy);
-
+	
 	Eigen::Vector3d getField(unsigned long long _idx, unsigned long long _idy);
 	Eigen::Vector3d getPoyntingVector(unsigned long long _idx, unsigned long long _idy);
 };
