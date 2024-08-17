@@ -2,6 +2,8 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <math.h>
+#include <iostream>
+#include <thread>
 #include <Eigen/Dense>
 
 enum class MODE
@@ -41,6 +43,14 @@ private: /* memory */
 public: /* public use */
 	bool setField(Eigen::Vector3d _field, unsigned long long _idx, unsigned long long _idy);
 	
-	Eigen::Vector3d getField(unsigned long long _idx, unsigned long long _idy);
-	Eigen::Vector3d getPoyntingVector(unsigned long long _idx, unsigned long long _idy);
+	Eigen::Vector3d getField(unsigned long long _idx, unsigned long long _idy) const;
+	Eigen::Vector3d getPoyntingVector(unsigned long long _idx, unsigned long long _idy) const;
+
+	double getDX() const;
+	double getDY() const;
+	double getLX() const;
+	double getLY() const;
+
+	unsigned long long getNX() const;;
+	unsigned long long getNY() const;;
 };

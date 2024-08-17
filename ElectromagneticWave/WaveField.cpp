@@ -72,13 +72,13 @@ bool WaveField::setField(Eigen::Vector3d _field, unsigned long long _idx, unsign
 	return true;
 }
 
-Eigen::Vector3d WaveField::getField(unsigned long long _idx, unsigned long long _idy)
+Eigen::Vector3d WaveField::getField(unsigned long long _idx, unsigned long long _idy) const
 {
 	if (!check(_idx, _idy)) return Eigen::Vector3d(NAN, NAN, NAN);
 	return field[_idx][_idy];
 }
 
-Eigen::Vector3d WaveField::getPoyntingVector(unsigned long long _idx, unsigned long long _idy)
+Eigen::Vector3d WaveField::getPoyntingVector(unsigned long long _idx, unsigned long long _idy) const
 {
 	if (!check(_idx, _idy)) return Eigen::Vector3d(NAN, NAN, NAN);
 
@@ -98,4 +98,34 @@ Eigen::Vector3d WaveField::getPoyntingVector(unsigned long long _idx, unsigned l
 	}
 
 	return electric.cross(magnetic);
+}
+
+double WaveField::getDX() const 
+{ 
+	return dx; 
+}
+
+double WaveField::getDY() const 
+{ 
+	return dy; 
+}
+
+double WaveField::getLX() const 
+{ 
+	return lenx; 
+}
+
+double WaveField::getLY() const 
+{ 
+	return leny; 
+}
+
+unsigned long long WaveField::getNX() const 
+{ 
+	return numx; 
+}
+
+unsigned long long WaveField::getNY() const 
+{ 
+	return numy; 
 }

@@ -2,7 +2,14 @@
 
 int main()
 {
-    WaveViewer s(512, 512);
+    WaveViewer s(1512, 512);
+    s.display();
 
+    std::cout << "test" << std::endl;
+
+    while (1)
+    {
+
+    }
     return 0;
 }
