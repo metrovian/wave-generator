@@ -6,7 +6,6 @@ Personal mathematical software to understand dimensions in depth.
 - MIDI device control
 - Time-frequency transform ( FFT / CWT )
 - Waveform modulation ( AM / FM )
-<br/></br>
 - Acoustic wave equation solver ( FDTD )
 - Digital waveguide synthesis
 <br/></br>
