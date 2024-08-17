@@ -1,12 +1,11 @@
 #include "WaveViewer.h"
+#include "TestFDTD.h"
 
 int main()
 {
-    WaveViewer s(1920, 1080);
-    WaveField k(MODE::TRANSVERSE_ELECTRIC, 10, 10, 10, 10);
-    s.display(k);
+    TestFDTD g;
 
-    std::cout << "test" << std::endl;
+    g.test();
     
     while (1)
     {

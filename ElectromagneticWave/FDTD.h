@@ -4,11 +4,11 @@
 typedef std::vector<WaveField> DataFDTD;
 class FDTD
 {
-private: /* data */
+protected: /* data */
 	DataFDTD wave;
 	MODE mode;
 
-private: /* config */
+protected: /* config */
 	double lenx;
 	double leny;
 	double period;
@@ -16,7 +16,7 @@ private: /* config */
 	unsigned long long numy;
 	unsigned long long numt;
 	
-private: /* derived */
+protected: /* derived */
 	double dx;
 	double dy;
 	double dt;

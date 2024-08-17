@@ -14,9 +14,15 @@ WaveField::WaveField(MODE _mode, double _lenx, double _leny, unsigned long long 
 bool WaveField::mallocWaveField()
 {
 	field.resize(numx);
+
 	for (unsigned long long i = 0; i < numx; ++i)
 	{
 		field[i].resize(numy);
+
+		for (unsigned long long j = 0; j < numy; ++j)
+		{
+			field[i][j] = Eigen::Vector3d(0, 0, 0);
+		}
 	}
 
 	return true;
