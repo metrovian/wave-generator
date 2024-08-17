@@ -4,6 +4,7 @@
 #include <math.h>
 #include <iostream>
 #include <thread>
+#include <vector>
 #include <Eigen/Dense>
 
 enum class MODE
@@ -12,10 +13,11 @@ enum class MODE
 	TRANSVERSE_MAGNETIC,
 };
 
+typedef std::vector<std::vector<Eigen::Vector3d>> WaveData;
 class WaveField
 {
 private: /* data */
-	Eigen::Vector3d** field;
+	WaveData field;
 
 private: /* config */
 	MODE mode;
@@ -33,11 +35,9 @@ private: /* status */
 
 public: /* constructor */
 	WaveField(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy);
-	~WaveField();
 
 private: /* memory */
 	bool mallocWaveField();
-	bool clear();
 	bool check(unsigned long long _idx, unsigned long long _idy) const;
 
 public: /* public use */

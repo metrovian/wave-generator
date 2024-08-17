@@ -11,46 +11,12 @@ WaveField::WaveField(MODE _mode, double _lenx, double _leny, unsigned long long 
 	isvalid = mallocWaveField();
 }
 
-WaveField::~WaveField()
-{
-	clear();
-}
-
 bool WaveField::mallocWaveField()
 {
-	field = (Eigen::Vector3d**)malloc(numx * sizeof(Eigen::Vector3d*));
-	if (field == nullptr) return false;
-
+	field.resize(numx);
 	for (unsigned long long i = 0; i < numx; ++i)
 	{
-		field[i] = (Eigen::Vector3d*)calloc(numy, sizeof(Eigen::Vector3d));
-
-		if (field[i] == nullptr)
-		{
-			for (unsigned long long j = 0; j < i; ++j)
-			{
-				free(field[j]);
-			}
-
-			free(field);
-
-			return false;
-		}
-	}
-
-	return true;
-}
-
-bool WaveField::clear()
-{
-	if (isvalid)
-	{
-		for (unsigned long long i = 0; i < numx; ++i)
-		{
-			free(field[i]);
-		}
-
-		free(field);
+		field.resize(numy);
 	}
 
 	return true;
