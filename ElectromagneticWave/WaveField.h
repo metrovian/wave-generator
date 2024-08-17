@@ -18,9 +18,9 @@ class WaveField
 {
 private: /* data */
 	WaveData field;
+	MODE mode;
 
 private: /* config */
-	MODE mode;
 	double lenx;
 	double leny;
 	unsigned long long numx;

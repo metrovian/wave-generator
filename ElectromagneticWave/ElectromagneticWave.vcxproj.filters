@@ -23,9 +23,6 @@
     <Filter Include="Field Synthesis\Finite Difference Time Domain\Concrete">
       <UniqueIdentifier>{7c654890-b68e-4760-9ebb-14fe0b08f0eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Field Source">
-      <UniqueIdentifier>{9431f29b-086e-43e2-a6d2-98e487289fc3}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Predefined.h">
@@ -40,6 +37,9 @@
     <ClInclude Include="FDTD.h">
       <Filter>Field Synthesis\Finite Difference Time Domain\Base</Filter>
     </ClInclude>
+    <ClInclude Include="TestFDTD.h">
+      <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaveField.cpp">
@@ -49,6 +49,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WaveViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

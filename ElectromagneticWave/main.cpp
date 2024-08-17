@@ -7,7 +7,7 @@ int main()
     s.display(k);
 
     std::cout << "test" << std::endl;
-    s.stop();
+    
     while (1)
     {
 

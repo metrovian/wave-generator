@@ -16,7 +16,7 @@ bool WaveViewer::drawField(const WaveField& _field)
 	if (rows <= 0) return false;
 	if (cols <= 0) return false;
 
-	setColorScale(_field);
+	//setColorScale(_field);
 
 	float cx = (float)size.x / (float)rows;
 	float cy = (float)size.y / (float)cols;

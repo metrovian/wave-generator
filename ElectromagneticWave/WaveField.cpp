@@ -16,7 +16,7 @@ bool WaveField::mallocWaveField()
 	field.resize(numx);
 	for (unsigned long long i = 0; i < numx; ++i)
 	{
-		field.resize(numy);
+		field[i].resize(numy);
 	}
 
 	return true;
@@ -27,7 +27,7 @@ bool WaveField::check(unsigned long long _idx, unsigned long long _idy) const
 	if (_idx >= numx) return false;
 	if (_idy >= numy) return false;
 
-	return true;
+	return isvalid;
 }
 
 bool WaveField::setField(Eigen::Vector3d _field, unsigned long long _idx, unsigned long long _idy)
