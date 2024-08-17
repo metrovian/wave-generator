@@ -18,12 +18,11 @@ public: /* constructor */
 	WaveViewer(unsigned int _width, unsigned int _height);
 
 private: /* display */
+	bool drawField(const WaveField& _field);
 	bool setColorScale(const WaveField& _field);
 	double calcColorScale(double _rval) const;
 	sf::Color calcColorGradient(double _nval) const;
 
 public: /* public use */
-	bool drawField(const WaveField& _field);
-	bool display();
-	
+	bool display(const WaveField& _field);
 };

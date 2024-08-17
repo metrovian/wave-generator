@@ -6,6 +6,37 @@ WaveViewer::WaveViewer(unsigned int _width, unsigned int _height)
 	height = _height;
 }
 
+bool WaveViewer::drawField(const WaveField& _field)
+{
+	sf::Vector2u size = window.getSize();
+
+	unsigned long long rows = _field.getNX();
+	unsigned long long cols = _field.getNY();
+
+	if (rows <= 0) return false;
+	if (cols <= 0) return false;
+
+	setColorScale(_field);
+
+	float cx = (float)size.x / (float)rows;
+	float cy = (float)size.y / (float)cols;
+
+	sf::RectangleShape cell(sf::Vector2f(cx, cy));
+
+	for (unsigned long long i = 0; i < rows; ++i)
+	{
+		for (unsigned long long j = 0; j < cols; ++j)
+		{
+			cell.setPosition((float)i * cx, (float)j * cy);
+			cell.setFillColor(calcColorGradient(calcColorScale(_field.getField(i, j).z())));
+
+			window.draw(cell);
+		}
+	}
+
+	return true;
+}
+
 bool WaveViewer::setColorScale(const WaveField& _field)
 {
 	scale = 0.0;
@@ -45,42 +76,11 @@ sf::Color WaveViewer::calcColorGradient(double _nval) const
 	return sf::Color((sf::Uint8)(255.0 * _nval), 0, (sf::Uint8)(255.0 * (1.0 - _nval)));
 }
 
-bool WaveViewer::drawField(const WaveField& _field)
-{
-	sf::Vector2u size = window.getSize();
-
-	unsigned long long rows = _field.getNX();
-	unsigned long long cols = _field.getNY();
-
-	if (rows <= 0) return false;
-	if (cols <= 0) return false;
-
-	setColorScale(_field);
-	
-	float cx = (float)size.x / (float)rows;
-	float cy = (float)size.y / (float)cols;
-
-	sf::RectangleShape cell(sf::Vector2f(cx, cy));
-
-	for (unsigned long long i = 0; i < rows; ++i) 
-	{
-		for (unsigned long long j = 0; j < cols; ++j)
-		{
-			cell.setPosition((float)i * cx, (float)j * cy);
-			cell.setFillColor(calcColorGradient(calcColorScale(_field.getField(i, j).z())));
-
-			window.draw(cell);
-		}
-	}
-
-	return true;
-}
-
-bool WaveViewer::display()
+bool WaveViewer::display(const WaveField& _field)
 {
 	auto func = [&]()
 	{
-		window.create(sf::VideoMode(width, height), "Electromagnetic Field Viewer");
+		window.create(sf::VideoMode(width, height), "Electromagnetic Field Distribution Viewer");
 
 		while (window.isOpen())
 		{
@@ -99,7 +99,7 @@ bool WaveViewer::display()
 				}
 			}
 
-			drawField(WaveField(MODE::TRANSVERSE_ELECTRIC, 10, 10, 10, 10));
+			drawField(_field);
 			window.display();
 		}
 	};
