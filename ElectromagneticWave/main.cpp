@@ -4,12 +4,5 @@
 int main()
 {
     TestFDTD g;
-
     g.test();
-    
-    while (1)
-    {
-
-    }
-    return 0;
 }
