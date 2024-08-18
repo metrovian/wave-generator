@@ -1,8 +1,7 @@
 #include "WaveViewer.h"
-#include "TestFDTD.h"
+#include "FreeSpaceFDTD.h"
 
 int main()
 {
-    TestFDTD g;
-    g.test();
+    FreeSpaceFDTD g;
 }

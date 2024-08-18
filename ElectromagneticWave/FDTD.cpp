@@ -39,12 +39,12 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period, unsigned lo
 
 	courant = C * dt * std::sqrt(1.0 / dx / dx + 1.0 / dy / dy);
 	period = _period;
-
+	
 	if (courant < 1.0) return true;
 	return false;
 }
 
-WaveField FDTD::calcNextStepField(const WaveField& _now) const
+WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, unsigned long long _idx, unsigned long long _jdx)>& _inspect) const
 {
 	WaveField next = _now;
 
@@ -57,12 +57,9 @@ WaveField FDTD::calcNextStepField(const WaveField& _now) const
 		{
 			for (unsigned long long j = 0; j < numy; ++j)
 			{
-				Eigen::Vector3d now = next.getField(i, j);
-				Eigen::Vector3d ndx = now;
-				Eigen::Vector3d ndy = now;
-
-				if (i > 1) ndx = next.getField(i - 1, j);
-				if (j > 1) ndy = next.getField(i, j - 1);
+				Eigen::Vector3d now = _inspect(next, i, j);
+				Eigen::Vector3d ndx = _inspect(next, i - 1, j);
+				Eigen::Vector3d ndy = _inspect(next, i, j - 1);
 
 				now.z() += estp * ((now.y() - ndx.y()) / dx - (now.x() - ndy.x()) / dy);
 
@@ -74,12 +71,9 @@ WaveField FDTD::calcNextStepField(const WaveField& _now) const
 		{
 			for (unsigned long long j = 0; j < numy; ++j)
 			{
-				Eigen::Vector3d now = next.getField(i, j);
-				Eigen::Vector3d ndx = now;
-				Eigen::Vector3d ndy = now;
-
-				if (i + 1 < numx) ndx = next.getField(i + 1, j);
-				if (j + 1 < numy) ndy = next.getField(i, j + 1);
+				Eigen::Vector3d now = _inspect(next, i, j);
+				Eigen::Vector3d ndx = _inspect(next, i + 1, j);
+				Eigen::Vector3d ndy = _inspect(next, i, j + 1);
 
 				now.x() -= mstp * (ndy.z() - now.z()) / dy;
 				now.y() += mstp * (ndx.z() - now.z()) / dx;

@@ -37,7 +37,7 @@
     <ClInclude Include="FDTD.h">
       <Filter>Field Synthesis\Finite Difference Time Domain\Base</Filter>
     </ClInclude>
-    <ClInclude Include="TestFDTD.h">
+    <ClInclude Include="FreeSpaceFDTD.h">
       <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
@@ -54,7 +54,7 @@
     <ClCompile Include="FDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestFDTD.cpp">
+    <ClCompile Include="FreeSpaceFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

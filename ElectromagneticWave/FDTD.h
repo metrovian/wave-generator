@@ -26,8 +26,10 @@ public: /* condition */
 	bool setBasicCondition(const WaveField& _init, double _period);
 	bool setBasicCondition(const WaveField& _init, double _period, unsigned long long _numt);
 
+public: /* initial condition */
+
 protected: /* parts */
-	WaveField calcNextStepField(const WaveField& _now) const;
+	WaveField calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, unsigned long long _idx, unsigned long long _jdx)>& _inspect) const;
 
 protected: /* virtual */
 	virtual bool solve() = 0;

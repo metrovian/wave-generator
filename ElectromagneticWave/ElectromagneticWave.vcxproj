@@ -134,15 +134,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FDTD.h" />
-    <ClInclude Include="TestFDTD.h" />
+    <ClInclude Include="FreeSpaceFDTD.h" />
     <ClInclude Include="WaveViewer.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="WaveField.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FDTD.cpp" />
+    <ClCompile Include="FreeSpaceFDTD.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestFDTD.cpp" />
     <ClCompile Include="WaveField.cpp" />
     <ClCompile Include="WaveViewer.cpp" />
   </ItemGroup>
