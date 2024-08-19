@@ -26,7 +26,8 @@ public: /* condition */
 	bool setBasicCondition(const WaveField& _init, double _period);
 	bool setBasicCondition(const WaveField& _init, double _period, unsigned long long _numt);
 
-public: /* initial condition */
+public: /* source */
+	static WaveField generateImpulseCondition(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy, double _posx, double _posy, double _sqrl, double _field);
 
 protected: /* parts */
 	WaveField calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, unsigned long long _idx, unsigned long long _jdx)>& _inspect) const;

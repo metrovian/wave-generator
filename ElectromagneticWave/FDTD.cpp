@@ -44,6 +44,31 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period, unsigned lo
 	return false;
 }
 
+WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy, double _posx, double _posy, double _sqrl, double _field)
+{
+	WaveField ret(_mode, _lenx, _leny, _numx, _numy);
+
+	unsigned long long idx = static_cast<unsigned long long>(_numx * (_posx / _lenx));
+	unsigned long long jdx = static_cast<unsigned long long>(_numy * (_posy / _leny));
+	unsigned long long sqrx = static_cast<unsigned long long>(_numx * (_sqrl / _lenx / 2.0));
+	unsigned long long sqry = static_cast<unsigned long long>(_numy * (_sqrl / _leny / 2.0));
+
+	if (idx - sqrx < 0) return ret;
+	if (jdx - sqry < 0) return ret;
+	if (idx + sqrx >= _numx) return ret;
+	if (jdx + sqry >= _numy) return ret;
+
+	for (unsigned long long i = idx - sqrx; i < idx + sqrx; ++i)
+	{
+		for (unsigned long long j = jdx - sqry; j < jdx + sqry; ++j)
+		{
+			ret.setField(Eigen::Vector3d(0, 0, _field), i, j);
+		}
+	}
+
+	return ret;
+}
+
 WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, unsigned long long _idx, unsigned long long _jdx)>& _inspect) const
 {
 	WaveField next = _now;
