@@ -44,7 +44,7 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period, unsigned lo
 	return false;
 }
 
-WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy, double _posx, double _posy, double _sqrl, double _field)
+WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy, double _posx, double _posy, double _sqrl, double _famp)
 {
 	WaveField ret(_mode, _lenx, _leny, _numx, _numy);
 
@@ -62,7 +62,7 @@ WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny,
 	{
 		for (unsigned long long j = jdx - sqry; j < jdx + sqry; ++j)
 		{
-			ret.setField(Eigen::Vector3d(0, 0, _field), i, j);
+			ret.setField(Eigen::Vector3d(0, 0, _famp), i, j);
 		}
 	}
 

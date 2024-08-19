@@ -3,5 +3,5 @@
 
 int main()
 {
-    FreeSpaceFDTD g;
+    FreeSpaceFDTD g(MODE::TRANSVERSE_ELECTRIC, 100, 100, 512, 512);
 }
