@@ -31,8 +31,8 @@ bool HammerStringCM::synthesis(double _namp, double _freq, double _dura, unsigne
         impulse[i] = passStringElasticModulusLPF(impulse[i], modulus[i]);
     }
 
-    unsigned long long size = impulse[0].size();
-    for (unsigned long long i = 0; i < size; ++i)
+    size_t size = impulse[0].size();
+    for (size_t i = 0; i < size; ++i)
     {
         cmsum.push((short)((impulse[0].front() + impulse[1].front() + impulse[2].front()) / 3.0));
 
@@ -50,7 +50,7 @@ bool HammerStringCM::synthesis(double _namp, double _freq, double _dura, unsigne
         cmsum.push(passStringDF(cmsum, _freq, 0.1, decay));
         cmsum.pop();
 
-        for (unsigned long long i = 1; i < dat.size(); ++i)
+        for (size_t i = 1; i < dat.size(); ++i)
         {
             dat[i] = passDynamicLPF(cmsum, dat[i - 1], _freq);
             

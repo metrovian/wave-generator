@@ -12,7 +12,7 @@ bool WaveViewer::onMoveSliderKnob(const DataFDTD& _data)
 
 	float spos = knob.getPosition().x + knob.getRadius();
 
-	unsigned long long mdx = _data.size() - 1;
+	size_t mdx = _data.size() - 1;
 
 	if (std::fabs(mpos.x - spos) <= 10)
 	{
@@ -25,7 +25,7 @@ bool WaveViewer::onMoveSliderKnob(const DataFDTD& _data)
 			if (kpos < minpos - rad) kpos = minpos - rad;
 			else if (kpos > maxpos - rad) kpos = maxpos - rad;
 
-			time = static_cast<unsigned long long>((kpos - minpos + rad) / (maxpos - minpos) * mdx);
+			time = static_cast<size_t>((kpos - minpos + rad) / (maxpos - minpos) * mdx);
 
 			draw(_data);
 		}
@@ -50,8 +50,8 @@ bool WaveViewer::drawField(const WaveField& _field)
 {
 	sf::Vector2u size = window.getSize();
 
-	unsigned long long rows = _field.getNX();
-	unsigned long long cols = _field.getNY();
+	size_t rows = _field.getNX();
+	size_t cols = _field.getNY();
 
 	if (rows <= 0) return false;
 	if (cols <= 0) return false;
@@ -63,9 +63,9 @@ bool WaveViewer::drawField(const WaveField& _field)
 
 	sf::RectangleShape cell(sf::Vector2f(cx, cy));
 
-	for (unsigned long long i = 0; i < rows; ++i)
+	for (size_t i = 0; i < rows; ++i)
 	{
-		for (unsigned long long j = 0; j < cols; ++j)
+		for (size_t j = 0; j < cols; ++j)
 		{
 			cell.setPosition((float)i * cx, (float)j * cy);
 			cell.setFillColor(calcColorGradient(calcColorScale(_field.getField(i, j).z())));
@@ -109,12 +109,12 @@ bool WaveViewer::setColorScale(const WaveField& _field)
 {
 	scale = 0.0;
 
-	unsigned long long rows = _field.getNX();
-	unsigned long long cols = _field.getNY();
+	size_t rows = _field.getNX();
+	size_t cols = _field.getNY();
 
-	for (unsigned long long i = 0; i < rows; ++i)
+	for (size_t i = 0; i < rows; ++i)
 	{
-		for (unsigned long long j = 0; j < cols; ++j)
+		for (size_t j = 0; j < cols; ++j)
 		{
 			if (scale < fabs(_field.getField(i, j).z()))
 			{

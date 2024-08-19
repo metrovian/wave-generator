@@ -54,7 +54,7 @@ bool BowStringLP::synthesis(double _namp, double _freq, double _dura, unsigned i
         
         dat[0] = 0;
 
-        for (unsigned long long i = 1; i < dat.size(); ++i)
+        for (size_t i = 1; i < dat.size(); ++i)
         {
             dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq);
 

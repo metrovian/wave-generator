@@ -12,9 +12,9 @@ protected: /* config */
 	double lenx;
 	double leny;
 	double period;
-	unsigned long long numx;
-	unsigned long long numy;
-	unsigned long long numt;
+	size_t numx;
+	size_t numy;
+	size_t numt;
 	
 protected: /* derived */
 	double dx;
@@ -24,14 +24,15 @@ protected: /* derived */
 
 public: /* condition */
 	bool setBasicCondition(const WaveField& _init, double _period);
-	bool setBasicCondition(const WaveField& _init, double _period, unsigned long long _numt);
+	bool setBasicCondition(const WaveField& _init, double _period, size_t _numt);
 
 public: /* source */
-	static WaveField generateImpulseCondition(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy, double _posx, double _posy, double _sqrl, double _famp);
+	static WaveField generateImpulseCondition(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp);
 
 protected: /* parts */
-	WaveField calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, unsigned long long _idx, unsigned long long _jdx)>& _inspect) const;
+	WaveField calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, size_t _idx, size_t _jdx)>& _inspect) const;
 
 protected: /* virtual */
-	virtual bool solve(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy) = 0;
+	virtual bool solve(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy) = 0;
+	virtual bool solve(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy, size_t _numt) = 0;
 };

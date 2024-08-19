@@ -10,9 +10,9 @@ FourierFunction::FourierFunction(const WaveFunction& _wave)
 
 bool FourierFunction::fft()
 {
-    unsigned long long wsize = wdata.size();
-    unsigned long long tsize = 2;
-    unsigned long long power = 1;
+    size_t wsize = wdata.size();
+    size_t tsize = 2;
+    size_t power = 1;
 
     if (wsize < 2) return false;
     
@@ -23,7 +23,7 @@ bool FourierFunction::fft()
     }
     
     FourierData convert;
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
         if (i < wsize)
         {
@@ -36,10 +36,10 @@ bool FourierFunction::fft()
         }
     }
 
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
-        unsigned long long rev = 0;
-        for (unsigned long long j = 0; j < power; ++j)
+        size_t rev = 0;
+        for (size_t j = 0; j < power; ++j)
         {
             rev = (rev << 1) | ((i >> j) & 1);
         }
@@ -49,15 +49,15 @@ bool FourierFunction::fft()
         }
     }
 
-    for (unsigned long long s = 1; s <= power; ++s)
+    for (size_t s = 1; s <= power; ++s)
     {
-        unsigned long long m = static_cast<unsigned long long>(1) << s;
+        size_t m = static_cast<size_t>(1) << s;
         std::complex<double> wm = std::exp(std::complex<double>(0, -2.0 * PI / (double)m));
 
-        for (unsigned long long k = 0; k < tsize; k += m)
+        for (size_t k = 0; k < tsize; k += m)
         {
             std::complex<double> w = 1;
-            for (unsigned long long j = 0; j < m / 2; ++j)
+            for (size_t j = 0; j < m / 2; ++j)
             {
                 std::complex<double> t = w * convert[k + j + m / 2];
                 std::complex<double> u = convert[k + j];
@@ -75,9 +75,9 @@ bool FourierFunction::fft()
 
 bool FourierFunction::ifft()
 {
-    unsigned long long fsize = fdata.size();
-    unsigned long long tsize = 2;
-    unsigned long long power = 1;
+    size_t fsize = fdata.size();
+    size_t tsize = 2;
+    size_t power = 1;
 
     if (fsize < 2) return false;
 
@@ -88,7 +88,7 @@ bool FourierFunction::ifft()
     }
 
     FourierData convert;
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
         if (i < fsize)
         {
@@ -101,10 +101,10 @@ bool FourierFunction::ifft()
         }
     }
 
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
-        unsigned long long rev = 0;
-        for (unsigned long long j = 0; j < power; ++j)
+        size_t rev = 0;
+        for (size_t j = 0; j < power; ++j)
         {
             rev = (rev << 1) | ((i >> j) & 1);
         }
@@ -114,15 +114,15 @@ bool FourierFunction::ifft()
         }
     }
 
-    for (unsigned long long s = 1; s <= power; ++s)
+    for (size_t s = 1; s <= power; ++s)
     {
-        unsigned long long m = static_cast<unsigned long long>(1) << s;
+        size_t m = static_cast<size_t>(1) << s;
         std::complex<double> wm = std::exp(std::complex<double>(0, 2.0 * PI / (double)m));
 
-        for (unsigned long long k = 0; k < tsize; k += m)
+        for (size_t k = 0; k < tsize; k += m)
         {
             std::complex<double> w = 1;
-            for (unsigned long long j = 0; j < m / 2; ++j)
+            for (size_t j = 0; j < m / 2; ++j)
             {
                 std::complex<double> t = w * convert[k + j + m / 2];
                 std::complex<double> u = convert[k + j];
@@ -136,7 +136,7 @@ bool FourierFunction::ifft()
     WaveData ret;
     for (const auto& pt : convert)
     {
-        ret.push_back((unsigned long long)(pt.real() / (double)tsize));
+        ret.push_back((size_t)(pt.real() / (double)tsize));
     }
 
     ret.resize(wdata.size());
@@ -148,9 +148,9 @@ bool FourierFunction::ifft()
 
 FourierData FourierFunction::getFFT() const
 {
-    unsigned long long wsize = wdata.size();
-    unsigned long long tsize = 2;
-    unsigned long long power = 1;
+    size_t wsize = wdata.size();
+    size_t tsize = 2;
+    size_t power = 1;
 
     if (wsize < 2) return FourierData();
 
@@ -161,7 +161,7 @@ FourierData FourierFunction::getFFT() const
     }
 
     FourierData convert;
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
         if (i < wsize)
         {
@@ -174,10 +174,10 @@ FourierData FourierFunction::getFFT() const
         }
     }
 
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
-        unsigned long long rev = 0;
-        for (unsigned long long j = 0; j < power; ++j)
+        size_t rev = 0;
+        for (size_t j = 0; j < power; ++j)
         {
             rev = (rev << 1) | ((i >> j) & 1);
         }
@@ -187,15 +187,15 @@ FourierData FourierFunction::getFFT() const
         }
     }
 
-    for (unsigned long long s = 1; s <= power; ++s)
+    for (size_t s = 1; s <= power; ++s)
     {
-        unsigned long long m = static_cast<unsigned long long>(1) << s;
+        size_t m = static_cast<size_t>(1) << s;
         std::complex<double> wm = std::exp(std::complex<double>(0, -2.0 * PI / (double)m));
 
-        for (unsigned long long k = 0; k < tsize; k += m)
+        for (size_t k = 0; k < tsize; k += m)
         {
             std::complex<double> w = 1;
-            for (unsigned long long j = 0; j < m / 2; ++j)
+            for (size_t j = 0; j < m / 2; ++j)
             {
                 std::complex<double> t = w * convert[k + j + m / 2];
                 std::complex<double> u = convert[k + j];
@@ -211,9 +211,9 @@ FourierData FourierFunction::getFFT() const
 
 FourierData FourierFunction::getIFFT() const
 {
-    unsigned long long fsize = fdata.size();
-    unsigned long long tsize = 2;
-    unsigned long long power = 1;
+    size_t fsize = fdata.size();
+    size_t tsize = 2;
+    size_t power = 1;
 
     if (fsize < 2) return FourierData();
 
@@ -224,7 +224,7 @@ FourierData FourierFunction::getIFFT() const
     }
 
     FourierData convert;
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
         if (i < fsize)
         {
@@ -237,10 +237,10 @@ FourierData FourierFunction::getIFFT() const
         }
     }
 
-    for (unsigned long long i = 0; i < tsize; ++i)
+    for (size_t i = 0; i < tsize; ++i)
     {
-        unsigned long long rev = 0;
-        for (unsigned long long j = 0; j < power; ++j)
+        size_t rev = 0;
+        for (size_t j = 0; j < power; ++j)
         {
             rev = (rev << 1) | ((i >> j) & 1);
         }
@@ -250,15 +250,15 @@ FourierData FourierFunction::getIFFT() const
         }
     }
 
-    for (unsigned long long s = 1; s <= power; ++s)
+    for (size_t s = 1; s <= power; ++s)
     {
-        unsigned long long m = static_cast<unsigned long long>(1) << s;
+        size_t m = static_cast<size_t>(1) << s;
         std::complex<double> wm = std::exp(std::complex<double>(0, 2.0 * PI / (double)m));
 
-        for (unsigned long long k = 0; k < tsize; k += m)
+        for (size_t k = 0; k < tsize; k += m)
         {
             std::complex<double> w = 1;
-            for (unsigned long long j = 0; j < m / 2; ++j)
+            for (size_t j = 0; j < m / 2; ++j)
             {
                 std::complex<double> t = w * convert[k + j + m / 2];
                 std::complex<double> u = convert[k + j];
@@ -279,7 +279,7 @@ FourierData FourierFunction::getIFFT() const
     return ret;
 }
 
-double FourierFunction::getFrequency(unsigned long long _fdx) const
+double FourierFunction::getFrequency(size_t _fdx) const
 {
     return (double)_fdx * (double)header.SAMPLE_RATE / (double)fdata.size();
 }
@@ -288,7 +288,7 @@ bool FourierFunction::setLPF(double _freq, double _brate)
 {
     if (_brate > 0) return false;
 
-    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    for (size_t i = 0; i < fdata.size() / 2; i++)
     {
         if (getFrequency(i) > _freq)
         {
@@ -307,7 +307,7 @@ bool FourierFunction::setHPF(double _freq, double _brate)
 {
     if (_brate > 0) return false;
 
-    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    for (size_t i = 0; i < fdata.size() / 2; i++)
     {
         if (getFrequency(i) < _freq)
         {
@@ -326,7 +326,7 @@ bool FourierFunction::setBPF(double _freq1, double _freq2, double _brate)
 {
     if (_brate > 0) return false;
 
-    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    for (size_t i = 0; i < fdata.size() / 2; i++)
     {
         double freq = getFrequency(i);
         if ((_freq1 < freq) && (freq < _freq2))
@@ -346,7 +346,7 @@ bool FourierFunction::setInverseFrequencyLPF(double _freq, double _invp)
 {
     if (_freq < 0 || _invp < 0) return false;
 
-    for (unsigned long long i = 0; i < fdata.size() / 2; i++)
+    for (size_t i = 0; i < fdata.size() / 2; i++)
     {
         if (getFrequency(i) > _freq)
         {
@@ -370,7 +370,7 @@ bool FourierFunction::exportWaveSpectrum(const std::string& _fname) const
         return false;
     }
 
-    for (unsigned long long i = 0; i < fdata.size() / 2; ++i)
+    for (size_t i = 0; i < fdata.size() / 2; ++i)
     {
         file << (double)i * (double)header.SAMPLE_RATE / (double)fdata.size() << ", " << sqrt(std::norm(fdata[i])) << std::endl;
     }

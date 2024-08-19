@@ -21,7 +21,7 @@ private: /* derived */
 	float box = 0.0;
 	float boy = 0.0;
 	float rad = 0.0;
-	unsigned long long time = 0;
+	size_t time = 0;
 
 public: /* constructor */
 	WaveViewer(unsigned int _width, unsigned int _height);

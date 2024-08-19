@@ -23,8 +23,8 @@ private: /* data */
 private: /* config */
 	double lenx;
 	double leny;
-	unsigned long long numx;
-	unsigned long long numy;
+	size_t numx;
+	size_t numy;
 
 private: /* derived */
 	double dx;
@@ -34,23 +34,23 @@ private: /* status */
 	bool isvalid = false;
 
 public: /* constructor */
-	WaveField(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy);
+	WaveField(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy);
 
 private: /* memory */
 	bool mallocWaveField();
-	bool check(unsigned long long _idx, unsigned long long _idy) const;
+	bool check(size_t _idx, size_t _idy) const;
 
 public: /* public use */
-	bool setField(Eigen::Vector3d _field, unsigned long long _idx, unsigned long long _idy);
+	bool setField(Eigen::Vector3d _field, size_t _idx, size_t _idy);
 	
-	Eigen::Vector3d getField(unsigned long long _idx, unsigned long long _idy) const;
-	Eigen::Vector3d getPoyntingVector(unsigned long long _idx, unsigned long long _idy) const;
+	Eigen::Vector3d getField(size_t _idx, size_t _idy) const;
+	Eigen::Vector3d getPoyntingVector(size_t _idx, size_t _idy) const;
 
 	double getDX() const;
 	double getDY() const;
 	double getLX() const;
 	double getLY() const;
 
-	unsigned long long getNX() const;;
-	unsigned long long getNY() const;;
+	size_t getNX() const;;
+	size_t getNY() const;;
 };

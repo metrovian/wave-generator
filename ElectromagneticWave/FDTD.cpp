@@ -17,12 +17,12 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period)
 	numy = _init.getNY();
 
 	dt = std::min(dx / C * courant, dy / C * courant) / sqrt(2);
-	numt = (unsigned long long)(period / dt);
+	numt = (size_t)(period / dt);
 
 	return true;
 }
 
-bool FDTD::setBasicCondition(const WaveField& _init, double _period, unsigned long long _numt)
+bool FDTD::setBasicCondition(const WaveField& _init, double _period, size_t _numt)
 {
 	if (_period < 0) return false;
 	if (_numt < 0) return false;
@@ -44,23 +44,23 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period, unsigned lo
 	return false;
 }
 
-WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy, double _posx, double _posy, double _sqrl, double _famp)
+WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp)
 {
 	WaveField ret(_mode, _lenx, _leny, _numx, _numy);
 
-	unsigned long long idx = static_cast<unsigned long long>(_numx * (_posx / _lenx));
-	unsigned long long jdx = static_cast<unsigned long long>(_numy * (_posy / _leny));
-	unsigned long long sqrx = static_cast<unsigned long long>(_numx * (_sqrl / _lenx / 2.0));
-	unsigned long long sqry = static_cast<unsigned long long>(_numy * (_sqrl / _leny / 2.0));
+	size_t idx = static_cast<size_t>(_numx * (_posx / _lenx));
+	size_t jdx = static_cast<size_t>(_numy * (_posy / _leny));
+	size_t sqrx = static_cast<size_t>(_numx * (_sqrl / _lenx / 2.0));
+	size_t sqry = static_cast<size_t>(_numy * (_sqrl / _leny / 2.0));
 
 	if (idx - sqrx < 0) return ret;
 	if (jdx - sqry < 0) return ret;
 	if (idx + sqrx >= _numx) return ret;
 	if (jdx + sqry >= _numy) return ret;
 
-	for (unsigned long long i = idx - sqrx; i < idx + sqrx; ++i)
+	for (size_t i = idx - sqrx; i < idx + sqrx; ++i)
 	{
-		for (unsigned long long j = jdx - sqry; j < jdx + sqry; ++j)
+		for (size_t j = jdx - sqry; j < jdx + sqry; ++j)
 		{
 			ret.setField(Eigen::Vector3d(0, 0, _famp), i, j);
 		}
@@ -69,7 +69,7 @@ WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny,
 	return ret;
 }
 
-WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, unsigned long long _idx, unsigned long long _jdx)>& _inspect) const
+WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, size_t _idx, size_t _jdx)>& _inspect) const
 {
 	WaveField next = _now;
 
@@ -78,9 +78,9 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 
 	if (mode == MODE::TRANSVERSE_ELECTRIC)
 	{
-		for (unsigned long long i = 0; i < numx; ++i)
+		for (size_t i = 0; i < numx; ++i)
 		{
-			for (unsigned long long j = 0; j < numy; ++j)
+			for (size_t j = 0; j < numy; ++j)
 			{
 				Eigen::Vector3d now = _inspect(next, i, j);
 				Eigen::Vector3d ndx = _inspect(next, i - 1, j);
@@ -92,9 +92,9 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 			}
 		}
 
-		for (unsigned long long i = 0; i < numx; ++i)
+		for (size_t i = 0; i < numx; ++i)
 		{
-			for (unsigned long long j = 0; j < numy; ++j)
+			for (size_t j = 0; j < numy; ++j)
 			{
 				Eigen::Vector3d now = _inspect(next, i, j);
 				Eigen::Vector3d ndx = _inspect(next, i + 1, j);

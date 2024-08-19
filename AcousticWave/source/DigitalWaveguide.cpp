@@ -6,12 +6,12 @@ WaveData DigitalWaveguide::extractFrontData(const DelayData& _data) const
     return extractFrontData(_data, _data.size());
 }
 
-WaveData DigitalWaveguide::extractFrontData(const DelayData& _data, unsigned long long _count) const
+WaveData DigitalWaveguide::extractFrontData(const DelayData& _data, size_t _count) const
 {
     WaveData ret;
     DelayData temp = _data;
 
-    for (unsigned long long i = 0; i < _count; ++i)
+    for (size_t i = 0; i < _count; ++i)
     {
         ret.push_back(temp.front());
         temp.pop();
@@ -25,12 +25,12 @@ DelayData DigitalWaveguide::calcRandomDelayLine(double _namp, double _freq)
     if (_freq > 0)
     {
         double ramp = _namp * pow(2.0, (double)header.BIT_PER_SAMPLE - 1.0);
-        unsigned long long size = (unsigned long long)((double)header.SAMPLE_RATE / _freq);
+        size_t size = (size_t)((double)header.SAMPLE_RATE / _freq);
 
         if (size > 0)
         {
             std::queue<short> ret;
-            for (unsigned long long i = 0; i < size; ++i)
+            for (size_t i = 0; i < size; ++i)
             {
                 ret.push((short)(ramp * (1.0 - 2.0 * (double)rand() / (double)RAND_MAX)));
             }
@@ -48,15 +48,15 @@ DelayData DigitalWaveguide::calcBandLimDelayLine(double _namp, double _freq, uns
     {
         double ramp = _namp * pow(2.0, (double)header.BIT_PER_SAMPLE - 1.0);
         double dt = 1.0 / (double)header.SAMPLE_RATE;
-        unsigned long long size = (unsigned long long)((double)header.SAMPLE_RATE / _freq);
+        size_t size = (size_t)((double)header.SAMPLE_RATE / _freq);
 
         if (size > 0)
         {
             std::queue<short> ret;
-            for (unsigned long long i = 0; i < size; ++i)
+            for (size_t i = 0; i < size; ++i)
             {
                 double sum = 0;
-                for (unsigned long long j = 0; j < (unsigned long long)_band * 1000; ++j)
+                for (size_t j = 0; j < (size_t)_band * 1000; ++j)
                 {
                     sum += cos(2.0 * PI * _freq * dt * (double)i * (1 + (double)j / 1000.0));
                 }
@@ -76,15 +76,15 @@ DelayData DigitalWaveguide::calcImpulseDelayLine(double _namp, double _freq, dou
     if (_freq > 0)
     {
         double ramp = _namp * pow(2.0, (double)header.BIT_PER_SAMPLE - 1.0);
-        unsigned long long size = (unsigned long long)((double)header.SAMPLE_RATE / _freq);
+        size_t size = (size_t)((double)header.SAMPLE_RATE / _freq);
 
         if (size > 0)
         {
             std::queue<short> ret;
-            for (unsigned long long i = 0; i < size; ++i)
+            for (size_t i = 0; i < size; ++i)
             {
-                if (i < (unsigned long long)(_istar * size)) ret.push(0);
-                else if (i < (unsigned long long)(_iend * size)) ret.push((short)ramp);
+                if (i < (size_t)(_istar * size)) ret.push(0);
+                else if (i < (size_t)(_iend * size)) ret.push((short)ramp);
                 else ret.push(0);
             }
 
@@ -99,10 +99,10 @@ short DigitalWaveguide::passSimpleLPF(const DelayData& _data, unsigned char _pow
 {
     assert(_data.size() > _pow);
 
-    WaveData ext = extractFrontData(_data, (unsigned long long)_pow);
+    WaveData ext = extractFrontData(_data, (size_t)_pow);
     long long sum = 0;
 
-    for (unsigned long long i = 0; i < ext.size(); ++i)
+    for (size_t i = 0; i < ext.size(); ++i)
     {
         sum += ext[i];
     }
@@ -148,7 +148,7 @@ DelayData DigitalWaveguide::passStringElasticModulusLPF(const DelayData& _data, 
 
     double res = 0;
 
-    for (unsigned long long i = 0; i < _data.size(); ++i)
+    for (size_t i = 0; i < _data.size(); ++i)
     {
         res = _mod * (double)ext[i] + (1.0 - _mod) * res;
         ret.push(res);
@@ -164,10 +164,10 @@ DelayData DigitalWaveguide::passStringPositionCF(const DelayData& _data, double 
     DelayData ret;
     WaveData ext = extractFrontData(_data);
 
-    unsigned long long delay1 = (unsigned long long)ceil(_pos * (double)_data.size());
-    unsigned long long delay2 = (unsigned long long)ceil((1.0 - _pos) * (double)_data.size());
+    size_t delay1 = (size_t)ceil(_pos * (double)_data.size());
+    size_t delay2 = (size_t)ceil((1.0 - _pos) * (double)_data.size());
 
-    for (unsigned long long i = 0; i < _data.size(); ++i)
+    for (size_t i = 0; i < _data.size(); ++i)
     {
         short spos = 0;
         if (i >= delay1) spos += ext[i - delay1];
@@ -203,18 +203,18 @@ WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned
 {
     WaveData ret(_data.size());
 
-    if (_data.size() > (unsigned long long)_num)
+    if (_data.size() > (size_t)_num)
     {
-        unsigned long long rows = _data.size() - (unsigned long long)_num;
+        size_t rows = _data.size() - (size_t)_num;
 
         Eigen::VectorXd answer(rows);
         Eigen::MatrixXd clue(rows, _num);
 
-        for (unsigned long long i = 0; i < rows; ++i)
+        for (size_t i = 0; i < rows; ++i)
         {
             answer(i) = _data[i]; 
 
-            for (unsigned long long j = 1; j < (unsigned long long)_num + 1; ++j)
+            for (size_t j = 1; j < (size_t)_num + 1; ++j)
             {
                 clue(i, j - 1) = _data[i + j];
             }
@@ -222,7 +222,7 @@ WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned
         
         Eigen::VectorXd lpc = pinvMP(clue) * answer;
 
-        for (unsigned long long i = 0; i < rows; ++i)
+        for (size_t i = 0; i < rows; ++i)
         {
             ret[i] = lpc.dot(clue.row(i));
         }

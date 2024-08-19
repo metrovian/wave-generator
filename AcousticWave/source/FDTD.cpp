@@ -1,7 +1,7 @@
 #include "../include/FDTD.h"
 #include "../include/Predefined.h"
 
-bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numt)
+bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, size_t _numt)
 {
     if (_length < 0) return false;
     if (_period < 0) return false;
@@ -18,7 +18,7 @@ bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, uns
     dt = period / (double)numt;
     dx = wspeed * dt / courant;
 
-    numx = (unsigned long long)(length / dx);
+    numx = (size_t)(length / dx);
     wave.resize(numt);
     for (auto& psi : wave)
     {
@@ -28,7 +28,7 @@ bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, uns
     return true;
 }
 
-bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numx, unsigned long long _numt)
+bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, size_t _numx, size_t _numt)
 {
     if (_length < 0) return false;
     if (_period < 0) return false;
@@ -85,7 +85,7 @@ std::vector<double> FDTD::generateRandomCondition() const
 {
     std::vector<double> ret(numx);
 
-    for (unsigned long long i = 1; i < numx - 1; ++i)
+    for (size_t i = 1; i < numx - 1; ++i)
     {
         ret[i] = 1.0 - 2.0 * (double)rand() / (double)RAND_MAX;
     }
@@ -97,7 +97,7 @@ std::vector<double> FDTD::generateSinCondition(double _wlen, double _phase) cons
 {
     std::vector<double> ret(numx);
 
-    for (unsigned long long i = 1; i < numx - 1; ++i)
+    for (size_t i = 1; i < numx - 1; ++i)
     {
         ret[i] = std::sin(2.0 * PI / _wlen * dx * (double)i + _phase);
     }
@@ -113,7 +113,7 @@ std::vector<double> FDTD::generateImpulseCondition(double _istar, double _iend) 
 
     std::vector<double> ret(numx);
 
-    for (unsigned long long i = 1; i < numx - 1; ++i)
+    for (size_t i = 1; i < numx - 1; ++i)
     {
         if ((double)numx * _istar < i && i < (double)numx * _iend)
         {
@@ -128,7 +128,7 @@ WaveFunction FDTD::castWaveFunction(double _namp, double _inspt, unsigned int _s
 {
     WaveFunction ret;
     WaveData dat;
-    unsigned long long idx = (unsigned long long)((double)numx * _inspt);
+    size_t idx = (size_t)((double)numx * _inspt);
     double ramp = _namp * pow(2.0, (double)_sbit - 1.0);
 
     assert(idx < numx);
@@ -138,7 +138,7 @@ WaveFunction FDTD::castWaveFunction(double _namp, double _inspt, unsigned int _s
 
     for (double i = 0; i < (double)numt; i = i + sinc)
     {
-        dat.push_back((short)(ramp * wave[(unsigned long long)i][idx]));
+        dat.push_back((short)(ramp * wave[(size_t)i][idx]));
     }
 
     ret.setWaveFunction(dat, _srate, _sbit);

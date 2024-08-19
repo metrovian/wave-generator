@@ -1,6 +1,6 @@
 #include "WaveField.h"
 
-WaveField::WaveField(MODE _mode, double _lenx, double _leny, unsigned long long _numx, unsigned long long _numy)
+WaveField::WaveField(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy)
 {
 	mode = _mode;
 	numx = _numx;
@@ -15,11 +15,11 @@ bool WaveField::mallocWaveField()
 {
 	field.resize(numx);
 
-	for (unsigned long long i = 0; i < numx; ++i)
+	for (size_t i = 0; i < numx; ++i)
 	{
 		field[i].resize(numy);
 
-		for (unsigned long long j = 0; j < numy; ++j)
+		for (size_t j = 0; j < numy; ++j)
 		{
 			field[i][j] = Eigen::Vector3d(0, 0, 0);
 		}
@@ -28,7 +28,7 @@ bool WaveField::mallocWaveField()
 	return true;
 }
 
-bool WaveField::check(unsigned long long _idx, unsigned long long _idy) const
+bool WaveField::check(size_t _idx, size_t _idy) const
 {
 	if (_idx >= numx) return false;
 	if (_idy >= numy) return false;
@@ -36,7 +36,7 @@ bool WaveField::check(unsigned long long _idx, unsigned long long _idy) const
 	return isvalid;
 }
 
-bool WaveField::setField(Eigen::Vector3d _field, unsigned long long _idx, unsigned long long _idy)
+bool WaveField::setField(Eigen::Vector3d _field, size_t _idx, size_t _idy)
 {
 	if (!check(_idx, _idy)) return false;
 
@@ -44,13 +44,13 @@ bool WaveField::setField(Eigen::Vector3d _field, unsigned long long _idx, unsign
 	return true;
 }
 
-Eigen::Vector3d WaveField::getField(unsigned long long _idx, unsigned long long _idy) const
+Eigen::Vector3d WaveField::getField(size_t _idx, size_t _idy) const
 {
 	if (!check(_idx, _idy)) return Eigen::Vector3d(NAN, NAN, NAN);
 	return field[_idx][_idy];
 }
 
-Eigen::Vector3d WaveField::getPoyntingVector(unsigned long long _idx, unsigned long long _idy) const
+Eigen::Vector3d WaveField::getPoyntingVector(size_t _idx, size_t _idy) const
 {
 	if (!check(_idx, _idy)) return Eigen::Vector3d(NAN, NAN, NAN);
 
@@ -92,12 +92,12 @@ double WaveField::getLY() const
 	return leny; 
 }
 
-unsigned long long WaveField::getNX() const 
+size_t WaveField::getNX() const 
 { 
 	return numx; 
 }
 
-unsigned long long WaveField::getNY() const 
+size_t WaveField::getNY() const 
 { 
 	return numy; 
 }
