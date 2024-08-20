@@ -29,6 +29,9 @@ public: /* condition */
 public: /* source */
 	static WaveField generateImpulseCondition(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp);
 
+public: /* field viewer */
+	bool render(unsigned int _width, unsigned int _height);
+
 protected: /* parts */
 	WaveField calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, size_t _idx, size_t _jdx)>& _inspect) const;
 

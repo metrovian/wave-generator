@@ -1,6 +1,5 @@
 #pragma once
 #include "FDTD.h"
-#include "WaveViewer.h"
 
 class FreeSpaceFDTD : public FDTD
 {

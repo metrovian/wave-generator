@@ -1,4 +1,5 @@
 #include "FDTD.h"
+#include "WaveViewer.h"
 #include "Predefined.h"
 
 bool FDTD::setBasicCondition(const WaveField& _init, double _period)
@@ -67,6 +68,16 @@ WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny,
 	}
 
 	return ret;
+}
+
+bool FDTD::render(unsigned int _width, unsigned int _height)
+{
+	if (wave.size() == 0) return false;
+
+	WaveViewer viewer(_width, _height);
+	viewer.display(wave);
+
+	return true;
 }
 
 WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, size_t _idx, size_t _jdx)>& _inspect) const
