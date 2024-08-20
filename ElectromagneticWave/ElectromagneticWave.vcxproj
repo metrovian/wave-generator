@@ -145,6 +145,7 @@
     <ClCompile Include="FreeSpaceFDTD.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WaveField.cpp" />
+    <ClCompile Include="WaveguideFDTD.cpp" />
     <ClCompile Include="WaveViewer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

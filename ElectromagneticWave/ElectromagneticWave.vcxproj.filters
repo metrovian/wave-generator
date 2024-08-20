@@ -60,5 +60,8 @@
     <ClCompile Include="FreeSpaceFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WaveguideFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
