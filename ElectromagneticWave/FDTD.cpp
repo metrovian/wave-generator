@@ -108,5 +108,37 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 		}
 	}
 
+	else if (mode == MODE::TRANSVERSE_MAGNETIC)
+	{
+		for (size_t i = 0; i < numx; ++i)
+		{
+			for (size_t j = 0; j < numy; ++j)
+			{
+				Eigen::Vector3d now = _inspect(next, i, j);
+				Eigen::Vector3d ndx = _inspect(next, i - 1, j);
+				Eigen::Vector3d ndy = _inspect(next, i, j - 1);
+
+				now.z() -= mstp * ((now.y() - ndx.y()) / dx - (now.x() - ndy.x()) / dy);
+
+				next.setField(now, i, j);
+			}
+		}
+
+		for (size_t i = 0; i < numx; ++i)
+		{
+			for (size_t j = 0; j < numy; ++j)
+			{
+				Eigen::Vector3d now = _inspect(next, i, j);
+				Eigen::Vector3d ndx = _inspect(next, i + 1, j);
+				Eigen::Vector3d ndy = _inspect(next, i, j + 1);
+
+				now.x() += estp * (ndy.z() - now.z()) / dy;
+				now.y() -= estp * (ndx.z() - now.z()) / dx;
+
+				next.setField(now, i, j);
+			}
+		}
+	}
+
 	return next;
 }

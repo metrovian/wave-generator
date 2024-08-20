@@ -40,6 +40,9 @@
     <ClInclude Include="FreeSpaceFDTD.h">
       <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="WaveguideFDTD.h">
+      <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaveField.cpp">

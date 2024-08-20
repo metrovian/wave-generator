@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="FDTD.h" />
     <ClInclude Include="FreeSpaceFDTD.h" />
+    <ClInclude Include="WaveguideFDTD.h" />
     <ClInclude Include="WaveViewer.h" />
     <ClInclude Include="Predefined.h" />
     <ClInclude Include="WaveField.h" />
