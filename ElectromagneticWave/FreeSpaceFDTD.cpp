@@ -1,15 +1,5 @@
 #include "FreeSpaceFDTD.h"
 
-Eigen::Vector3d FreeSpaceFDTD::reflectiveBoundary(const WaveField& _field, size_t _idx, size_t _jdx) const
-{
-    if (_idx >= numx) return _field.getField(numx - 1, _jdx);
-    if (_jdx >= numy) return _field.getField(_idx, numy - 1);
-    if (_jdx < 0) return _field.getField(0, _jdx);
-    if (_jdx < 0) return _field.getField(_idx, 0);
-
-    return _field.getField(_idx, _jdx);
-}
-
 FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy)
 {
     posx = _lenx / 2.0;
@@ -50,14 +40,13 @@ FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _per
 
 bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy)
 {
-    WaveField init = generateImpulseCondition(_mode, _lenx, _leny, _numx, _numy, posx, posy, sqr, famp);
+    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, posx, posy, sqr, famp);
 
     if (!setBasicCondition(init, _period)) return false;
-    auto func = std::bind(&FreeSpaceFDTD::reflectiveBoundary, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 
     for (int i = 0; i < numt; ++i)
     {
-        wave.push_back(calcNextStepField(wave[wave.size() - 1], func));
+        wave.push_back(calcNextStepField(wave[wave.size() - 1]));
     }
 
     return true;
@@ -65,14 +54,13 @@ bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period
 
 bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy, size_t _numt)
 {
-    WaveField init = generateImpulseCondition(_mode, _lenx, _leny, _numx, _numy, posx, posy, sqr, famp);
+    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, posx, posy, sqr, famp);
 
     if (!setBasicCondition(init, _period, _numt)) return false;
-    auto func = std::bind(&FreeSpaceFDTD::reflectiveBoundary, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 
     for (int i = 0; i < numt; ++i)
     {
-        wave.push_back(calcNextStepField(wave[wave.size() - 1], func));
+        wave.push_back(calcNextStepField(wave[wave.size() - 1]));
     }
 
     return true;

@@ -20,7 +20,7 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period)
 	dt = std::min(dx / C * courant, dy / C * courant) / sqrt(2);
 	numt = (size_t)(period / dt);
 
-	medium = generateDefaultMedium(numx, numy);
+	medium = generateVacuumMedium(numx, numy);
 
 	return true;
 }
@@ -43,13 +43,13 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period, size_t _num
 	courant = C * dt * std::sqrt(1.0 / dx / dx + 1.0 / dy / dy);
 	period = _period;
 	
-	medium = generateDefaultMedium(numx, numy);
+	medium = generateVacuumMedium(numx, numy);
 
 	if (courant < 1.0) return true;
 	return false;
 }
 
-bool FDTD::setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period)
+bool FDTD::setBasicCondition(const WaveField& _init, const SpaceField& _medium, double _period)
 {
 	if (_period < 0) return false;
 
@@ -72,7 +72,7 @@ bool FDTD::setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, d
 	return true;
 }
 
-bool FDTD::setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period, size_t _numt)
+bool FDTD::setBasicCondition(const WaveField& _init, const SpaceField& _medium, double _period, size_t _numt)
 {
 	if (_period < 0) return false;
 	if (_numt < 0) return false;
@@ -96,7 +96,66 @@ bool FDTD::setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, d
 	return false;
 }
 
-WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp)
+Eigen::Vector3d FDTD::calcDefaultBoundary(const WaveField& _field, size_t _idx, size_t _jdx) const
+{
+	if (_idx >= numx) return _field.getField(numx - 1, _jdx);
+	if (_jdx >= numy) return _field.getField(_idx, numy - 1);
+	if (_jdx < 0) return _field.getField(0, _jdx);
+	if (_jdx < 0) return _field.getField(_idx, 0);
+
+	return _field.getField(_idx, _jdx);
+}
+
+SpaceField FDTD::generateVacuumMedium(size_t _numx, size_t _numy)
+{
+	SpaceField ret;
+	ret.resize(_numx);
+
+	for (size_t i = 0; i < _numx; ++i)
+	{
+		ret[i].resize(_numy);
+
+		for (size_t j = 0; j < _numy; ++j)
+		{
+			ret[i][j] = 1.0;
+		}
+	}
+
+	return ret;
+}
+
+SpaceField FDTD::generateWaveguideMedium(double _lenx, double _leny, size_t _numx, size_t _numy, double _pos1, double _pos2, double _epr1, double _epr2)
+{
+	assert(_pos1 < _pos2);
+
+	SpaceField ret;
+	ret.resize(_numx);
+
+	size_t cond1 = (size_t)((double)_numy / _leny * _pos1);
+	size_t cond2 = (size_t)((double)_numy / _leny * _pos2);
+
+	for (size_t i = 0; i < _numx; ++i)
+	{
+		ret[i].resize(_numy);
+
+		for (size_t j = 0; j < _numy; ++j)
+		{
+			if (j > cond1 && j < cond2)
+			{
+				ret[i][j] = _epr2;
+			}
+
+			else
+			{
+				ret[i][j] = _epr1;
+			}
+		}
+	}
+
+	return ret;
+}
+
+WaveField FDTD::generateHuygensSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp)
 {
 	WaveField ret(_mode, _lenx, _leny, _numx, _numy);
 
@@ -121,24 +180,6 @@ WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny,
 	return ret;
 }
 
-SpaceFDTD FDTD::generateDefaultMedium(size_t _numx, size_t _numy)
-{
-	SpaceFDTD ret;
-	ret.resize(_numx);
-
-	for (size_t i = 0; i < _numx; ++i)
-	{
-		ret[i].resize(_numy);
-
-		for (size_t j = 0; j < _numy; ++j)
-		{
-			ret[i][j] = 1.0;
-		}
-	}
-
-	return ret;
-}
-
 bool FDTD::render(unsigned int _width, unsigned int _height)
 {
 	if (wave.size() == 0) return false;
@@ -147,6 +188,11 @@ bool FDTD::render(unsigned int _width, unsigned int _height)
 	viewer.display(wave);
 
 	return true;
+}
+
+WaveField FDTD::calcNextStepField(const WaveField& _now) const
+{
+	return calcNextStepField(_now, std::bind(&FDTD::calcDefaultBoundary, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
 
 WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, size_t _idx, size_t _jdx)>& _inspect) const

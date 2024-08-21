@@ -2,12 +2,12 @@
 #include "WaveField.h"
 
 typedef std::vector<WaveField> DataFDTD;
-typedef std::vector<std::vector<double>> SpaceFDTD;
+typedef std::vector<std::vector<double>> SpaceField;
 class FDTD
 {
 protected: /* data */
 	DataFDTD wave;
-	SpaceFDTD medium;
+	SpaceField medium;
 	MODE mode;
 
 protected: /* config */
@@ -24,22 +24,27 @@ protected: /* derived */
 	double dt;
 	double courant;
 
-public: /* condition */
+protected: /* condition */
 	bool setBasicCondition(const WaveField& _init, double _period);
 	bool setBasicCondition(const WaveField& _init, double _period, size_t _numt);
-	bool setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period);
-	bool setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period, size_t _numt);
+	bool setBasicCondition(const WaveField& _init, const SpaceField& _medium, double _period);
+	bool setBasicCondition(const WaveField& _init, const SpaceField& _medium, double _period, size_t _numt);
 
-public: /* source */
-	static WaveField generateImpulseCondition(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp);
+protected: /* default */
+	Eigen::Vector3d calcDefaultBoundary(const WaveField& _field, size_t _idx, size_t _jdx) const;
 
-public: /* medium */
-	static SpaceFDTD generateDefaultMedium(size_t _numx, size_t _numy);
+protected: /* medium */
+	static SpaceField generateVacuumMedium(size_t _numx, size_t _numy);
+	static SpaceField generateWaveguideMedium(double _lenx, double _leny, size_t _numx, size_t _numy, double _pos1, double _pos2, double _epr1, double _epr2);
+
+protected: /* source */
+	static WaveField generateHuygensSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp);
 
 public: /* field viewer */
 	bool render(unsigned int _width, unsigned int _height);
 
 protected: /* parts */
+	WaveField calcNextStepField(const WaveField& _now) const;
 	WaveField calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, size_t _idx, size_t _jdx)>& _inspect) const;
 
 protected: /* virtual */
