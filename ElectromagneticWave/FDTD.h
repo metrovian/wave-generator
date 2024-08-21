@@ -2,10 +2,12 @@
 #include "WaveField.h"
 
 typedef std::vector<WaveField> DataFDTD;
+typedef std::vector<std::vector<double>> SpaceFDTD;
 class FDTD
 {
 protected: /* data */
 	DataFDTD wave;
+	SpaceFDTD medium;
 	MODE mode;
 
 protected: /* config */
@@ -25,9 +27,14 @@ protected: /* derived */
 public: /* condition */
 	bool setBasicCondition(const WaveField& _init, double _period);
 	bool setBasicCondition(const WaveField& _init, double _period, size_t _numt);
+	bool setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period);
+	bool setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period, size_t _numt);
 
 public: /* source */
 	static WaveField generateImpulseCondition(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp);
+
+public: /* medium */
+	static SpaceFDTD generateDefaultMedium(size_t _numx, size_t _numy);
 
 public: /* field viewer */
 	bool render(unsigned int _width, unsigned int _height);

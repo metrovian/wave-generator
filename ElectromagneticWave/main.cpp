@@ -3,6 +3,6 @@
 
 int main()
 {
-    FreeSpaceFDTD g(MODE::TRANSVERSE_MAGNETIC, 100, 100, 1.0E-7, 512, 512);
+    FreeSpaceFDTD g(MODE::TRANSVERSE_ELECTRIC, 100, 100, 5.0E-7, 512, 512, 10, 10, 1, 10);
     g.render(1000, 1000);
 }

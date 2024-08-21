@@ -20,6 +20,8 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period)
 	dt = std::min(dx / C * courant, dy / C * courant) / sqrt(2);
 	numt = (size_t)(period / dt);
 
+	medium = generateDefaultMedium(numx, numy);
+
 	return true;
 }
 
@@ -41,6 +43,55 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period, size_t _num
 	courant = C * dt * std::sqrt(1.0 / dx / dx + 1.0 / dy / dy);
 	period = _period;
 	
+	medium = generateDefaultMedium(numx, numy);
+
+	if (courant < 1.0) return true;
+	return false;
+}
+
+bool FDTD::setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period)
+{
+	if (_period < 0) return false;
+
+	wave.push_back(_init);
+
+	courant = 0.950;
+	period = _period;
+
+	dx = _init.getDX();
+	dy = _init.getDY();
+
+	numx = _init.getNX();
+	numy = _init.getNY();
+
+	dt = std::min(dx / C * courant, dy / C * courant) / sqrt(2);
+	numt = (size_t)(period / dt);
+
+	medium = _medium;
+
+	return true;
+}
+
+bool FDTD::setBasicCondition(const WaveField& _init, const SpaceFDTD& _medium, double _period, size_t _numt)
+{
+	if (_period < 0) return false;
+	if (_numt < 0) return false;
+
+	wave.push_back(_init);
+
+	numx = _init.getNX();
+	numy = _init.getNY();
+	numt = _numt;
+
+	dx = _init.getDX();
+	dy = _init.getDY();
+	dt = _period / (double)_numt;
+
+	courant = C * dt * std::sqrt(1.0 / dx / dx + 1.0 / dy / dy);
+	period = _period;
+
+	medium = _medium;
+
 	if (courant < 1.0) return true;
 	return false;
 }
@@ -64,6 +115,24 @@ WaveField FDTD::generateImpulseCondition(MODE _mode, double _lenx, double _leny,
 		for (size_t j = jdx - sqry; j < jdx + sqry; ++j)
 		{
 			ret.setField(Eigen::Vector3d(0, 0, _famp), i, j);
+		}
+	}
+
+	return ret;
+}
+
+SpaceFDTD FDTD::generateDefaultMedium(size_t _numx, size_t _numy)
+{
+	SpaceFDTD ret;
+	ret.resize(_numx);
+
+	for (size_t i = 0; i < _numx; ++i)
+	{
+		ret[i].resize(_numy);
+
+		for (size_t j = 0; j < _numy; ++j)
+		{
+			ret[i][j] = 1.0;
 		}
 	}
 
@@ -97,7 +166,7 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 				Eigen::Vector3d ndx = _inspect(next, i - 1, j);
 				Eigen::Vector3d ndy = _inspect(next, i, j - 1);
 
-				now.z() += estp * ((now.y() - ndx.y()) / dx - (now.x() - ndy.x()) / dy);
+				now.z() += estp * ((now.y() - ndx.y()) / dx - (now.x() - ndy.x()) / dy) / medium[i][j];
 
 				next.setField(now, i, j);
 			}
@@ -143,8 +212,8 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 				Eigen::Vector3d ndx = _inspect(next, i + 1, j);
 				Eigen::Vector3d ndy = _inspect(next, i, j + 1);
 
-				now.x() += estp * (ndy.z() - now.z()) / dy;
-				now.y() -= estp * (ndx.z() - now.z()) / dx;
+				now.x() += estp * (ndy.z() - now.z()) / dy / medium[i][j];
+				now.y() -= estp * (ndx.z() - now.z()) / dx / medium[i][j];
 
 				next.setField(now, i, j);
 			}
