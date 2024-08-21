@@ -10,7 +10,7 @@ WaveguideFDTD::WaveguideFDTD(MODE _mode, double _lenx, double _leny, double _per
 
 bool WaveguideFDTD::solve(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy)
 {
-    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, _lenx / 2.0, _leny / 2.0, 1.0, 10.0);
+    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, _lenx / 6.0, _leny / 2.0, 1.0, 10.0);
     SpaceField med = generateWaveguideMedium(_lenx, _leny, _numx, _numy, pos1, pos2, epr1, epr2);
 
     if (!setBasicCondition(init, med, _period)) return false;

@@ -30,7 +30,7 @@ protected: /* condition */
 	bool setBasicCondition(const WaveField& _init, const SpaceField& _medium, double _period);
 	bool setBasicCondition(const WaveField& _init, const SpaceField& _medium, double _period, size_t _numt);
 
-protected: /* default */
+protected: /* inspect */
 	Eigen::Vector3d calcDefaultBoundary(const WaveField& _field, size_t _idx, size_t _jdx) const;
 
 protected: /* medium */
