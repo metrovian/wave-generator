@@ -2,7 +2,6 @@
 #include "WaveFunction.h"
 
 typedef std::vector<std::vector<double>> DataFDTD;
-
 class FDTD
 {
 protected: /* data */
