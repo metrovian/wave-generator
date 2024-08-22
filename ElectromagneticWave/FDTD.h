@@ -31,7 +31,8 @@ protected: /* condition */
 	bool setBasicCondition(const WaveField& _init, const SpaceField& _medium, double _period, size_t _numt);
 
 protected: /* inspect */
-	Eigen::Vector3d calcDefaultBoundary(const WaveField& _field, size_t _idx, size_t _jdx) const;
+	Eigen::Vector3d calcFreeEndBoundary(const WaveField& _field, size_t _idx, size_t _jdx) const;
+	Eigen::Vector3d calcFixedEndBoundary(const WaveField& _field, size_t _idx, size_t _jdx) const;
 
 protected: /* medium */
 	static SpaceField generateVacuumMedium(size_t _numx, size_t _numy);
