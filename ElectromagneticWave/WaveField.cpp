@@ -36,6 +36,50 @@ bool WaveField::check(size_t _idx, size_t _idy) const
 	return isvalid;
 }
 
+bool WaveField::check(const WaveField& _rhs) const
+{
+	if (numx != _rhs.numx) return false;
+	if (numy != _rhs.numy) return false;
+
+	return true;
+}
+
+WaveField WaveField::operator+(const WaveField& _rhs) const
+{
+	WaveField ret = *this;
+
+	if (check(_rhs))
+	{
+		for (size_t i = 0; i < numx; ++i)
+		{
+			for (size_t j = 0; j < numy; ++j)
+			{
+				ret.setField(getField(i, j) + _rhs.getField(i, j), i, j);
+			}
+		}
+	}
+
+	return ret;
+}
+
+WaveField WaveField::operator-(const WaveField& _rhs) const
+{
+	WaveField ret = *this;
+
+	if (check(_rhs))
+	{
+		for (size_t i = 0; i < numx; ++i)
+		{
+			for (size_t j = 0; j < numy; ++j)
+			{
+				ret.setField(getField(i, j) - _rhs.getField(i, j), i, j);
+			}
+		}
+	}
+
+	return ret;
+}
+
 bool WaveField::setField(Eigen::Vector3d _field, size_t _idx, size_t _idy)
 {
 	if (!check(_idx, _idy)) return false;

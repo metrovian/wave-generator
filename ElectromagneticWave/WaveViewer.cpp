@@ -56,8 +56,6 @@ bool WaveViewer::drawField(const WaveField& _field)
 	if (rows <= 0) return false;
 	if (cols <= 0) return false;
 
-	setColorScale(_field);
-
 	float cx = (float)size.x / (float)rows;
 	float cy = (float)size.y / (float)cols;
 
@@ -105,24 +103,28 @@ bool WaveViewer::drawSlider()
 	return true;
 }
 
-bool WaveViewer::setColorScale(const WaveField& _field)
+bool WaveViewer::setColorScale(const DataFDTD& _data)
 {
 	scale = 0.0;
 
-	size_t rows = _field.getNX();
-	size_t cols = _field.getNY();
+	if (_data.size() == 0) return false;
+	size_t rows = _data[0].getNX();
+	size_t cols = _data[0].getNY();
 
-	for (size_t i = 0; i < rows; ++i)
+	for (size_t t = 0; t < _data.size(); ++t)
 	{
-		for (size_t j = 0; j < cols; ++j)
+		for (size_t i = 0; i < rows; ++i)
 		{
-			if (scale < fabs(_field.getField(i, j).z()))
+			for (size_t j = 0; j < cols; ++j)
 			{
-				scale = fabs(_field.getField(i, j).z());
+				if (scale < fabs(_data[t].getField(i, j).z()))
+				{
+					scale = fabs(_data[t].getField(i, j).z());
+				}
 			}
 		}
 	}
-	
+
 	return true;
 }
 
@@ -147,7 +149,7 @@ sf::Color WaveViewer::calcColorGradient(double _nval) const
 
 bool WaveViewer::display(const DataFDTD& _data)
 {
-	if (_data.size() == 0) return false;
+	if (!setColorScale(_data)) return false;
 
 	window.create(sf::VideoMode(width, height), "Electromagnetic Field Distribution Viewer", sf::Style::Titlebar | sf::Style::Close);
 

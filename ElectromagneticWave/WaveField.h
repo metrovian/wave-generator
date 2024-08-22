@@ -39,6 +39,11 @@ public: /* constructor */
 private: /* memory */
 	bool mallocWaveField();
 	bool check(size_t _idx, size_t _idy) const;
+	bool check(const WaveField& _rhs) const;
+
+public: /* operator */
+	WaveField operator+(const WaveField& _rhs) const;
+	WaveField operator-(const WaveField& _rhs) const;
 
 public: /* public use */
 	bool setField(Eigen::Vector3d _field, size_t _idx, size_t _idy);

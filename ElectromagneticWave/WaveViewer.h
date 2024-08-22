@@ -33,7 +33,7 @@ private: /* display */
 	bool draw(const DataFDTD& _data);
 	bool drawField(const WaveField& _field);
 	bool drawSlider();
-	bool setColorScale(const WaveField& _field);
+	bool setColorScale(const DataFDTD& _data);
 	double calcColorScale(double _rval) const;
 	sf::Color calcColorGradient(double _nval) const;
 

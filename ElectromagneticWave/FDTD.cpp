@@ -190,6 +190,23 @@ WaveField FDTD::generateHuygensSource(MODE _mode, double _lenx, double _leny, si
 	return ret;
 }
 
+WaveField FDTD::generatePointSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _time, double _famp, double _freq)
+{
+	WaveField ret(_mode, _lenx, _leny, _numx, _numy);
+
+	size_t idx = static_cast<size_t>(_numx * (_posx / _lenx));
+	size_t jdx = static_cast<size_t>(_numy * (_posy / _leny));
+
+	if (idx < 0) return ret;
+	if (jdx < 0) return ret;
+	if (idx >= _numx) return ret;
+	if (jdx >= _numy) return ret;
+
+	ret.setField(Eigen::Vector3d(0, 0, _famp * std::sin(2.0 * PI * _freq * _time)), idx, jdx);
+
+	return ret;
+}
+
 bool FDTD::render(unsigned int _width, unsigned int _height)
 {
 	if (wave.size() == 0) return false;

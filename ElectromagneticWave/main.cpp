@@ -4,7 +4,7 @@
 
 int main()
 {
-    FreeSpaceFDTD g(MODE::TRANSVERSE_ELECTRIC, 100, 100, 5.0E-7, 512, 512, 90, 90, 1, 10);
+    FreeSpaceFDTD g(MODE::TRANSVERSE_ELECTRIC, 100, 100, 5.0E-7, 500, 500, 50, 50, 2, 10);
     g.render(1000, 1000);
 
 

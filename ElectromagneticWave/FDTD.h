@@ -40,6 +40,7 @@ protected: /* medium */
 
 protected: /* source */
 	static WaveField generateHuygensSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp);
+	static WaveField generatePointSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _time, double _famp, double _freq);
 
 public: /* viewer */
 	bool render(unsigned int _width, unsigned int _height);
