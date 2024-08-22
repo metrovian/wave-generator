@@ -8,6 +8,6 @@ int main()
     //g.render(1000, 1000);
 
 
-    PlanarWaveguideFDTD x(MODE::TRANSVERSE_ELECTRIC, 200, 100, 5.0E-7, 1000, 500);
-    x.render(2000, 1000);
+    PlanarWaveguideFDTD x(MODE::TRANSVERSE_MAGNETIC, 100, 100, 5.0E-7, 500, 500);
+    x.render(1000, 1000);
 }

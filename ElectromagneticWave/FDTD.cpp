@@ -18,7 +18,7 @@ bool FDTD::setBasicCondition(const WaveField& _init, double _period)
 	numy = _init.getNY();
 
 	dt = std::min(dx / C * courant, dy / C * courant) / sqrt(2);
-	numt = (size_t)(period / dt);
+	numt = static_cast<size_t>(period / dt);
 
 	medium = generateVacuumMedium(numx, numy);
 
@@ -65,7 +65,7 @@ bool FDTD::setBasicCondition(const WaveField& _init, const SpaceField& _medium, 
 	numy = _init.getNY();
 
 	dt = std::min(dx / C * courant, dy / C * courant) / sqrt(2);
-	numt = (size_t)(period / dt);
+	numt = static_cast<size_t>(period / dt);
 
 	medium = _medium;
 
@@ -141,8 +141,8 @@ SpaceField FDTD::generateWaveguideMedium(double _lenx, double _leny, size_t _num
 	SpaceField ret;
 	ret.resize(_numx);
 
-	size_t cond1 = (size_t)((double)_numy / _leny * _pos1);
-	size_t cond2 = (size_t)((double)_numy / _leny * _pos2);
+	size_t cond1 = static_cast<size_t>((double)_numy / _leny * _pos1);
+	size_t cond2 = static_cast<size_t>((double)_numy / _leny * _pos2);
 
 	for (size_t i = 0; i < _numx; ++i)
 	{
@@ -197,6 +197,11 @@ WaveField FDTD::generateHuygensSource(MODE _mode, double _lenx, double _leny, si
 	ret.setField(Eigen::Vector3d(0, 0, _famp * std::sin(2.0 * PI * _freq * _time)), idx, jdx);
 
 	return ret;
+}
+
+double FDTD::calcElapsedTime() const
+{
+	return static_cast<double>(wave.size()) * dt;
 }
 
 bool FDTD::render(unsigned int _width, unsigned int _height)
