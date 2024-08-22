@@ -165,32 +165,24 @@ SpaceField FDTD::generateWaveguideMedium(double _lenx, double _leny, size_t _num
 	return ret;
 }
 
-WaveField FDTD::generateHuygensSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _sqrl, double _famp)
+WaveField FDTD::generateHuygensSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _famp)
 {
 	WaveField ret(_mode, _lenx, _leny, _numx, _numy);
 
 	size_t idx = static_cast<size_t>(_numx * (_posx / _lenx));
 	size_t jdx = static_cast<size_t>(_numy * (_posy / _leny));
-	size_t sqrx = static_cast<size_t>(_numx * (_sqrl / _lenx / 2.0));
-	size_t sqry = static_cast<size_t>(_numy * (_sqrl / _leny / 2.0));
 
-	if (idx - sqrx < 0) return ret;
-	if (jdx - sqry < 0) return ret;
-	if (idx + sqrx >= _numx) return ret;
-	if (jdx + sqry >= _numy) return ret;
+	if (idx < 0) return ret;
+	if (jdx < 0) return ret;
+	if (idx >= _numx) return ret;
+	if (jdx >= _numy) return ret;
 
-	for (size_t i = idx - sqrx; i < idx + sqrx; ++i)
-	{
-		for (size_t j = jdx - sqry; j < jdx + sqry; ++j)
-		{
-			ret.setField(Eigen::Vector3d(0, 0, _famp), i, j);
-		}
-	}
+	ret.setField(Eigen::Vector3d(0, 0, _famp), idx, jdx);
 
 	return ret;
 }
 
-WaveField FDTD::generatePointSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _time, double _famp, double _freq)
+WaveField FDTD::generateHuygensSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _time, double _famp, double _freq)
 {
 	WaveField ret(_mode, _lenx, _leny, _numx, _numy);
 

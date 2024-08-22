@@ -4,16 +4,14 @@ FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _per
 {
     posx = _lenx / 2.0;
     posy = _leny / 2.0;
-    sqr = _lenx / (double)_numx * 5.0;
     
     solve(_mode, _lenx, _leny, _period, _numx, _numy);
 }
 
-FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy, double _posx, double _posy, double _sqr, double _famp)
+FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy, double _posx, double _posy, double _famp)
 {
     posx = _posx;
     posy = _posy;
-    sqr = _sqr;
     famp = _famp;
 
     solve(_mode, _lenx, _leny, _period, _numx, _numy);
@@ -23,16 +21,14 @@ FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _per
 {
     posx = _lenx / 2.0;
     posy = _leny / 2.0;
-    sqr = _lenx / (double)_numx * 5.0;
 
     solve(_mode, _lenx, _leny, _period, _numx, _numy, _numt);
 }
 
-FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy, size_t _numt, double _posx, double _posy, double _sqr, double _famp)
+FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy, size_t _numt, double _posx, double _posy, double _famp)
 {
     posx = _posx;
     posy = _posy;
-    sqr = _sqr;
     famp = _famp;
 
     solve(_mode, _lenx, _leny, _period, _numx, _numy, _numt);
@@ -40,7 +36,7 @@ FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _per
 
 bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy)
 {
-    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, posx, posy, sqr, famp);
+    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, posx, posy, famp);
 
     if (!setBasicCondition(init, _period)) return false;
 
@@ -54,7 +50,7 @@ bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period
 
 bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy, size_t _numt)
 {
-    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, posx, posy, sqr, famp);
+    WaveField init = generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, posx, posy, famp);
 
     if (!setBasicCondition(init, _period, _numt)) return false;
 
