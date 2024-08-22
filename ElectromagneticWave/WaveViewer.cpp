@@ -132,7 +132,8 @@ double WaveViewer::calcColorScale(double _rval) const
 {
 	if (scale > 0)
 	{
-		return _rval / scale;
+		if (_rval > 0) return sqrt(_rval / scale);
+		return -sqrt(-_rval / scale);
 	}
 
 	else

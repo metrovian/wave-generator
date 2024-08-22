@@ -44,7 +44,7 @@ bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period
 
     if (!setBasicCondition(init, _period)) return false;
 
-    for (int i = 0; i < numt; ++i)
+    for (size_t i = 0; i < numt; ++i)
     {
         wave.push_back(calcNextStepField(wave[wave.size() - 1]));
     }
@@ -58,7 +58,7 @@ bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period
 
     if (!setBasicCondition(init, _period, _numt)) return false;
 
-    for (int i = 0; i < numt; ++i)
+    for (size_t i = 0; i < numt; ++i)
     {
         wave.push_back(calcNextStepField(wave[wave.size() - 1]));
     }
