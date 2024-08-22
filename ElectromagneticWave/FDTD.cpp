@@ -110,8 +110,8 @@ Eigen::Vector3d FDTD::calcFixedEndBoundary(const WaveField& _field, size_t _idx,
 {
 	if (_idx >= numx) return Eigen::Vector3d::Zero();
 	if (_jdx >= numy) return Eigen::Vector3d::Zero();
-	if (_idx < 0) return Eigen::Vector3d::Zero();
-	if (_jdx < 0) return Eigen::Vector3d::Zero();
+	if (_idx <= 0) return _field.getField(1, _jdx);
+	if (_jdx <= 0) return _field.getField(_idx, 1);
 
 	return _field.getField(_idx, _jdx);
 }
