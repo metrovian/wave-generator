@@ -100,7 +100,7 @@ Eigen::Vector3d FDTD::calcFreeEndBoundary(const WaveField& _field, size_t _idx, 
 {
 	if (_idx >= numx) return _field.getField(numx - 1, _jdx);
 	if (_jdx >= numy) return _field.getField(_idx, numy - 1);
-	if (_jdx < 0) return _field.getField(0, _jdx);
+	if (_idx < 0) return _field.getField(0, _jdx);
 	if (_jdx < 0) return _field.getField(_idx, 0);
 
 	return _field.getField(_idx, _jdx);
@@ -110,7 +110,7 @@ Eigen::Vector3d FDTD::calcFixedEndBoundary(const WaveField& _field, size_t _idx,
 {
 	if (_idx >= numx) return Eigen::Vector3d::Zero();
 	if (_jdx >= numy) return Eigen::Vector3d::Zero();
-	if (_jdx < 0) return Eigen::Vector3d::Zero();
+	if (_idx < 0) return Eigen::Vector3d::Zero();
 	if (_jdx < 0) return Eigen::Vector3d::Zero();
 
 	return _field.getField(_idx, _jdx);
@@ -202,7 +202,7 @@ bool FDTD::render(unsigned int _width, unsigned int _height)
 
 WaveField FDTD::calcNextStepField(const WaveField& _now) const
 {
-	return calcNextStepField(_now, std::bind(&FDTD::calcFreeEndBoundary, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
+	return calcNextStepField(_now, std::bind(&FDTD::calcFixedEndBoundary, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
 }
 
 WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eigen::Vector3d(const WaveField& _field, size_t _idx, size_t _jdx)>& _inspect) const
