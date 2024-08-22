@@ -40,7 +40,7 @@
     <ClInclude Include="FreeSpaceFDTD.h">
       <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="WaveguideFDTD.h">
+    <ClInclude Include="PlanarWaveguideFDTD.h">
       <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
@@ -60,7 +60,7 @@
     <ClCompile Include="FreeSpaceFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WaveguideFDTD.cpp">
+    <ClCompile Include="PlanarWaveguideFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
