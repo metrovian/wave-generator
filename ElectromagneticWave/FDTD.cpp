@@ -232,7 +232,6 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 				Eigen::Vector3d ndy = _inspect(next, i, j - 1);
 
 				now.z() += estp * ((now.y() - ndx.y()) / dx - (now.x() - ndy.x()) / dy) / medium[i][j];
-
 				next.setField(now, i, j);
 			}
 		}

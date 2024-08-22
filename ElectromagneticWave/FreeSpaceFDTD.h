@@ -6,7 +6,7 @@ class FreeSpaceFDTD : public FDTD
 private: /* data */
 	double posx;
 	double posy;
-	double famp = 1.0;
+	double famp = 1.00;
 
 public: /* constructor */
 	FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy);
