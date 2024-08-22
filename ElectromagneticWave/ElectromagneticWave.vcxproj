@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BraggReflectorFDTD.h" />
     <ClInclude Include="FDTD.h" />
     <ClInclude Include="FreeSpaceFDTD.h" />
     <ClInclude Include="PlanarWaveguideFDTD.h" />

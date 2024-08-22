@@ -231,7 +231,13 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 				Eigen::Vector3d ndx = _inspect(next, i - 1, j);
 				Eigen::Vector3d ndy = _inspect(next, i, j - 1);
 
+				if (i < PMLW) now.z() -= PMLS * now.z();
+				if (j < PMLW) now.z() -= PMLS * now.z();
+				if (i >= numx - PMLW) now.z() -= PMLS * now.z();
+				if (j >= numy - PMLW) now.z() -= PMLS * now.z();
+
 				now.z() += estp * ((now.y() - ndx.y()) / dx - (now.x() - ndy.x()) / dy) / medium[i][j];
+
 				next.setField(now, i, j);
 			}
 		}
@@ -261,6 +267,11 @@ WaveField FDTD::calcNextStepField(const WaveField& _now, const std::function<Eig
 				Eigen::Vector3d now = _inspect(next, i, j);
 				Eigen::Vector3d ndx = _inspect(next, i - 1, j);
 				Eigen::Vector3d ndy = _inspect(next, i, j - 1);
+
+				if (i < PMLW) now.z() -= PMLS * now.z();
+				if (j < PMLW) now.z() -= PMLS * now.z();
+				if (i >= numx - PMLW) now.z() -= PMLS * now.z();
+				if (j >= numy - PMLW) now.z() -= PMLS * now.z();
 
 				now.z() -= mstp * ((now.y() - ndx.y()) / dx - (now.x() - ndy.x()) / dy);
 

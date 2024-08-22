@@ -42,7 +42,7 @@ bool FreeSpaceFDTD::solve(MODE _mode, double _lenx, double _leny, double _period
 
     for (size_t i = 1; i < numt; ++i)
     {
-        wave.push_back(calcNextStepField(wave[i - 1]));
+        wave.push_back(calcNextStepField(wave[i - 1]) + generateHuygensSource(_mode, _lenx, _leny, _numx, _numy, posx, posy, (double)i * dt, famp, 1.0E+8));
     }
 
     return true;
