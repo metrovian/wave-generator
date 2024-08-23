@@ -66,5 +66,8 @@
     <ClCompile Include="PlanarWaveguideFDTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BraggReflectorFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

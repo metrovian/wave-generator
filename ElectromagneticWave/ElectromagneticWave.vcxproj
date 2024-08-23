@@ -142,6 +142,7 @@
     <ClInclude Include="WaveField.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BraggReflectorFDTD.cpp" />
     <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FreeSpaceFDTD.cpp" />
     <ClCompile Include="main.cpp" />

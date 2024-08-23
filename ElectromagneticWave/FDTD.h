@@ -37,6 +37,7 @@ protected: /* inspect */
 protected: /* medium */
 	static SpaceField generateVacuumMedium(size_t _numx, size_t _numy);
 	static SpaceField generateWaveguideMedium(double _lenx, double _leny, size_t _numx, size_t _numy, double _pos1, double _pos2, double _epr1, double _epr2);
+	static SpaceField generatePeriodicMedium(double _lenx, double _leny, size_t _numx, size_t _numy, double _pos1, double _pos2, double _thk1, double _thk2, double _epr1, double _epr2);
 
 protected: /* source */
 	static WaveField generateHuygensSource(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy, double _posx, double _posy, double _famp);
