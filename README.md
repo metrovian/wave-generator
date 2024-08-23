@@ -6,12 +6,11 @@ Personal mathematical software to understand dimensions in depth.
 - MIDI device control
 - Time-frequency transform ( FFT / CWT )
 - Waveform modulation ( AM / FM )
-<br/></br>
 - Acoustic wave equation solver ( FDTD )
 - Digital waveguide synthesis
 <br/></br>
 ## Electromagnetic Wave [ 2+1D ] ##
-- Field distribution viewer ( EH )
+- Distribution viewer ( EH )
 - Electromagnetic wave equation solver ( FDTD )
 <br/></br>
 ## Gravitational Wave [ 3+1D ] ##

@@ -20,7 +20,7 @@ bool PluckStringKS::synthesis(double _namp, double _freq, double _dura, unsigned
 
     if (rand.size() > 0)
     {
-        for (unsigned long long i = 0; i < dat.size(); ++i)
+        for (size_t i = 0; i < dat.size(); ++i)
         {
             dat[i] = rand.front();
 
@@ -83,7 +83,7 @@ bool PluckStringEKS::synthesis(double _namp, double _freq, double _dura, unsigne
 
         flap();
 
-        for (unsigned long long i = 1; i < dat.size(); ++i)
+        for (size_t i = 1; i < dat.size(); ++i)
         {
             dat[i] = passDynamicLPF(proc2, dat[i - 1], _freq);
             flap();

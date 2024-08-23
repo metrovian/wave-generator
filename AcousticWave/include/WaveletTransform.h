@@ -9,7 +9,7 @@ private: /* data */
 	std::vector<double> freqs;
 
 private: /* parts */
-	double getFourierDomainMorlet(double _freq, double _treso, unsigned long long _idx);
+	double getFourierDomainMorlet(double _freq, double _treso, size_t _idx);
 	FourierData getMorletTransform(double _freq, double _treso);
 
 public: /* constructor */

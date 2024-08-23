@@ -8,7 +8,7 @@ class DigitalWaveguide : public WaveFunction
 {
 protected: /* parts */
 	WaveData extractFrontData(const DelayData& _data) const;
-	WaveData extractFrontData(const DelayData& _data, unsigned long long _count) const;
+	WaveData extractFrontData(const DelayData& _data, size_t _count) const;
 
 protected: /* delay */
 	DelayData calcRandomDelayLine(double _namp, double _freq);

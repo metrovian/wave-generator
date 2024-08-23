@@ -1,7 +1,7 @@
 #include "../include/WaveletTransform.h"
 #include "../include/Predefined.h"
 
-double MorletFunction::getFourierDomainMorlet(double _freq, double _treso, unsigned long long _idx)
+double MorletFunction::getFourierDomainMorlet(double _freq, double _treso, size_t _idx)
 {
 	double omega = 2.0 * PI * getFrequency(_idx);
 	double sigma = 2.0 * PI * _freq;
@@ -18,7 +18,7 @@ double MorletFunction::getFourierDomainMorlet(double _freq, double _treso, unsig
 FourierData MorletFunction::getMorletTransform(double _freq, double _treso)
 {
 	FourierData backup = fdata;
-	for (unsigned long long i = 0; i < fdata.size(); ++i)
+	for (size_t i = 0; i < fdata.size(); ++i)
 	{
 		fdata[i] *= getFourierDomainMorlet(_freq, _treso, i);
 	}
@@ -67,18 +67,18 @@ bool MorletFunction::exportWaveletSpectrum(std::string _fname)
 
 		file << ", ";
 
-		for (unsigned long long j = 0; j < tdata.size(); ++j)
+		for (size_t j = 0; j < tdata.size(); ++j)
 		{
 			file << freqs[j] << ", ";
 		}
 
 		file << std::endl;
 
-		for (unsigned long long i = 0; i < tdata[0].size(); ++i)
+		for (size_t i = 0; i < tdata[0].size(); ++i)
 		{
 			file << (double)i / (double)header.SAMPLE_RATE << ", ";
 
-			for (unsigned long long j = 0; j < tdata.size(); ++j)
+			for (size_t j = 0; j < tdata.size(); ++j)
 			{
 				file << sqrt(std::norm(tdata[j][i])) << ", ";
 			}

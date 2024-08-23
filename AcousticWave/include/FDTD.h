@@ -2,7 +2,6 @@
 #include "WaveFunction.h"
 
 typedef std::vector<std::vector<double>> DataFDTD;
-
 class FDTD
 {
 protected: /* data */
@@ -12,8 +11,8 @@ protected: /* parameters */
 	double length;
 	double period;
 	double wspeed;
-	unsigned long long numx;
-	unsigned long long numt;
+	size_t numx;
+	size_t numt;
 
 protected: /* derived */
 	double dx;
@@ -21,8 +20,8 @@ protected: /* derived */
 	double courant;
 
 protected: /* condition */
-	bool setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numt);
-	bool setBasicCondition(double _wspeed, double _length, double _period, unsigned long long _numx, unsigned long long _numt);
+	bool setBasicCondition(double _wspeed, double _length, double _period, size_t _numt);
+	bool setBasicCondition(double _wspeed, double _length, double _period, size_t _numx, size_t _numt);
 
 protected: /* boundary condition */
 	bool setFixedEndCondition(std::vector<double>& _wave) const;

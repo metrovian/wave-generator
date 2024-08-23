@@ -1,13 +1,13 @@
 #include "../include/HornFDTD.h"
 #include "../include/Predefined.h"
 
-HornFDTD::HornFDTD(double _length, double _period, unsigned long long _numt)
+HornFDTD::HornFDTD(double _length, double _period, size_t _numt)
 {
     setBasicCondition(SONIC, _length, _period, _numt);
     solve();
 }
 
-HornFDTD::HornFDTD(double _length, double _period, unsigned long long _numt, double _sonic, double _decay)
+HornFDTD::HornFDTD(double _length, double _period, size_t _numt, double _sonic, double _decay)
 {
     decay = _decay;
 
@@ -23,9 +23,9 @@ bool HornFDTD::solve()
     setFreeFixedEndCondition(wave[0]);
     setFreeFixedEndCondition(wave[1]);
 
-    for (unsigned long long n = 1; n < numt - 1; ++n)
+    for (size_t n = 1; n < numt - 1; ++n)
     {
-        for (unsigned long long i = 1; i < numx - 1; ++i)
+        for (size_t i = 1; i < numx - 1; ++i)
         {
             wave[n + 1][i] = 0;
             wave[n + 1][i] += wave[n][i] * (2.0 + decay * dt);

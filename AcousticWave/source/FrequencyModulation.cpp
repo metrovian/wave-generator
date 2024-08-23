@@ -12,10 +12,10 @@ WaveFunction FrequencyModulation::vibrato(WaveFunction _wave, double _freq, doub
 
     double rate = 2.0 * PI * _vfreq;
 
-    for (unsigned long long i = 0; i < vibration.size(); ++i)
+    for (size_t i = 0; i < vibration.size(); ++i)
     {
         vibration[i] = _vdepth / _freq / rate * cos(rate * (double)i / (double)head.SAMPLE_RATE);
-        res[i] = dat[(unsigned long long)((double)i + (double)head.SAMPLE_RATE * (vibration[0] - vibration[i])) % dat.size()];
+        res[i] = dat[(size_t)((double)i + (double)head.SAMPLE_RATE * (vibration[0] - vibration[i])) % dat.size()];
     }
 
     ret.setWaveFunction(res, head);
@@ -32,7 +32,7 @@ WaveFunction FrequencyModulation::bending(WaveFunction _wave, double _freq, doub
     std::vector<double> vibration(dat.size());
     std::vector<short> res(dat.size());
 
-    for (unsigned long long i = 0; i < vibration.size(); ++i)
+    for (size_t i = 0; i < vibration.size(); ++i)
     {
         if ((double)i / (double)head.SAMPLE_RATE > _btime)
         {
@@ -44,7 +44,7 @@ WaveFunction FrequencyModulation::bending(WaveFunction _wave, double _freq, doub
             vibration[i] = (_bfreq - _freq) / _freq / _btime * (double)i * (double)i / 2.0 / (double)head.SAMPLE_RATE;
         }
         
-        res[i] = dat[(unsigned long long)((double)i + vibration[i]) % dat.size()];
+        res[i] = dat[(size_t)((double)i + vibration[i]) % dat.size()];
     }
 
     ret.setWaveFunction(res, head);

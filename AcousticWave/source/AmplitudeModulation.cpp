@@ -10,15 +10,15 @@ WaveFunction AmplitudeModulation::envelopeADS(WaveFunction _wave, double _attack
     
     double tau = -1;
 
-    for (unsigned long long i = 0; i < res.size(); ++i)
+    for (size_t i = 0; i < res.size(); ++i)
     {
-        if (i < (unsigned long long)(_attack * (double)head.SAMPLE_RATE))
+        if (i < (size_t)(_attack * (double)head.SAMPLE_RATE))
         {
             tau = _attack / std::log(1.0 - 1.0 / exp(1.0));
             res[i] = std::exp(1.0) * dat[i] * (1.0 - std::exp((double)i / (double)head.SAMPLE_RATE / tau));
         }
 
-        else if (i < (unsigned long long)((_attack + _decay) * (double)head.SAMPLE_RATE))
+        else if (i < (size_t)((_attack + _decay) * (double)head.SAMPLE_RATE))
         {
             tau = _decay / std::log(_sustain);
             res[i] = dat[i] * std::exp(((double)i / (double)head.SAMPLE_RATE - _attack) / tau);
