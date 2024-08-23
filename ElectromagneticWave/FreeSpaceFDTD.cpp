@@ -12,6 +12,7 @@ FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _per
 {
     posx = _posx;
     posy = _posy;
+
     famp = _famp;
     freq = _freq;
 
@@ -30,6 +31,7 @@ FreeSpaceFDTD::FreeSpaceFDTD(MODE _mode, double _lenx, double _leny, double _per
 {
     posx = _posx;
     posy = _posy;
+
     famp = _famp;
     freq = _freq;
 
