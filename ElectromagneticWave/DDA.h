@@ -25,19 +25,18 @@ protected: /* source */
 	double famp = 1.0;
 
 protected: /* condition */
-	bool setDipoles(Dipoles _data);
+	bool setDipole();
+	bool setDipole(Eigen::Vector2d _pos);
+	bool setDipole(Eigen::Vector2d _pos, double _alpha);
 	bool setPlaneWave(Eigen::Vector2d _kvec, double _famp);
 
 protected: /* parts */
 	Eigen::VectorXcd calcPlaneWave() const;
 	Eigen::VectorXcd calcPolarization() const;
 
-protected: /* scatter */
-	bool setScatterField(double _lenx, double _leny, size_t _numx, size_t _numy);
-
 public: /* viewer */
 	bool render(unsigned int _width, unsigned int _height) const;
 
-protected: /* virtual */
-	virtual bool solve(double _lenx, double _leny, size_t _numx, size_t _numy) = 0;
+protected: /* solver */
+	bool solve(double _lenx, double _leny, size_t _numx, size_t _numy);
 };

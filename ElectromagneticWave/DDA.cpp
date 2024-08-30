@@ -19,11 +19,23 @@ Dipole::Dipole(Eigen::Vector2d _pos, double _alpha)
 	alpha = _alpha;
 }
 
-bool DDA::setDipoles(Dipoles _data)
+bool DDA::setDipole()
 {
-	if (_data.size() == 0) return false;
+	data.clear();
+	return true;
+}
 
-	data = _data;
+bool DDA::setDipole(Eigen::Vector2d _pos)
+{
+	data.push_back(Dipole(_pos));
+	return true;
+}
+
+bool DDA::setDipole(Eigen::Vector2d _pos, double _alpha)
+{
+	if (_alpha < 0) return false;
+
+	data.push_back(Dipole(_pos, _alpha));
 	return true;
 }
 
@@ -77,7 +89,15 @@ Eigen::VectorXcd DDA::calcPolarization() const
 	return ret;
 }
 
-bool DDA::setScatterField(double _lenx, double _leny, size_t _numx, size_t _numy)
+bool DDA::render(unsigned int _width, unsigned int _height) const
+{
+	WaveViewer viewer(_width, _height);
+	viewer.display(wave);
+
+	return true;
+}
+
+bool DDA::solve(double _lenx, double _leny, size_t _numx, size_t _numy)
 {
 	if (_lenx == 0) return false;
 	if (_leny == 0) return false;
@@ -108,14 +128,6 @@ bool DDA::setScatterField(double _lenx, double _leny, size_t _numx, size_t _numy
 	}
 
 	wave = ret;
-
-	return true;
-}
-
-bool DDA::render(unsigned int _width, unsigned int _height) const
-{
-	WaveViewer viewer(_width, _height);
-	viewer.display(wave);
 
 	return true;
 }
