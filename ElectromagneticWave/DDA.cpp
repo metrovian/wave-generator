@@ -14,7 +14,8 @@ Dipole::Dipole(Eigen::Vector2d _pos, double _epr, double _area)
 	area = _area;
 }
 
-double Dipole::calcElectricAlpha(SHAPE _shape) const
+double Dipole::calcElectricAlpha() const
 {
-	return 0.0;
+
+
 }

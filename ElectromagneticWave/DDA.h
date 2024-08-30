@@ -1,12 +1,6 @@
 #pragma once
 #include "WaveField.h"
 
-enum class SHAPE
-{
-	CIRCLE,
-	RECTANGLE,
-};
-
 class Dipole
 {
 private: /* data */
@@ -19,7 +13,7 @@ public: /* constructor */
 	Dipole(Eigen::Vector2d _pos, double _epr, double _area);
 
 public: /* public use */
-	double calcElectricAlpha(SHAPE _shape) const;
+	double calcElectricAlpha() const;
 };
 
 typedef std::vector<Dipole> DataDDA;
@@ -27,4 +21,13 @@ class DDA
 {
 protected: /* data */
 	DataDDA data;
+	Eigen::Vector2d kvec;
+
+protected: /* condition */
+	bool setDipoles(DataDDA _data);
+	bool setWaveNumber(Eigen::Vector2d _kvec);
+
+protected: /* parts */
+	double calcPolarization() const;
+	double calcField() const;
 };
