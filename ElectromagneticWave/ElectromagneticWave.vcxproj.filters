@@ -58,6 +58,9 @@
     <ClInclude Include="DDA.h">
       <Filter>Field Synthesis\Dipole Approximation\Base</Filter>
     </ClInclude>
+    <ClInclude Include="MieDDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaveField.cpp">
@@ -82,6 +85,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DDA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MieDDA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

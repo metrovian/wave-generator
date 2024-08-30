@@ -31,12 +31,15 @@ private: /* event */
 
 private: /* display */
 	bool draw(const DataFDTD& _data);
+	bool draw(const WaveField& _data);
 	bool drawField(const WaveField& _field);
 	bool drawSlider();
 	bool setColorScale(const DataFDTD& _data);
+	bool setColorScale(const WaveField& _data);
 	double calcColorScale(double _rval) const;
 	sf::Color calcColorGradient(double _nval) const;
 
 public: /* public use */
 	bool display(const DataFDTD& _data);
+	bool display(const WaveField& _data);
 };

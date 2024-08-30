@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\eigen-3.4.0;C:\SFML-2.6.1\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +123,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\eigen-3.4.0;C:\SFML-2.6.1\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +139,7 @@
     <ClInclude Include="DDA.h" />
     <ClInclude Include="FDTD.h" />
     <ClInclude Include="FreeSpaceFDTD.h" />
+    <ClInclude Include="MieDDA.h" />
     <ClInclude Include="PlanarWaveguideFDTD.h" />
     <ClInclude Include="WaveViewer.h" />
     <ClInclude Include="Predefined.h" />
@@ -148,6 +151,7 @@
     <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FreeSpaceFDTD.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MieDDA.cpp" />
     <ClCompile Include="WaveField.cpp" />
     <ClCompile Include="PlanarWaveguideFDTD.cpp" />
     <ClCompile Include="WaveViewer.cpp" />

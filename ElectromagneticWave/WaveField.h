@@ -34,6 +34,7 @@ private: /* status */
 	bool isvalid = false;
 
 public: /* constructor */
+	WaveField() = default;
 	WaveField(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy);
 
 private: /* memory */

@@ -253,7 +253,7 @@ double FDTD::calcElapsedTime() const
 	return static_cast<double>(wave.size()) * dt;
 }
 
-bool FDTD::render(unsigned int _width, unsigned int _height)
+bool FDTD::render(unsigned int _width, unsigned int _height) const
 {
 	if (wave.size() == 0) return false;
 

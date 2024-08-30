@@ -46,6 +46,17 @@ bool WaveViewer::draw(const DataFDTD& _data)
 	return true;
 }
 
+bool WaveViewer::draw(const WaveField& _data)
+{
+	window.clear();
+
+	drawField(_data);
+
+	window.display();
+
+	return true;
+}
+
 bool WaveViewer::drawField(const WaveField& _field)
 {
 	sf::Vector2u size = window.getSize();
@@ -128,6 +139,27 @@ bool WaveViewer::setColorScale(const DataFDTD& _data)
 	return true;
 }
 
+bool WaveViewer::setColorScale(const WaveField& _data)
+{
+	scale = 0.0;
+
+	size_t rows = _data.getNX();
+	size_t cols = _data.getNY();
+
+	for (size_t i = 0; i < rows; ++i)
+	{
+		for (size_t j = 0; j < cols; ++j)
+		{
+			if (scale < fabs(_data.getField(i, j).z()))
+			{
+				scale = fabs(_data.getField(i, j).z());
+			}
+		}
+	}
+
+	return true;
+}
+
 double WaveViewer::calcColorScale(double _rval) const
 {
 	if (scale > 0)
@@ -162,6 +194,27 @@ bool WaveViewer::display(const DataFDTD& _data)
 			if (event.type == sf::Event::Closed) window.close();
 			if (event.type == sf::Event::Resized) window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) onMoveSliderKnob(_data);
+		}
+
+		draw(_data);
+	}
+
+	return true;
+}
+
+bool WaveViewer::display(const WaveField& _data)
+{
+	if (!setColorScale(_data)) return false;
+
+	window.create(sf::VideoMode(width, height), "Electromagnetic Field Distribution Viewer", sf::Style::Titlebar | sf::Style::Close);
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) window.close();
+			if (event.type == sf::Event::Resized) window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
 		}
 
 		draw(_data);
