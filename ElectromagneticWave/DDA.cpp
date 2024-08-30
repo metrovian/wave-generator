@@ -4,25 +4,19 @@
 Dipole::Dipole()
 {
 	pos = Eigen::Vector2d::Zero();
-	epr = 1.0;
-	area = 1.0;
+	alpha = 1.0;
 }
 
-Dipole::Dipole(Eigen::Vector2d _pos, double _epr, double _area)
+Dipole::Dipole(Eigen::Vector2d _pos)
 {
 	pos = _pos;
-	epr = _epr;
-	area = _area;
+	alpha = 1.0;
 }
 
-Eigen::Vector2d Dipole::getPosition() const
+Dipole::Dipole(Eigen::Vector2d _pos, double _alpha)
 {
-	return pos;
-}
-
-double Dipole::getElectricAlpha() const
-{
-	return 1.0;
+	pos = _pos;
+	alpha = _alpha;
 }
 
 bool DDA::setDipoles(Dipoles _data)
@@ -50,7 +44,7 @@ Eigen::VectorXcd DDA::calcPlaneWave() const
 
 	for (size_t i = 0; i < data.size(); ++i)
 	{
-		ret(i) = famp * std::exp(std::complex<double>(0, data[i].getPosition().dot(kvec)));
+		ret(i) = famp * std::exp(std::complex<double>(0, data[i].pos.dot(kvec)));
 	}
 
 	return ret;
@@ -66,13 +60,13 @@ Eigen::VectorXcd DDA::calcPolarization() const
 		{
 			if (i != j)
 			{
-				double arg = kvec.norm() * (data[i].getPosition() - data[j].getPosition()).norm();
+				double arg = kvec.norm() * (data[i].pos - data[j].pos).norm();
 				mat(i, j) = std::complex<double>(0, 0.25) * std::complex<double>(std::cyl_bessel_j(0, arg), std::cyl_neumann(0, arg));
 			}
 
 			else
 			{
-				mat(i, j) = 1.0 / data[i].getElectricAlpha();
+				mat(i, j) = 1.0 / data[i].alpha;
 			}
 		}
 	}
@@ -105,7 +99,7 @@ bool DDA::setScatterField(double _lenx, double _leny, size_t _numx, size_t _numy
 
 			for (size_t k = 0; k < data.size(); ++k)
 			{
-				double arg = kvec.norm() * (pos - data[k].getPosition()).norm();
+				double arg = kvec.norm() * (pos - data[k].pos).norm();
 				if (arg > 0) res.z() += (pvec[k] * std::complex<double>(0, 0.25) * std::complex<double>(std::cyl_bessel_j(0, arg), std::cyl_neumann(0, arg))).real();
 			}
 

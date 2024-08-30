@@ -3,18 +3,14 @@
 
 class Dipole
 {
-private: /* data */
-	Eigen::Vector2d pos;
-	double epr;
-	double area;
+public: /* data */
+	Eigen::Vector2d pos = Eigen::Vector2d::Zero();
+	double alpha = 1.0;
 
 public: /* constructor */
 	Dipole();
-	Dipole(Eigen::Vector2d _pos, double _epr, double _area);
-
-public: /* public use */
-	Eigen::Vector2d getPosition() const;
-	double getElectricAlpha() const;
+	Dipole(Eigen::Vector2d _pos);
+	Dipole(Eigen::Vector2d _pos, double _alpha);
 };
 
 typedef std::vector<Dipole> Dipoles;
@@ -25,8 +21,8 @@ protected: /* data */
 	Dipoles data;
 
 protected: /* source */
-	Eigen::Vector2d kvec;
-	double famp;
+	Eigen::Vector2d kvec = Eigen::Vector2d(10.0, 0);
+	double famp = 1.0;
 
 protected: /* condition */
 	bool setDipoles(Dipoles _data);
