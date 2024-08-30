@@ -6,7 +6,7 @@ WaveViewer::WaveViewer(unsigned int _width, unsigned int _height)
 	height = _height;
 }
 
-bool WaveViewer::onMoveSliderKnob(const DataFDTD& _data)
+bool WaveViewer::onMoveSliderKnob(const TimeField& _data)
 {
 	sf::Vector2i mpos = sf::Mouse::getPosition(window);
 
@@ -34,7 +34,7 @@ bool WaveViewer::onMoveSliderKnob(const DataFDTD& _data)
 	return true;
 }
 
-bool WaveViewer::draw(const DataFDTD& _data)
+bool WaveViewer::draw(const TimeField& _data)
 {
 	window.clear();
 
@@ -114,7 +114,7 @@ bool WaveViewer::drawSlider()
 	return true;
 }
 
-bool WaveViewer::setColorScale(const DataFDTD& _data)
+bool WaveViewer::setColorScale(const TimeField& _data)
 {
 	scale = 0.0;
 
@@ -180,7 +180,7 @@ sf::Color WaveViewer::calcColorGradient(double _nval) const
 	else return sf::Color(0, 0, (sf::Uint8)(255.0 * (-_nval)));
 }
 
-bool WaveViewer::display(const DataFDTD& _data)
+bool WaveViewer::display(const TimeField& _data)
 {
 	if (!setColorScale(_data)) return false;
 

@@ -1,12 +1,12 @@
 #pragma once
 #include "WaveField.h"
 
-typedef std::vector<WaveField> DataFDTD;
+typedef std::vector<WaveField> TimeField;
 typedef std::vector<std::vector<double>> SpaceField;
 class FDTD
 {
 protected: /* data */
-	DataFDTD wave;
+	TimeField wave;
 	SpaceField medium;
 	MODE mode;
 
