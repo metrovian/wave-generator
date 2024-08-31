@@ -35,6 +35,12 @@
     <Filter Include="Field Synthesis\Boundary Element">
       <UniqueIdentifier>{8282f73a-195c-42e9-aa46-720f9f8d7c89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Field Synthesis\Boundary Element\Base">
+      <UniqueIdentifier>{096b3741-25e2-4478-804a-7f527aabe56d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Boundary Element\Concrete">
+      <UniqueIdentifier>{b2de847a-e184-475c-a743-3b9224dd0cf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Predefined.h">
@@ -68,7 +74,7 @@
       <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
     </ClInclude>
     <ClInclude Include="BEM.h">
-      <Filter>Field Synthesis\Boundary Element</Filter>
+      <Filter>Field Synthesis\Boundary Element\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
