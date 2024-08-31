@@ -1,6 +1,6 @@
-#include "MieDDA.h"
+#include "SquareDDA.h"
 
-MieDDA::MieDDA(double _lenx, double _leny, size_t _numx, size_t _numy)
+SquareDDA::SquareDDA(double _lenx, double _leny, size_t _numx, size_t _numy)
 {
 	setDipole();
 
@@ -22,7 +22,7 @@ MieDDA::MieDDA(double _lenx, double _leny, size_t _numx, size_t _numy)
 	solve(_lenx, _leny, _numx, _numy);
 }
 
-MieDDA::MieDDA(double _lenx, double _leny, size_t _numx, size_t _numy, double _kvex, double _kvey, double _famp)
+SquareDDA::SquareDDA(double _lenx, double _leny, size_t _numx, size_t _numy, double _kvex, double _kvey, double _famp)
 {
 	setPlaneWave(Eigen::Vector2d(_kvex, _kvey), _famp);
 	setDipole();
@@ -45,7 +45,7 @@ MieDDA::MieDDA(double _lenx, double _leny, size_t _numx, size_t _numy, double _k
 	solve(_lenx, _leny, _numx, _numy);
 }
 
-MieDDA::MieDDA(double _lenx, double _leny, size_t _numx, size_t _numy, unsigned char _numd, double _lend, double _posx, double _posy)
+SquareDDA::SquareDDA(double _lenx, double _leny, size_t _numx, size_t _numy, unsigned char _numd, double _lend, double _posx, double _posy)
 {
 	setDipole();
 
@@ -68,7 +68,7 @@ MieDDA::MieDDA(double _lenx, double _leny, size_t _numx, size_t _numy, unsigned 
 	solve(_lenx, _leny, _numx, _numy);
 }
 
-MieDDA::MieDDA(double _lenx, double _leny, size_t _numx, size_t _numy, unsigned char _numd, double _lend, double _posx, double _posy, double _kvex, double _kvey, double _famp)
+SquareDDA::SquareDDA(double _lenx, double _leny, size_t _numx, size_t _numy, unsigned char _numd, double _lend, double _posx, double _posy, double _kvex, double _kvey, double _famp)
 {
 	setPlaneWave(Eigen::Vector2d(_kvex, _kvey), _famp);
 	setDipole();

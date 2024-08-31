@@ -58,7 +58,10 @@
     <ClInclude Include="DDA.h">
       <Filter>Field Synthesis\Dipole Approximation\Base</Filter>
     </ClInclude>
-    <ClInclude Include="MieDDA.h">
+    <ClInclude Include="SquareDDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="LineDDA.h">
       <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
@@ -87,7 +90,7 @@
     <ClCompile Include="DDA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MieDDA.cpp">
+    <ClCompile Include="SquareDDA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

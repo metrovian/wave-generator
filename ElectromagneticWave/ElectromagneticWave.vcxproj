@@ -139,7 +139,8 @@
     <ClInclude Include="DDA.h" />
     <ClInclude Include="FDTD.h" />
     <ClInclude Include="FreeSpaceFDTD.h" />
-    <ClInclude Include="MieDDA.h" />
+    <ClInclude Include="LineDDA.h" />
+    <ClInclude Include="SquareDDA.h" />
     <ClInclude Include="PlanarWaveguideFDTD.h" />
     <ClInclude Include="WaveViewer.h" />
     <ClInclude Include="Predefined.h" />
@@ -151,7 +152,7 @@
     <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FreeSpaceFDTD.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MieDDA.cpp" />
+    <ClCompile Include="SquareDDA.cpp" />
     <ClCompile Include="WaveField.cpp" />
     <ClCompile Include="PlanarWaveguideFDTD.cpp" />
     <ClCompile Include="WaveViewer.cpp" />
