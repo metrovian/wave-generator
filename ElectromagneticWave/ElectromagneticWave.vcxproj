@@ -151,6 +151,7 @@
     <ClCompile Include="DDA.cpp" />
     <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FreeSpaceFDTD.cpp" />
+    <ClCompile Include="LineDDA.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SquareDDA.cpp" />
     <ClCompile Include="WaveField.cpp" />
