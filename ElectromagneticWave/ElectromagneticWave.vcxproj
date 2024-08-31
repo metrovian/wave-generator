@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BEM.h" />
     <ClInclude Include="BraggReflectorFDTD.h" />
     <ClInclude Include="DDA.h" />
     <ClInclude Include="FDTD.h" />
