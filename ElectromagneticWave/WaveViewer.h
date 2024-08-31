@@ -27,16 +27,19 @@ public: /* constructor */
 	WaveViewer(unsigned int _width, unsigned int _height);
 
 private: /* event */
-	bool onMoveSliderKnob(const DataFDTD& _data);
+	bool onMoveSliderKnob(const TimeField& _data);
 
 private: /* display */
-	bool draw(const DataFDTD& _data);
+	bool draw(const TimeField& _data);
+	bool draw(const WaveField& _data);
 	bool drawField(const WaveField& _field);
 	bool drawSlider();
-	bool setColorScale(const DataFDTD& _data);
+	bool setColorScale(const TimeField& _data);
+	bool setColorScale(const WaveField& _data);
 	double calcColorScale(double _rval) const;
 	sf::Color calcColorGradient(double _nval) const;
 
 public: /* public use */
-	bool display(const DataFDTD& _data);
+	bool display(const TimeField& _data);
+	bool display(const WaveField& _data);
 };

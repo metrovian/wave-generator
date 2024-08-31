@@ -1,12 +1,12 @@
 #pragma once
 #include "WaveField.h"
 
-typedef std::vector<WaveField> DataFDTD;
+typedef std::vector<WaveField> TimeField;
 typedef std::vector<std::vector<double>> SpaceField;
 class FDTD
 {
 protected: /* data */
-	DataFDTD wave;
+	TimeField wave;
 	SpaceField medium;
 	MODE mode;
 
@@ -47,7 +47,7 @@ protected: /* parts */
 	double calcElapsedTime() const;
 
 public: /* viewer */
-	bool render(unsigned int _width, unsigned int _height);
+	bool render(unsigned int _width, unsigned int _height) const;
 
 protected: /* update */
 	WaveField calcNextStepField(const WaveField& _now) const;

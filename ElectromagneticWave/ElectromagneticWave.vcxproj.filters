@@ -23,6 +23,15 @@
     <Filter Include="Field Synthesis\Finite Difference Time Domain\Concrete">
       <UniqueIdentifier>{7c654890-b68e-4760-9ebb-14fe0b08f0eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Field Synthesis\Dipole Approximation">
+      <UniqueIdentifier>{000845f2-21a7-4a99-bd6b-e70b211554cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Dipole Approximation\Base">
+      <UniqueIdentifier>{a3ed8501-b8e8-421d-a19a-41590d319bab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Dipole Approximation\Concrete">
+      <UniqueIdentifier>{f17a4d14-d7c8-4bad-ae12-e111221eaa3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Predefined.h">
@@ -46,6 +55,15 @@
     <ClInclude Include="BraggReflectorFDTD.h">
       <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="DDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareDDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="LineDDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaveField.cpp">
@@ -67,6 +85,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BraggReflectorFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DDA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SquareDDA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LineDDA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
