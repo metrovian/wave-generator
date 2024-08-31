@@ -138,9 +138,11 @@
     <ClInclude Include="BEM.h" />
     <ClInclude Include="BraggReflectorFDTD.h" />
     <ClInclude Include="DDA.h" />
+    <ClInclude Include="LineBEM.h" />
     <ClInclude Include="FDTD.h" />
     <ClInclude Include="FreeSpaceFDTD.h" />
     <ClInclude Include="LineDDA.h" />
+    <ClInclude Include="SquareBEM.h" />
     <ClInclude Include="SquareDDA.h" />
     <ClInclude Include="PlanarWaveguideFDTD.h" />
     <ClInclude Include="WaveViewer.h" />

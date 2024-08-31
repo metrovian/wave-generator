@@ -76,6 +76,12 @@
     <ClInclude Include="BEM.h">
       <Filter>Field Synthesis\Boundary Element\Base</Filter>
     </ClInclude>
+    <ClInclude Include="LineBEM.h">
+      <Filter>Field Synthesis\Boundary Element\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareBEM.h">
+      <Filter>Field Synthesis\Boundary Element\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaveField.cpp">
