@@ -9,7 +9,7 @@ Personal mathematical software to understand dimensions in depth.
 - Acoustic wave equation solver ( FDTD / DWS )
 <br/></br>
 ## Electromagnetic Wave [ 2+1D ] ##
-- Distribution viewer ( EH )
+- Distribution viewer
 - Electromagnetic wave equation solver ( FDTD )
 - Elastic scattering calculator ( DDA )
 <br/></br>
