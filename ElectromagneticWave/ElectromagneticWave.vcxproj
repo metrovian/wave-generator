@@ -150,6 +150,7 @@
     <ClInclude Include="WaveField.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BEM.cpp" />
     <ClCompile Include="BraggReflectorFDTD.cpp" />
     <ClCompile Include="DDA.cpp" />
     <ClCompile Include="FDTD.cpp" />
