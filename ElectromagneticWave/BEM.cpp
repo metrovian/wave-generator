@@ -23,11 +23,6 @@ bool BEM::setElement(Eigen::Vector2d _pos)
 	return true;
 }
 
-Eigen::MatrixXcd BEM::calcImpedanceMatrix() const
-{
-	return Eigen::MatrixXcd();
-}
-
 bool BEM::render(unsigned int _width, unsigned int _height) const
 {
 	WaveViewer viewer(_width, _height);
@@ -38,5 +33,7 @@ bool BEM::render(unsigned int _width, unsigned int _height) const
 
 bool BEM::solve(double _lenx, double _leny, size_t _numx, size_t _numy)
 {
+	Eigen::VectorXcd cur = pinvSVD(calcImpedanceMatrix()) * calcExcitationVector();
+
 	return false;
 }

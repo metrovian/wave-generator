@@ -138,6 +138,7 @@
     <ClInclude Include="BEM.h" />
     <ClInclude Include="BraggReflectorFDTD.h" />
     <ClInclude Include="DDA.h" />
+    <ClInclude Include="EigenMatrix.h" />
     <ClInclude Include="LineBEM.h" />
     <ClInclude Include="FDTD.h" />
     <ClInclude Include="FreeSpaceFDTD.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="BEM.cpp" />
     <ClCompile Include="BraggReflectorFDTD.cpp" />
     <ClCompile Include="DDA.cpp" />
+    <ClCompile Include="EigenMatrix.cpp" />
     <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FreeSpaceFDTD.cpp" />
     <ClCompile Include="LineDDA.cpp" />

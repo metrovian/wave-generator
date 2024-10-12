@@ -1,5 +1,6 @@
 #pragma once
 #include "WaveField.h"
+#include "EigenMatrix.h"
 
 class Element
 {
@@ -22,12 +23,13 @@ protected: /* condition */
 	bool setElement();
 	bool setElement(Eigen::Vector2d _pos);
 
-protected: /* impedance */
-	Eigen::MatrixXcd calcImpedanceMatrix() const;
-
 public: /* viewer */
 	bool render(unsigned int _width, unsigned int _height) const;
 
 protected: /* solver */
 	bool solve(double _lenx, double _leny, size_t _numx, size_t _numy);
+
+protected: /* virtual */
+	virtual Eigen::MatrixXcd calcImpedanceMatrix() const = 0;
+	virtual Eigen::VectorXcd calcExcitationVector() const = 0;
 };

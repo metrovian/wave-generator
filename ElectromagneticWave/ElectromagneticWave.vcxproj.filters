@@ -82,6 +82,9 @@
     <ClInclude Include="SquareBEM.h">
       <Filter>Field Synthesis\Boundary Element\Concrete</Filter>
     </ClInclude>
+    <ClInclude Include="EigenMatrix.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WaveField.cpp">
@@ -115,6 +118,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BEM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EigenMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
