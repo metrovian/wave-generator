@@ -1,10 +1,10 @@
 #pragma once
 
-const double PI = 3.1415926;
+constexpr double PI = 3.1415926;
 
-const double C = 299792458.000;
-const double MU = 1.256637E-6;
-const double EP = 8.854187E-12;
+constexpr double C = 299792458.000;
+constexpr double MU = 1.256637E-6;
+constexpr double EP = 8.854187E-12;
 
-const double PMLS = 1.0E-1;
-const size_t PMLW = 20;
+constexpr double PMLS = 1.0E-1;
+constexpr size_t PMLW = 20;
