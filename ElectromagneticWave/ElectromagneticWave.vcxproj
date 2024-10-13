@@ -160,6 +160,7 @@
     <ClCompile Include="LineBEM.cpp" />
     <ClCompile Include="LineDDA.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SquareBEM.cpp" />
     <ClCompile Include="SquareDDA.cpp" />
     <ClCompile Include="WaveField.cpp" />
     <ClCompile Include="PlanarWaveguideFDTD.cpp" />

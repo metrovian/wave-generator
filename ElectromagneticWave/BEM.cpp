@@ -48,12 +48,12 @@ Eigen::MatrixXcd BEM::calcImpedanceMatrix() const
 			if (i != j)
 			{
 				Eigen::Vector2d pvec = data[i].pos - data[j].pos;
-				ret(i, j) = std::complex<double>(0.0, kamp / PI / 4.0) * std::exp(std::complex<double>(0.0, -kamp * pvec.norm())) / pvec.norm();
+				ret(i, j) = std::complex<double>(0.0, kamp / PI / 4.0) * data[i].vec.dot(data[j].vec) * std::exp(std::complex<double>(0.0, -kamp * pvec.norm())) / pvec.norm();
 			}
 			
 			else
 			{
-				ret(i, j) = 0;
+				ret(i, j) = 0.0;
 			}
 		}
 	}
@@ -86,7 +86,7 @@ bool BEM::solve(double _lenx, double _leny, size_t _numx, size_t _numy)
 
 	WaveField ret(MODE::TRANSVERSE_MAGNETIC, _lenx, _leny, _numx, _numy);
 	Eigen::VectorXcd cur = pinvSVD(calcImpedanceMatrix()) * calcExcitationVector();
-	
+
 	for (size_t i = 0; i < _numx; ++i)
 	{
 		for (size_t j = 0; j < _numy; ++j)
