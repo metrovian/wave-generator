@@ -9,9 +9,9 @@ Personal mathematical software to understand dimensions in depth.
 <br/></br>
 ## Electromagnetic Wave [ 2+1D ] ##
 - Distribution viewer
-- Electromagnetic wave equation solver ( FDTD )
-- Electromagnetic radiation pattern calculator ( BEM )
+- Electromagnetic radiation calculator ( BEM )
 - Elastic scattering calculator ( DDA )
+- Electromagnetic wave equation solver ( FDTD )
 
 <br/></br>
 Copyright (c) 2024 Vian Lee [ MIT LICENSE ]

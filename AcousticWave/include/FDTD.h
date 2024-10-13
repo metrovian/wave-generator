@@ -1,11 +1,11 @@
 #pragma once
 #include "WaveFunction.h"
 
-typedef std::vector<std::vector<double>> TimeField;
+typedef std::vector<std::vector<double>> DataFDTD;
 class FDTD
 {
 protected: /* data */
-	TimeField wave;
+	DataFDTD wave;
 
 protected: /* parameters */
 	double length;

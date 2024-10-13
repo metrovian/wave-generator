@@ -135,11 +135,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BEM.h" />
     <ClInclude Include="BraggReflectorFDTD.h" />
     <ClInclude Include="DDA.h" />
+    <ClInclude Include="EigenMatrix.h" />
+    <ClInclude Include="LineBEM.h" />
     <ClInclude Include="FDTD.h" />
     <ClInclude Include="FreeSpaceFDTD.h" />
     <ClInclude Include="LineDDA.h" />
+    <ClInclude Include="SquareBEM.h" />
     <ClInclude Include="SquareDDA.h" />
     <ClInclude Include="PlanarWaveguideFDTD.h" />
     <ClInclude Include="WaveViewer.h" />
@@ -147,12 +151,16 @@
     <ClInclude Include="WaveField.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BEM.cpp" />
     <ClCompile Include="BraggReflectorFDTD.cpp" />
     <ClCompile Include="DDA.cpp" />
+    <ClCompile Include="EigenMatrix.cpp" />
     <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FreeSpaceFDTD.cpp" />
+    <ClCompile Include="LineBEM.cpp" />
     <ClCompile Include="LineDDA.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SquareBEM.cpp" />
     <ClCompile Include="SquareDDA.cpp" />
     <ClCompile Include="WaveField.cpp" />
     <ClCompile Include="PlanarWaveguideFDTD.cpp" />
