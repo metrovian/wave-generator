@@ -1,5 +1,5 @@
 #pragma once
 #include "Eigen/Dense"
 
-Eigen::MatrixXd pinvSVD(const Eigen::MatrixXd& _mat);
-Eigen::MatrixXd pinvMP(const Eigen::MatrixXd& _mat);
+Eigen::MatrixXcd pinvSVD(const Eigen::MatrixXcd& _mat);
+Eigen::MatrixXcd pinvMP(const Eigen::MatrixXcd& _mat);

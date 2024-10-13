@@ -157,6 +157,7 @@
     <ClCompile Include="EigenMatrix.cpp" />
     <ClCompile Include="FDTD.cpp" />
     <ClCompile Include="FreeSpaceFDTD.cpp" />
+    <ClCompile Include="LineBEM.cpp" />
     <ClCompile Include="LineDDA.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SquareDDA.cpp" />

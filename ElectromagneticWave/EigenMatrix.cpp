@@ -1,10 +1,10 @@
 #include "EigenMatrix.h"
 
-Eigen::MatrixXd pinvSVD(const Eigen::MatrixXd& _mat)
+Eigen::MatrixXcd pinvSVD(const Eigen::MatrixXcd& _mat)
 {
-    Eigen::JacobiSVD<Eigen::MatrixXd> svd(_mat, Eigen::ComputeFullU | Eigen::ComputeFullV);
+    Eigen::JacobiSVD<Eigen::MatrixXcd> svd(_mat, Eigen::ComputeFullU | Eigen::ComputeFullV);
 
-    Eigen::MatrixXd sinv(_mat.cols(), _mat.rows());
+    Eigen::MatrixXcd sinv(_mat.cols(), _mat.rows());
     sinv.setZero();
 
     const auto& singular = svd.singularValues();
@@ -20,9 +20,9 @@ Eigen::MatrixXd pinvSVD(const Eigen::MatrixXd& _mat)
     return svd.matrixV() * sinv * svd.matrixU().transpose();
 }
 
-Eigen::MatrixXd pinvMP(const Eigen::MatrixXd& _mat)
+Eigen::MatrixXcd pinvMP(const Eigen::MatrixXcd& _mat)
 {
-    Eigen::MatrixXd ret;
+    Eigen::MatrixXcd ret;
 
     if (_mat.rows() > _mat.cols())
     {
