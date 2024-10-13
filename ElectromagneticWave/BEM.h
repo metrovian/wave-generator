@@ -29,7 +29,7 @@ protected: /* condition */
 	bool setElement(Eigen::Vector2d _pos, Eigen::Vector2d _vec);
 	bool setPlaneWave(double _kamp, double _famp);
 
-protected: /* matrix */
+protected: /* parts */
 	Eigen::MatrixXcd calcImpedanceMatrix() const;
 	Eigen::VectorXcd calcExcitationVector() const;
 
