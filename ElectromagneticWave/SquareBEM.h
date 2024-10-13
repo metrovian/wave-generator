@@ -4,7 +4,7 @@
 class SquareBEM : public BEM
 {
 private: /* config */
-	unsigned short numa = 60;
+	unsigned short numa = 100;
 	double rada;
 	double posx;
 	double posy;

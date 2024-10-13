@@ -3,9 +3,9 @@
 
 SquareBEM::SquareBEM(double _lenx, double _leny, size_t _numx, size_t _numy)
 {
-    rada = 0.25 / kamp;
-    posx = _lenx / 2.0;
-    posy = _leny / 2.0;
+    rada = 0.125 / kamp;
+    posx = 0.5 * _lenx;
+    posy = 0.5 * _leny;
 
     for (unsigned short i = 0; i < numa; ++i)
     {
