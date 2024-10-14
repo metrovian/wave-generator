@@ -1,5 +1,5 @@
-#include "LineBEM.h"
-#include "Predefined.h"
+#include "../include/LineBEM.h"
+#include "../include/Predefined.h"
 
 LineBEM::LineBEM(double _lenx, double _leny, size_t _numx, size_t _numy)
 {

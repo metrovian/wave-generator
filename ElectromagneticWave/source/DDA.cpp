@@ -1,5 +1,5 @@
-#include "DDA.h"
-#include "WaveViewer.h"
+#include "../include/DDA.h"
+#include "../include/WaveViewer.h"
 
 Dipole::Dipole()
 {

@@ -1,4 +1,4 @@
-#include "EigenMatrix.h"
+#include "../include/EigenMatrix.h"
 
 Eigen::MatrixXcd pinvSVD(const Eigen::MatrixXcd& _mat)
 {

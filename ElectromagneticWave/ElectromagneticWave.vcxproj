@@ -135,36 +135,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BEM.h" />
-    <ClInclude Include="BraggReflectorFDTD.h" />
-    <ClInclude Include="DDA.h" />
-    <ClInclude Include="EigenMatrix.h" />
-    <ClInclude Include="LineBEM.h" />
-    <ClInclude Include="FDTD.h" />
-    <ClInclude Include="FreeSpaceFDTD.h" />
-    <ClInclude Include="LineDDA.h" />
-    <ClInclude Include="SquareBEM.h" />
-    <ClInclude Include="SquareDDA.h" />
-    <ClInclude Include="PlanarWaveguideFDTD.h" />
-    <ClInclude Include="WaveViewer.h" />
-    <ClInclude Include="Predefined.h" />
-    <ClInclude Include="WaveField.h" />
+    <ClInclude Include="include\BEM.h" />
+    <ClInclude Include="include\BraggReflectorFDTD.h" />
+    <ClInclude Include="include\DDA.h" />
+    <ClInclude Include="include\EigenMatrix.h" />
+    <ClInclude Include="include\LineBEM.h" />
+    <ClInclude Include="include\FDTD.h" />
+    <ClInclude Include="include\FreeSpaceFDTD.h" />
+    <ClInclude Include="include\LineDDA.h" />
+    <ClInclude Include="include\SquareBEM.h" />
+    <ClInclude Include="include\SquareDDA.h" />
+    <ClInclude Include="include\PlanarWaveguideFDTD.h" />
+    <ClInclude Include="include\WaveViewer.h" />
+    <ClInclude Include="include\Predefined.h" />
+    <ClInclude Include="include\WaveField.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BEM.cpp" />
-    <ClCompile Include="BraggReflectorFDTD.cpp" />
-    <ClCompile Include="DDA.cpp" />
-    <ClCompile Include="EigenMatrix.cpp" />
-    <ClCompile Include="FDTD.cpp" />
-    <ClCompile Include="FreeSpaceFDTD.cpp" />
-    <ClCompile Include="LineBEM.cpp" />
-    <ClCompile Include="LineDDA.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="SquareBEM.cpp" />
-    <ClCompile Include="SquareDDA.cpp" />
-    <ClCompile Include="WaveField.cpp" />
-    <ClCompile Include="PlanarWaveguideFDTD.cpp" />
-    <ClCompile Include="WaveViewer.cpp" />
+    <ClCompile Include="source\BEM.cpp" />
+    <ClCompile Include="source\BraggReflectorFDTD.cpp" />
+    <ClCompile Include="source\DDA.cpp" />
+    <ClCompile Include="source\EigenMatrix.cpp" />
+    <ClCompile Include="source\FDTD.cpp" />
+    <ClCompile Include="source\FreeSpaceFDTD.cpp" />
+    <ClCompile Include="source\LineBEM.cpp" />
+    <ClCompile Include="source\LineDDA.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\SquareBEM.cpp" />
+    <ClCompile Include="source\SquareDDA.cpp" />
+    <ClCompile Include="source\WaveField.cpp" />
+    <ClCompile Include="source\PlanarWaveguideFDTD.cpp" />
+    <ClCompile Include="source\WaveViewer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
