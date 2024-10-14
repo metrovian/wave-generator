@@ -4,60 +4,60 @@
 #include <cmath>
 #pragma comment(lib, "winmm.lib")
 
-const BYTE MIDI_KEY_DOWN = 154;
-const BYTE MIDI_KEY_REL = 138;
-const BYTE MIDI_SUSTAIN = 186;
-const BYTE MIDI_PITCH = 234;
+constexpr BYTE MIDI_KEY_DOWN = 154;
+constexpr BYTE MIDI_KEY_REL = 138;
+constexpr BYTE MIDI_SUSTAIN = 186;
+constexpr BYTE MIDI_PITCH = 234;
 
-const double SONIC = 343000.000;
+constexpr double SONIC = 343000.000;
 
-const double PI = 3.1415926;
-const double Z0 = 0.0;
+constexpr double PI = 3.1415926;
+constexpr double Z0 = 0.0;
 
-const double A4 = 440.0;
-const double B4 = A4 * pow(2.0, 2.0 / 12.0);
-const double C5 = A4 * pow(2.0, 3.0 / 12.0);
-const double D5 = A4 * pow(2.0, 5.0 / 12.0);
-const double E5 = A4 * pow(2.0, 7.0 / 12.0);
-const double F5 = A4 * pow(2.0, 8.0 / 12.0);
-const double G5 = A4 * pow(2.0, 10.0 / 12.0);
+constexpr double A0 = 27.5000;
+constexpr double B0 = 30.8677;
+constexpr double C1 = 32.7032;
+constexpr double D1 = 36.7081;
+constexpr double E1 = 41.2034;
+constexpr double F1 = 43.6535;
+constexpr double G1 = 48.9994;
 
-const double A0 = A4 / 16.0;
-const double B0 = A0 * pow(2.0, 2.0 / 12.0);
-const double C1 = A0 * pow(2.0, 3.0 / 12.0);
-const double D1 = A0 * pow(2.0, 5.0 / 12.0);
-const double E1 = A0 * pow(2.0, 7.0 / 12.0);
-const double F1 = A0 * pow(2.0, 8.0 / 12.0);
-const double G1 = A0 * pow(2.0, 10.0 / 12.0);
+constexpr double A1 = 55.0000;
+constexpr double B1 = 61.7354;
+constexpr double C2 = 65.4064;
+constexpr double D2 = 73.4162;
+constexpr double E2 = 82.4069;
+constexpr double F2 = 87.3071;
+constexpr double G2 = 97.9989;
 
-const double A1 = A4 / 8.0;
-const double B1 = A1 * pow(2.0, 2.0 / 12.0);
-const double C2 = A1 * pow(2.0, 3.0 / 12.0);
-const double D2 = A1 * pow(2.0, 5.0 / 12.0);
-const double E2 = A1 * pow(2.0, 7.0 / 12.0);
-const double F2 = A1 * pow(2.0, 8.0 / 12.0);
-const double G2 = A1 * pow(2.0, 10.0 / 12.0);
+constexpr double A2 = 110.0000;
+constexpr double B2 = 123.4708;
+constexpr double C3 = 130.8128;
+constexpr double D3 = 146.8324;
+constexpr double E3 = 164.8138;
+constexpr double F3 = 174.6141;
+constexpr double G3 = 195.9977;
 
-const double A2 = A4 / 4.0;
-const double B2 = A2 * pow(2.0, 2.0 / 12.0);
-const double C3 = A2 * pow(2.0, 3.0 / 12.0);
-const double D3 = A2 * pow(2.0, 5.0 / 12.0);
-const double E3 = A2 * pow(2.0, 7.0 / 12.0);
-const double F3 = A2 * pow(2.0, 8.0 / 12.0);
-const double G3 = A2 * pow(2.0, 10.0 / 12.0);
+constexpr double A3 = 220.0000;
+constexpr double B3 = 246.9417;
+constexpr double C4 = 261.6256;
+constexpr double D4 = 293.6648;
+constexpr double E4 = 329.6276;
+constexpr double F4 = 349.2282;
+constexpr double G4 = 391.9954;
 
-const double A3 = A4 / 2.0;
-const double B3 = A3 * pow(2.0, 2.0 / 12.0);
-const double C4 = A3 * pow(2.0, 3.0 / 12.0);
-const double D4 = A3 * pow(2.0, 5.0 / 12.0);
-const double E4 = A3 * pow(2.0, 7.0 / 12.0);
-const double F4 = A3 * pow(2.0, 8.0 / 12.0);
-const double G4 = A3 * pow(2.0, 10.0 / 12.0);
+constexpr double A4 = 440.0000;
+constexpr double B4 = 493.8833;
+constexpr double C5 = 523.2511;
+constexpr double D5 = 587.3295;
+constexpr double E5 = 659.2551;
+constexpr double F5 = 698.4565;
+constexpr double G5 = 783.9909;
 
-const double A5 = A4 * 2.0;
-const double B5 = A5 * pow(2.0, 2.0 / 12.0);
-const double C6 = A5 * pow(2.0, 3.0 / 12.0);
-const double D6 = A5 * pow(2.0, 5.0 / 12.0);
-const double E6 = A5 * pow(2.0, 7.0 / 12.0);
-const double F6 = A5 * pow(2.0, 8.0 / 12.0);
-const double G6 = A5 * pow(2.0, 10.0 / 12.0);
+constexpr double A5 = 880.0000;
+constexpr double B5 = 987.7666;
+constexpr double C6 = 1046.5023;
+constexpr double D6 = 1174.6591;
+constexpr double E6 = 1318.5102;
+constexpr double F6 = 1396.9129;
+constexpr double G6 = 1567.9817;

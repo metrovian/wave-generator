@@ -85,7 +85,7 @@ bool BEM::solve(double _lenx, double _leny, size_t _numx, size_t _numy)
 	if (_numy == 0) return false;
 
 	WaveField ret(MODE::TRANSVERSE_MAGNETIC, _lenx, _leny, _numx, _numy);
-	Eigen::VectorXcd cur = pinvSVD(calcImpedanceMatrix()) * calcExcitationVector();
+	Eigen::VectorXcd cur = EigenMatrix::pinvSVD(calcImpedanceMatrix()) * calcExcitationVector();
 
 	for (size_t i = 0; i < _numx; ++i)
 	{
