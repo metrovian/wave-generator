@@ -1,4 +1,4 @@
-#include "WaveViewer.h"
+#include "../include/WaveViewer.h"
 
 WaveViewer::WaveViewer(unsigned int _width, unsigned int _height)
 {

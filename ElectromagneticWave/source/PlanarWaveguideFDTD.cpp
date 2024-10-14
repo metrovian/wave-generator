@@ -1,4 +1,4 @@
-#include "PlanarWaveguideFDTD.h"
+#include "../include/PlanarWaveguideFDTD.h"
 
 PlanarWaveguideFDTD::PlanarWaveguideFDTD(MODE _mode, double _lenx, double _leny, double _period, size_t _numx, size_t _numy)
 {
