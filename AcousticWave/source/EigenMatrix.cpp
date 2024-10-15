@@ -1,7 +1,7 @@
 #include "../include/EigenMatrix.h"
 #include <iostream>
 
-Eigen::MatrixXd pinvSVD(const Eigen::MatrixXd& _mat)
+Eigen::MatrixXd EigenMatrix::pinvSVD(const Eigen::MatrixXd& _mat)
 {
     Eigen::JacobiSVD<Eigen::MatrixXd> svd(_mat, Eigen::ComputeFullU | Eigen::ComputeFullV);
 
@@ -21,7 +21,7 @@ Eigen::MatrixXd pinvSVD(const Eigen::MatrixXd& _mat)
     return svd.matrixV() * sinv * svd.matrixU().transpose();
 }
 
-Eigen::MatrixXd pinvMP(const Eigen::MatrixXd& _mat)
+Eigen::MatrixXd EigenMatrix::pinvMP(const Eigen::MatrixXd& _mat)
 {
     Eigen::MatrixXd ret;
 

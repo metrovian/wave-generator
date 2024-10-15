@@ -220,7 +220,7 @@ WaveData DigitalWaveguide::passAutoRegressionLPC(const WaveData& _data, unsigned
             }
         }
         
-        Eigen::VectorXd lpc = pinvMP(clue) * answer;
+        Eigen::VectorXd lpc = EigenMatrix::pinvMP(clue) * answer;
 
         for (size_t i = 0; i < rows; ++i)
         {
