@@ -1,5 +1,5 @@
-#include "../include/SquareBEM.h"
-#include "../include/Predefined.h"
+#include "SquareBEM.h"
+#include "Predefined.h"
 
 SquareBEM::SquareBEM(double _lenx, double _leny, size_t _numx, size_t _numy)
 {

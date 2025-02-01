@@ -1,5 +1,5 @@
-#include "../include/FDTD.h"
-#include "../include/Predefined.h"
+#include "FDTD.h"
+#include "Predefined.h"
 
 bool FDTD::setBasicCondition(double _wspeed, double _length, double _period, size_t _numt)
 {

@@ -1,5 +1,5 @@
-#include "../include/StringFDTD.h"
-#include "../include/Predefined.h"
+#include "StringFDTD.h"
+#include "Predefined.h"
 
 StringFDTD::StringFDTD(double _length, double _period, size_t _numt, double _tension, double _density)
 {

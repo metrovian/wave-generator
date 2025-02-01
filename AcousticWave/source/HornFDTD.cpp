@@ -1,5 +1,5 @@
-#include "../include/HornFDTD.h"
-#include "../include/Predefined.h"
+#include "HornFDTD.h"
+#include "Predefined.h"
 
 HornFDTD::HornFDTD(double _length, double _period, size_t _numt)
 {

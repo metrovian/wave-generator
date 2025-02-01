@@ -1,4 +1,4 @@
-#include "../include/WaveField.h"
+#include "WaveField.h"
 
 WaveField::WaveField(MODE _mode, double _lenx, double _leny, size_t _numx, size_t _numy)
 {

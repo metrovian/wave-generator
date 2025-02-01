@@ -1,5 +1,5 @@
-#include "../include/LineBEM.h"
-#include "../include/SquareBEM.h"
+#include "LineBEM.h"
+#include "SquareBEM.h"
 
 int main()
 {

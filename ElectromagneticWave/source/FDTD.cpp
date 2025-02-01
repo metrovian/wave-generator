@@ -1,6 +1,6 @@
-#include "../include/FDTD.h"
-#include "../include/WaveViewer.h"
-#include "../include/Predefined.h"
+#include "FDTD.h"
+#include "WaveViewer.h"
+#include "Predefined.h"
 
 bool FDTD::setBasicCondition(const WaveField& _init, double _period)
 {
