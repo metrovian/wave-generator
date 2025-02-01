@@ -1,4 +1,4 @@
-#include "../include/AmplitudeModulation.h"
+#include "AmplitudeModulation.h"
 
 WaveFunction AmplitudeModulation::envelopeADS(WaveFunction _wave, double _attack, double _decay, double _sustain)
 {

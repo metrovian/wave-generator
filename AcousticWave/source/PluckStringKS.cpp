@@ -1,4 +1,4 @@
-#include "../include/PluckStringKS.h"
+#include "PluckStringKS.h"
 
 PluckStringKS::PluckStringKS(double _namp, double _freq, double _dura, unsigned int _srate, unsigned short _sbit)
 {

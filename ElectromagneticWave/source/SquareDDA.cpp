@@ -1,4 +1,4 @@
-#include "../include/SquareDDA.h"
+#include "SquareDDA.h"
 
 SquareDDA::SquareDDA(double _lenx, double _leny, size_t _numx, size_t _numy)
 {

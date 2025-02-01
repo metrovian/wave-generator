@@ -1,6 +1,6 @@
-#include "../include/BEM.h"
-#include "../include/WaveViewer.h"
-#include "../include/Predefined.h"
+#include "BEM.h"
+#include "WaveViewer.h"
+#include "Predefined.h"
 
 Element::Element()
 {

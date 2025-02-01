@@ -1,5 +1,5 @@
-#include "../include/FourierTransform.h"
-#include "../include/Predefined.h"
+#include "FourierTransform.h"
+#include "Predefined.h"
 
 FourierFunction::FourierFunction(const WaveFunction& _wave)
 {

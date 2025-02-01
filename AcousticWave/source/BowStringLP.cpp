@@ -1,4 +1,4 @@
-#include "../include/BowStringLP.h"
+#include "BowStringLP.h"
 
 double BowStringLP::linearBow(double _decay, double _bwmax, double _bwrel, double _rtime) const
 {

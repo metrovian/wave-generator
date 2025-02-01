@@ -1,4 +1,4 @@
-#include "../include/LineDDA.h"
+#include "LineDDA.h"
 
 LineDDA::LineDDA(double _lenx, double _leny, size_t _numx, size_t _numy)
 {

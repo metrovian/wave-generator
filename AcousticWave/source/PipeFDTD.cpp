@@ -1,5 +1,5 @@
-#include "../include/PipeFDTD.h"
-#include "../include/Predefined.h"
+#include "PipeFDTD.h"
+#include "Predefined.h"
 
 PipeFDTD::PipeFDTD(double _length, double _period, size_t _numt)
 {
