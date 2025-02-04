@@ -14,4 +14,4 @@ Personal mathematical software to understand dimensions in depth.
 - Electromagnetic wave equation solver ( FDTD )
 
 <br/></br>
-Copyright (c) 2024 Vian Lee [ MIT LICENSE ]
+Copyright (c) 2024 metrovian [ MIT LICENSE ]
