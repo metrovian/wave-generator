@@ -62,6 +62,7 @@ protected: /* parts */
 
 public: /* constructor */
     WaveFunction();
+    ~WaveFunction();
 
 public: /* public use */
     bool setWaveFunction(const WaveData& _data, const WaveHeader& _header);

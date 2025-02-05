@@ -155,6 +155,11 @@ WaveFunction::WaveFunction()
     mtxptr = new std::mutex();
 }
 
+WaveFunction::~WaveFunction()
+{
+    delete mtxptr;
+}
+
 bool WaveFunction::setWaveFunction(const WaveData& _data, const WaveHeader& _header)
 {
     return setWaveFunction(_data, _header.SAMPLE_RATE, _header.BIT_PER_SAMPLE);
