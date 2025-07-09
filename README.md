@@ -1,6 +1,3 @@
-# Wave Generator #
-Personal mathematical software to understand dimensions in depth.
-<br/></br>
 ## Acoustic Wave [ 1+1D ] ##
 - MIDI device control
 - Time-frequency transform ( FFT / CWT )
