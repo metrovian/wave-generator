@@ -11,4 +11,3 @@
 - Electromagnetic wave equation solver ( FDTD )
 
 <br/></br>
-Copyright (c) 2024 metrovian [ MIT LICENSE ]
